@@ -40,9 +40,63 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        title: Text('PROYECTO'),
       ),
-      body: Center(),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          children:<Widget> [
+            Text('BIENVENIDOS A TU APP DE AUTOESCUELA'),
+            SizedBox(height: 30,),
+            TextField(
+              
+              decoration: InputDecoration(
+                hintStyle: TextStyle(color: Colors.white, fontSize: 20.0, fontWeight: FontWeight.bold),
+                hintText: 'Usuario',
+                fillColor: Colors.red,
+                filled: true,
+                
+              ),
+            ),
+            SizedBox(height: 30,),
+            TextField(
+              obscureText: true,
+              decoration: InputDecoration
+              (
+              hintStyle: TextStyle(color: Colors.white, fontSize: 20.0, fontWeight: FontWeight.bold),
+              hintText: 'Contraseña',
+              fillColor: Colors.red,
+              filled: true,
+              ),
+            ),
+            SizedBox(height: 25,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children:<Widget> [
+
+                BotonRegistrar(),
+                SizedBox(width: 15,),
+                BotonAcceder(),
+            ]
+           ),
+         ],
+        ),
+      )
     );
   }
+}
+
+Widget BotonRegistrar (){
+   return ElevatedButton(
+    onPressed: (){}, 
+    child: Text('Registrar'),
+    );
+}
+
+Widget BotonAcceder (){
+  return ElevatedButton(
+    onPressed: (){},
+    child: Text('Acceder'),
+    );
 }
