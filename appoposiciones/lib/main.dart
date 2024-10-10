@@ -40,16 +40,16 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text('PROYECTO'),
+        title: const Text('PROYECTO'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children:<Widget> [
-            Text('BIENVENIDOS A TU APP DE AUTOESCUELA'),
-            SizedBox(height: 30,),
-            TextField(
+            const Text('BIENVENIDOS A TU APP DE AUTOESCUELA'),
+            const SizedBox(height: 30,),
+            const TextField(
               
               decoration: InputDecoration(
                 hintStyle: TextStyle(color: Colors.white, fontSize: 20.0, fontWeight: FontWeight.bold),
@@ -59,8 +59,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 
               ),
             ),
-            SizedBox(height: 30,),
-            TextField(
+            const SizedBox(height: 30,),
+            const TextField(
               obscureText: true,
               decoration: InputDecoration
               (
@@ -70,13 +70,13 @@ class _MyHomePageState extends State<MyHomePage> {
               filled: true,
               ),
             ),
-            SizedBox(height: 25,),
+            const SizedBox(height: 25,),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children:<Widget> [
 
                 BotonRegistrar(),
-                SizedBox(width: 15,),
+                const SizedBox(width: 15,),
                 BotonAcceder(),
             ]
            ),
@@ -90,13 +90,13 @@ class _MyHomePageState extends State<MyHomePage> {
 Widget BotonRegistrar (){
    return ElevatedButton(
     onPressed: (){}, 
-    child: Text('Registrar'),
+    child: const Text('Registrar'),
     );
 }
 
 Widget BotonAcceder (){
   return ElevatedButton(
     onPressed: (){},
-    child: Text('Acceder'),
+    child: const Text('Acceder'),
     );
 }
