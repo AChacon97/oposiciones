@@ -47,35 +47,52 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children:<Widget> [
-            const Text('BIENVENIDOS A TU APP DE AUTOESCUELA'),
+            const Text('BIENVENIDOS A TU APP DE AUTOESCUELA', 
+              style: TextStyle(
+                  fontSize: 28.0,                 // Tamaño de la letra.
+                  fontWeight: FontWeight.bold,   // La letra en negrita.
+                  color: Colors.blueAccent,   // Color de la letra
+                  shadows: <Shadow>[
+                    Shadow(                               // Permite añadir sombras a los textos               
+                      offset: Offset(5.0, 10.0),  // Desplazamiento de la sombra.
+                      blurRadius: 3.0,                  // Difuminado de la sombra.
+                      color: Colors.black26,         // Color de la sombra
+                    )
+                  ],
+                  letterSpacing: 2.0,
+                ),
+              ),
             const SizedBox(height: 30,),
-            const TextField(
-              
-              decoration: InputDecoration(
-                hintStyle: TextStyle(color: Colors.white, fontSize: 20.0, fontWeight: FontWeight.bold),
-                hintText: 'Usuario',
-                fillColor: Colors.red,
-                filled: true,
-                
+            Container( // Esto es un contenedor donde recogemos el TextField de la barra, se ha creado para poder meter un width para el ancho 
+                width: 475,
+                child: const TextField( // Todo lo que conlleva la barra usuario.
+                  decoration: InputDecoration(
+                    hintStyle: TextStyle(color: Colors.white, fontSize: 20.0, fontWeight: FontWeight.bold),
+                    hintText: 'Usuario',
+                    fillColor: Colors.red,
+                    filled: true,
+                ),
               ),
             ),
             const SizedBox(height: 30,),
-            const TextField(
-              obscureText: true,
-              decoration: InputDecoration
-              (
-              hintStyle: TextStyle(color: Colors.white, fontSize: 20.0, fontWeight: FontWeight.bold),
-              hintText: 'Contraseña',
-              fillColor: Colors.red,
-              filled: true,
+            Container( //Esto es un contenedor donde recogemos el TextField de la barra, se ha creado para poder meter un width para el ancho.
+              width: 475,
+              child: const TextField( // Todo lo que conlleva la barra contraseña.
+                obscureText: true,
+                decoration: InputDecoration
+                (
+                  hintStyle: TextStyle(color: Colors.white, fontSize: 20.0, fontWeight: FontWeight.bold),
+                  hintText: 'Contraseña',
+                  fillColor: Colors.red,
+                  filled: true,
+                ),
               ),
             ),
             const SizedBox(height: 25,),
-            Row(
+            Row( //fila para acoger los métodos de los botones.
               mainAxisAlignment: MainAxisAlignment.center,
               children:<Widget> [
-
-                BotonRegistrar(),
+                BotonRegistrar(), 
                 const SizedBox(width: 15,),
                 BotonAcceder(),
             ]
@@ -87,14 +104,14 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-Widget BotonRegistrar (){
+Widget BotonRegistrar (){ // Método para el botón registrar
    return ElevatedButton(
     onPressed: (){}, 
     child: const Text('Registrar'),
     );
 }
 
-Widget BotonAcceder (){
+Widget BotonAcceder (){ // Método para el botón acceder.
   return ElevatedButton(
     onPressed: (){},
     child: const Text('Acceder'),
