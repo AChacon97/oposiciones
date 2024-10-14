@@ -43,10 +43,12 @@ class _MyHomePageState extends State<MyHomePage> {
         title: const Text('PROYECTO'),
       ),
       body: Padding(
+
         padding: const EdgeInsets.all(20.0),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children:<Widget> [
+            
             const Text('BIENVENIDOS A TU APP DE AUTOESCUELA', 
               style: TextStyle(
                   fontSize: 28.0,                 // Tamaño de la letra.
