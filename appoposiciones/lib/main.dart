@@ -1,3 +1,5 @@
+import 'package:appoposiciones/temario_temas.dart';
+import 'package:appoposiciones/temario_test.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -43,9 +45,9 @@ class _MyHomePageState extends State<MyHomePage> {
         title: const Text('PROYECTO'),
       ),
       body: Padding(
-
         padding: const EdgeInsets.all(20.0),
-        child: Column(
+        child: SingleChildScrollView( // Con esto conseguimos que si lo que hay dentro es más grande que la pantalla pueda moverse por ella y no aparezca un error.
+          child: Column(
           mainAxisSize: MainAxisSize.max,
           children:<Widget> [
             
@@ -97,11 +99,19 @@ class _MyHomePageState extends State<MyHomePage> {
                 BotonRegistrar(), 
                 const SizedBox(width: 15,),
                 BotonAcceder(),
+                
             ]
            ),
-         ],
-        ),
-      )
+           Column(
+            children: [
+              BotonTemario(context),
+              BotonTest(context),
+                ],
+              )
+            ]  ,
+          ),
+        )
+      ),
     );
   }
 }
@@ -119,3 +129,31 @@ Widget BotonAcceder (){ // Método para el botón acceder.
     child: const Text('Acceder'),
     );
 }
+
+Widget BotonTemario(BuildContext context){
+  return ElevatedButton(
+    child: Text('Temario'),
+    onPressed:(){
+      Navigator.push(
+        context,
+         MaterialPageRoute(builder: (context) => Temario_temas(),),
+      );
+    }
+  );
+}  
+
+Widget BotonTest(BuildContext context){
+  return ElevatedButton(
+    child: Text('Test'),
+    onPressed:(){
+      Navigator.push(
+        context,
+         MaterialPageRoute(builder: (context) => temarioTest(),),
+      );
+    }
+  );
+} 
+    
+    
+
+
