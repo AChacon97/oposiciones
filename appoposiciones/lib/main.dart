@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
+//import 'package:firebase_core/firebase_core.dart';
+//import 'firebase_options.dart';
 
 void main() async {
-  await Firebase.initializeApp(
+  // WidgetsFlutterBinding.ensureInitialized();
+
+  /* await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
-  );
+  );*/
   runApp(const MyApp());
 }
 
@@ -52,6 +54,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 height: 100,
                 width: 150,
               ),
+
+              /*
+
+
+
+              */
+
               const Text(
                 'BIENVENIDOS A TU APP DE AUTOESCUELA',
                 style: TextStyle(
@@ -69,6 +78,13 @@ class _MyHomePageState extends State<MyHomePage> {
                   letterSpacing: 2.0,
                 ),
               ),
+
+              /*
+
+
+
+              */
+
               const SizedBox(
                 height: 30,
               ),
@@ -88,6 +104,13 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ),
+
+              /*
+
+
+
+              */
+
               const SizedBox(
                 height: 30,
               ),
@@ -108,18 +131,68 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ),
+
+              /*
+
+
+
+              */
               const SizedBox(
-                height: 25,
+                height: 30,
               ),
+
+              /*
+
+              */
+
               Row(
                   //fila para acoger los métodos de los botones.
+
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    BotonRegistrar(),
+                    const SizedBox(
+                      width: 25,
+                    ),
+                    BotonAcceder(),
+                  ]),
+
+              /*
+
+
+
+              */
+              const SizedBox(
+                height: 60,
+              ),
+
+              /*
+
+              */
+
+              /*
+
+
+
+              */
+
+              Row(
+                  //fila para acoger los métodos de los botones.
+
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    const Text(
+                      '¿No estás registrado?',
+                      style: TextStyle(
+                        fontSize: 20.0, // Tamaño de la letra.
+                        fontWeight: FontWeight.bold, // La letra en negrita.
+                        color: Colors.blueAccent, // Color de la letra
+                        letterSpacing: 2.0,
+                      ),
+                    ),
                     const SizedBox(
                       width: 15,
                     ),
-                    BotonAcceder(),
+                    BotonRegistrar(),
                   ]),
             ],
           ),
@@ -139,6 +212,6 @@ Widget BotonAcceder() {
   // Método para el botón acceder.
   return ElevatedButton(
     onPressed: () {},
-    child: const Text('Acceder'),
+    child: const Text('Login'),
   );
 }
