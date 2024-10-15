@@ -136,7 +136,7 @@ Widget BotonTemario(BuildContext context){
     onPressed:(){
       Navigator.push(
         context,
-         MaterialPageRoute(builder: (context) => Temario_temas(),),
+         MaterialPageRoute(builder: (context) => Temario_temas(numeroDeTemas: 12,),), 
       );
     }
   );
@@ -148,7 +148,7 @@ Widget BotonTest(BuildContext context){
     onPressed:(){
       Navigator.push(
         context,
-         MaterialPageRoute(builder: (context) => temarioTest(),),
+         MaterialPageRoute(builder: (context) => Temario_Test(numeroDeTemas: 12,),),
       );
     }
   );

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class PreguntasTest extends StatelessWidget {
+class Preguntas_Test extends StatelessWidget {
   final String nombre;
 
-  const PreguntasTest({super.key, required this.nombre}); /* Como vemos aquí se le pasa el parametro nombre que ya sabe el tema 
+  const Preguntas_Test({super.key, required this.nombre}); /* Como vemos aquí se le pasa el parametro nombre que ya sabe el tema 
                                                             que hemos seleccionado anteriormente*/
 
   @override

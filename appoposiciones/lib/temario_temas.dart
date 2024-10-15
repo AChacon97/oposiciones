@@ -2,7 +2,10 @@ import 'package:appoposiciones/respuestas_temario.dart';
 import 'package:flutter/material.dart';
 
 class Temario_temas extends StatelessWidget {
-  const Temario_temas({super.key});
+ //const Temario_temas({super.key});
+  final int numeroDeTemas;  // definimos el número de temas 
+  const Temario_temas({super.key, required this.numeroDeTemas});
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -21,11 +24,22 @@ class Temario_temas extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(padding: EdgeInsets.all(20.0),
-                child: Text('TEMAS',style: TextStyle(color: Colors.white, fontSize: 30.0),),
+                child: Text('TEMAS',style: TextStyle(color: Colors.white, fontSize: 30.0),
+                  ),
                 ),
               ],
             ),
-            Row(
+            // Generamos dinámicamente los botones de los temas agrupados en filas de 2.
+            for (int i = 0; i< numeroDeTemas; i +=2)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _boton(context, 'Tema ${i + 1}'), // tema 1,3,5, etc.
+                  if (i + 1<numeroDeTemas)
+                    _boton(context, 'Tema ${i+2}'), // Tema 2,4,6, etc.
+                ],
+              ),
+           /*Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 _boton(context, 'Tema 1'),
@@ -59,7 +73,7 @@ class Temario_temas extends StatelessWidget {
                 _boton(context, 'Tema 9'),
                 _boton(context, 'Tema 10'),
               ],
-             ),
+             ),*/
             ],
           ),
         ),
@@ -89,7 +103,7 @@ Widget _boton (BuildContext context, String nombre){
     onTap: () {
       Navigator.push(
         context, 
-        MaterialPageRoute(builder: (context) => RespuestasTemario(nombre: nombre),
+        MaterialPageRoute(builder: (context) => Respuestas_Temario(nombre: nombre),
         ),
       );
     },

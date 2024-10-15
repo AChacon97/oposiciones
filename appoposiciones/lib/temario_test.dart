@@ -1,8 +1,10 @@
 import 'package:appoposiciones/preguntas_test.dart';
 import 'package:flutter/material.dart';
 
-class temarioTest extends StatelessWidget {
-  const temarioTest({super.key});
+class Temario_Test extends StatelessWidget {
+ // const Temario_Test({super.key});
+  final int numeroDeTemas;
+   const Temario_Test({super.key, required this.numeroDeTemas});
 
   @override
   Widget build(BuildContext context) {
@@ -21,11 +23,21 @@ class temarioTest extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(padding: EdgeInsets.all(20.0),
-                child: Text('TEMAS',style: TextStyle(color: Colors.white, fontSize: 30.0),),
+                child: Text('TEMAS',style: TextStyle(color: Colors.white, fontSize: 30.0),
+                  ),
                 ),
               ],
             ),
-            Row(
+              for(int i =0; i<numeroDeTemas; i+=2)
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    _boton(context, 'Tema ${i+1}'),  // tema 1,3,5, etc.
+                    if (i + 1 < numeroDeTemas)
+                      _boton(context, 'Tema ${i+2}'), // Tema 2,4,6, etc.
+                  ],
+                )
+           /* Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 _boton(context, 'Tema 1'),
@@ -59,7 +71,7 @@ class temarioTest extends StatelessWidget {
                 _boton(context, 'Tema 9'),
                 _boton(context, 'Tema 10'),
               ],
-            ),
+            ),*/
           ],
         ),
         )
@@ -90,7 +102,7 @@ Widget _boton (BuildContext context, String nombre){
     onTap: () {
       Navigator.push(
         context, 
-        MaterialPageRoute(builder: (context) => PreguntasTest(nombre: nombre)),
+        MaterialPageRoute(builder: (context) => Preguntas_Test(nombre: nombre)),
         );
     },
   );
