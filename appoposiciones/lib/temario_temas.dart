@@ -1,3 +1,4 @@
+import 'package:appoposiciones/respuestas_temario.dart';
 import 'package:flutter/material.dart';
 
 class Temario_temas extends StatelessWidget {
@@ -27,48 +28,47 @@ class Temario_temas extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                _boton('Tema 1'),
-                _boton('Tema 2'),
+                _boton(context, 'Tema 1'),
+                _boton(context, 'Tema 2'),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                _boton('Tema 3'),
-                _boton('Tema 4'),
+                _boton(context, 'Tema 3'),
+                _boton(context, 'Tema 4'),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                _boton('Tema 5'),
-                _boton('Tema 6'),
+                _boton(context, 'Tema 5'),
+                _boton(context, 'Tema 6'),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                _boton('Tema 7'),
-                _boton('Tema 8'),
+                _boton(context, 'Tema 7'),
+                _boton(context, 'Tema 8'),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                _boton('Tema 9'),
-                _boton('Tema 10'),
+                _boton(context, 'Tema 9'),
+                _boton(context, 'Tema 10'),
               ],
-            ),
-          ],
+             ),
+            ],
+          ),
         ),
-        )
-        
       ),
     );
   }
 }
 
-Widget _boton (String nombre){
+Widget _boton (BuildContext context, String nombre){
   return InkWell(
     child: Container(
       width: 70, height: 70,                                // Anchura y altura de la carta
@@ -87,7 +87,11 @@ Widget _boton (String nombre){
       ),
     ),
     onTap: () {
-      
+      Navigator.push(
+        context, 
+        MaterialPageRoute(builder: (context) => RespuestasTemario(nombre: nombre),
+        ),
+      );
     },
   );
 }
