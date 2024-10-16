@@ -12,14 +12,9 @@ class PantallaRegistro extends StatelessWidget {
       ),
       body: Center(
         // Centra todo el contenido en la pantalla
-        child: Padding(
-          padding:
-              const EdgeInsets.all(20.0), // Espaciado alrededor del contenido
+        child: SingleChildScrollView(
           child: Column(
-            mainAxisSize:
-                MainAxisSize.min, // Minimiza el tamaño vertical del Column
-            mainAxisAlignment:
-                MainAxisAlignment.center, // Centra el contenido verticalmente
+            mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               // Se eliminó el SizedBox en la parte superior
 
@@ -113,18 +108,21 @@ class PantallaRegistro extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 25), // Espacio entre widgets
-
-              // Botón para registrar al usuario
-              ElevatedButton(
-                onPressed: () {
-                  // Aquí iría la lógica para registrar al usuario.
-                },
-                child: const Text('Registrar'), // Texto del botón
-              ),
+              Registro(),
             ],
           ),
         ),
       ),
     );
   }
+}
+
+// Botón para registrar al usuario
+Widget Registro() {
+  return ElevatedButton(
+    onPressed: () {
+      // Aquí iría la lógica para registrar al usuario.
+    },
+    child: const Text('Registrar'), // Texto del botón
+  );
 }
