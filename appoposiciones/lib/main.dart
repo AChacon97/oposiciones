@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
-
+//csadasdasdasdasd
 void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
+<<<<<<< Updated upstream
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
@@ -142,3 +143,5 @@ Widget BotonAcceder() {
     child: const Text('Acceder'),
   );
 }
+=======
+>>>>>>> Stashed changes
