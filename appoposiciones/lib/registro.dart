@@ -1,5 +1,3 @@
-<<<<<<< Updated upstream
-=======
 import 'package:flutter/material.dart';
 
 // Clase principal para la pantalla de registro
@@ -128,4 +126,3 @@ Widget Registro() {
     child: const Text('Registrar'), // Texto del botón
   );
 }
->>>>>>> Stashed changes

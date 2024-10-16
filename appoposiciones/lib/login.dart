@@ -1,3 +1,4 @@
+import 'package:appoposiciones/registro.dart';
 import 'package:flutter/material.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -117,7 +118,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       const SizedBox(
                         width: 15,
                       ),
-                      BotonRegistrar(),
+                      BotonRegistrar(context),
                     ]),
               ],
             ),
@@ -126,17 +127,17 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-Widget BotonRegistrar() {
+/*Widget BotonRegistrar() {
   // Método para el botón registrar
   return ElevatedButton(
     onPressed: () {},
     child: const Text('Registrar'),
   );
-}
+}*/
 
 //EL BOTON ANTES DE SUBIRLO
 
-/*Widget BotonRegistrar(BuildContext context) {
+Widget BotonRegistrar(BuildContext context) {
   return ElevatedButton(
     onPressed: () {
       // Navegar a la pantalla de registro al presionar el botón
@@ -147,12 +148,12 @@ Widget BotonRegistrar() {
     },
     child: const Text('Registrar'), // Texto del botón
   );
-}*/
+}
 
 Widget BotonAcceder() {
   // Método para el botón acceder.
   return ElevatedButton(
-    style: ElevatedButton.styleFrom(minimumSize: Size(200, 90)), //cambio 
+    style: ElevatedButton.styleFrom(minimumSize: Size(200, 90)), //cambio
     onPressed: () {},
     child: const Text('Login'),
   );
