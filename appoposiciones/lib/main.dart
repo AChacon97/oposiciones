@@ -1,3 +1,5 @@
+import 'package:appoposiciones/login.dart';
+import 'package:appoposiciones/registro.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -37,10 +39,61 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   @override
+  void initState() {
+    super.initState();
+    // Mostrar el diálogo automáticamente cuando la pantalla se inicia
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _showMyDialog();
+    });
+  }
+
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // El usuario no puede cerrar el diálogo tocando fuera
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Título del Diálogo'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('Este es el contenido del diálogo.'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('registro'),
+              onPressed: () {
+                Navigator.push(context,
+                MaterialPageRoute(builder: (context) =>PantallaRegistro()));// Cerrar el diálogo
+              },
+            ),
+             TextButton(
+              child: Text('login'),
+              onPressed: () {
+                Navigator.push(context,
+                MaterialPageRoute(builder: (context) =>  PantallaLogin(title: 'login')));
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-            //*
-            ));
+      appBar: AppBar(),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text('Pantalla principal'),
+          ],
+        ),
+      ),
+    );
   }
 }
