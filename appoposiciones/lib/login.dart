@@ -2,9 +2,10 @@ import 'package:appoposiciones/registro.dart';
 import 'package:flutter/material.dart';
 
 class PantallaLogin extends StatefulWidget {
-  const PantallaLogin({super.key, required this.title});
+  const PantallaLogin({super.key, required this.title}); // Esto es el constructor de la clase. Le pasamos title de forma requerida, indicandole que es obligatorio.
+                                                        // Esto viene muy bien porque cada vez que creeamos una instancia de esta pantalla se deberá de poner un valor para title y lo podremos controlar mejor.
 
-  final String title;
+  final String title; // Aqui la tenemos como una constante para que no cambie de valor
 
   @override
   State<PantallaLogin> createState() => _PantallaLoginState();
@@ -16,7 +17,7 @@ class _PantallaLoginState extends State<PantallaLogin> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: const Text('login'),
+          title: const Text('login'), // Aquí le estamos dando el valor a title. Entonces por ejemplo en la pantalla main.dart cuando al presionar el botón login se le tiene que poner la clase y obligatoriamente el nombre del título que este caso es 'login'.
         ),
         body: Padding(
           padding: const EdgeInsets.all(20.0),
