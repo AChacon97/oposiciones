@@ -13,7 +13,8 @@ class Tap extends StatelessWidget {
       ),
       // Cuerpo de la pantalla
       body: Center(
-        child: const Text("Contenido aquí"), // Puedes colocar tu contenido aquí
+        child:
+            Text("Como runea como runea"), // Puedes colocar tu contenido aquí
       ),
       // Barra de navegación en la parte inferior
       bottomNavigationBar: BottomNavigationBar(
