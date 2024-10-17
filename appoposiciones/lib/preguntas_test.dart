@@ -1,5 +1,5 @@
-<<<<<<< Updated upstream
-=======
+
+
 import 'package:flutter/material.dart';
 //asdasdas
 class Preguntas_Test extends StatelessWidget {
@@ -42,4 +42,3 @@ class Preguntas_Test extends StatelessWidget {
     );
   }
 }
->>>>>>> Stashed changes

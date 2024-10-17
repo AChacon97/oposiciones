@@ -1,5 +1,5 @@
-<<<<<<< Updated upstream
-=======
+
+
 import 'package:flutter/material.dart';
 // asdasd
 class Respuestas_Temario extends StatelessWidget {
@@ -37,4 +37,4 @@ class Respuestas_Temario extends StatelessWidget {
     );
   }
 }
->>>>>>> Stashed changes
+
