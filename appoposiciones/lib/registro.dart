@@ -8,7 +8,21 @@ class PantallaRegistro extends StatefulWidget {
 }
 
 class _PantallaRegistroState extends State<PantallaRegistro> {
-  // Constructor de la clase
+  final TextEditingController _usernameController = TextEditingController();
+  String? _usernameError;
+
+  void _validateUsername(String value) {
+    setState(() {
+      if (value.length > 15) {
+        _usernameError = 'Máximo 15 caracteres';
+      } else if (!RegExp(r'^[a-zA-Z0-9]+$').hasMatch(value)) {
+        _usernameError = 'Sin caracteres especiales';
+      } else {
+        _usernameError = null;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,8 +35,6 @@ class _PantallaRegistroState extends State<PantallaRegistro> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
-              // Se eliminó el SizedBox en la parte superior
-//daedaedaedda
               const Text(
                 'Regístrate', // Texto de encabezado
                 style: TextStyle(
@@ -44,7 +56,9 @@ class _PantallaRegistroState extends State<PantallaRegistro> {
               // Contenedor para el campo de nombre de usuario
               Container(
                 width: 475, // Ancho del contenedor
-                child: const TextField(
+                child: TextField(
+                  controller: _usernameController,
+                  onChanged: _validateUsername,
                   decoration: InputDecoration(
                     hintStyle: TextStyle(
                       color: Colors.white, // Color del texto de sugerencia
@@ -54,6 +68,7 @@ class _PantallaRegistroState extends State<PantallaRegistro> {
                     hintText: 'Nombre de Usuario', // Texto de sugerencia
                     fillColor: Colors.red, // Color de fondo del campo
                     filled: true, // Habilitar el relleno
+                    errorText: _usernameError, // Muestra el error si existe
                   ),
                 ),
               ),
