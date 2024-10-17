@@ -1,11 +1,15 @@
+import 'package:appoposiciones/home.dart';
 import 'package:appoposiciones/registro.dart';
 import 'package:flutter/material.dart';
 
 class PantallaLogin extends StatefulWidget {
-  const PantallaLogin({super.key, required this.title}); // Esto es el constructor de la clase. Le pasamos title de forma requerida, indicandole que es obligatorio.
-                                                        // Esto viene muy bien porque cada vez que creeamos una instancia de esta pantalla se deberá de poner un valor para title y lo podremos controlar mejor.
+  const PantallaLogin(
+      {super.key,
+      required this.title}); // Esto es el constructor de la clase. Le pasamos title de forma requerida, indicandole que es obligatorio.
+  // Esto viene muy bien porque cada vez que creeamos una instancia de esta pantalla se deberá de poner un valor para title y lo podremos controlar mejor.
 
-  final String title; // Aqui la tenemos como una constante para que no cambie de valor
+  final String
+      title; // Aqui la tenemos como una constante para que no cambie de valor
 
   @override
   State<PantallaLogin> createState() => _PantallaLoginState();
@@ -17,7 +21,8 @@ class _PantallaLoginState extends State<PantallaLogin> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: const Text('login'), // Aquí le estamos dando el valor a title. Entonces por ejemplo en la pantalla main.dart cuando al presionar el botón login se le tiene que poner la clase y obligatoriamente el nombre del título que este caso es 'login'.
+          title: const Text(
+              'login'), // Aquí le estamos dando el valor a title. Entonces por ejemplo en la pantalla main.dart cuando al presionar el botón login se le tiene que poner la clase y obligatoriamente el nombre del título que este caso es 'login'.
         ),
         body: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -97,7 +102,7 @@ class _PantallaLoginState extends State<PantallaLogin> {
                       const SizedBox(
                         width: 25,
                       ),
-                      BotonAcceder(),
+                      BotonAcceder(context),
                     ]),
                 const SizedBox(
                   height: 60,
@@ -151,11 +156,16 @@ Widget BotonRegistrar(BuildContext context) {
   );
 }
 
-Widget BotonAcceder() {
+Widget BotonAcceder(BuildContext context) {
   // Método para el botón acceder.
   return ElevatedButton(
     style: ElevatedButton.styleFrom(minimumSize: Size(200, 90)), //cambio
-    onPressed: () {},
+    onPressed: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Tap()),
+      );
+    },
     child: const Text('Login'),
   );
 }
