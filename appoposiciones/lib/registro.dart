@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 
 // Clase principal para la pantalla de registro
-class PantallaRegistro extends StatelessWidget {
-  const PantallaRegistro({super.key}); // Constructor de la clase
+class PantallaRegistro extends StatefulWidget {
+  const PantallaRegistro({super.key});
+  @override
+  State<PantallaRegistro> createState() => _PantallaRegistroState();
+}
 
+class _PantallaRegistroState extends State<PantallaRegistro> {
+  // Constructor de la clase
   @override
   Widget build(BuildContext context) {
     return Scaffold(
