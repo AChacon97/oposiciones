@@ -1,5 +1,5 @@
-<<<<<<< Updated upstream
-=======
+
+
 import 'package:appoposiciones/preguntas_test.dart';
 import 'package:flutter/material.dart';
 
@@ -109,4 +109,3 @@ Widget _boton (BuildContext context, String nombre){
     },
   );
 }
->>>>>>> Stashed changes

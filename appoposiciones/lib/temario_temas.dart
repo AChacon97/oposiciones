@@ -1,5 +1,4 @@
-<<<<<<< Updated upstream
-=======
+
 import 'package:appoposiciones/respuestas_temario.dart';
 import 'package:flutter/material.dart';
 // dsdadsds fdgfdgfd
@@ -111,4 +110,4 @@ Widget _boton (BuildContext context, String nombre){
     },
   );
 }
->>>>>>> Stashed changes
+
