@@ -1,3 +1,5 @@
+import 'package:appoposiciones/temario_temas.dart';
+import 'package:appoposiciones/temario_test.dart';
 import 'package:flutter/material.dart';
 
 // Clase principal que representa la pantalla con la barra de navegación
@@ -38,13 +40,13 @@ class Tap extends StatelessWidget {
           if (index == 0) {
             Navigator.push(
             context,
-            MaterialPageRoute(builder: (context)=>(Temario_Test))
-          ) // Navegar a la pantalla de Test
+            MaterialPageRoute(builder: (context)=>Temario_Test(numeroDeTemas: 4),),
+          ); // Navegar a la pantalla de Test
           } else if (index == 1) {
             Navigator.push(
             context,
-            MaterialPageRoute(builder: (context)=>(Temario_temas))
-          ) // Navegar a la pantalla de Temario
+            MaterialPageRoute(builder: (context)=>Temario_temas(numeroDeTemas: 4),),
+          ); // Navegar a la pantalla de Temario
           }
         },
       ),
