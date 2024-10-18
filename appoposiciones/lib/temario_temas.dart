@@ -1,6 +1,7 @@
+
 import 'package:appoposiciones/respuestas_temario.dart';
 import 'package:flutter/material.dart';
-
+// dsdadsds fdgfdgfd
 class Temario_temas extends StatelessWidget {
  //const Temario_temas({super.key});
   final int numeroDeTemas;  // definimos el número de temas 
@@ -109,3 +110,4 @@ Widget _boton (BuildContext context, String nombre){
     },
   );
 }
+
