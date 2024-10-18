@@ -1,21 +1,28 @@
+import 'package:appoposiciones/home.dart';
+import 'package:appoposiciones/registro.dart';
 import 'package:flutter/material.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class PantallaLogin extends StatefulWidget {
+  const PantallaLogin(
+      {super.key,
+      required this.title}); // Esto es el constructor de la clase. Le pasamos title de forma requerida, indicandole que es obligatorio.
+  // Esto viene muy bien porque cada vez que creeamos una instancia de esta pantalla se deberá de poner un valor para title y lo podremos controlar mejor.
 
-  final String title;
+  final String
+      title; // Aqui la tenemos como una constante para que no cambie de valor
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<PantallaLogin> createState() => _PantallaLoginState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _PantallaLoginState extends State<PantallaLogin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: const Text('PROYECTO'),
+          title: const Text(
+              'login'), // Aquí le estamos dando el valor a title. Entonces por ejemplo en la pantalla main.dart cuando al presionar el botón login se le tiene que poner la clase y obligatoriamente el nombre del título que este caso es 'login'.
         ),
         body: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -95,7 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       const SizedBox(
                         width: 25,
                       ),
-                      BotonAcceder(),
+                      BotonAcceder(context),
                     ]),
                 const SizedBox(
                   height: 60,
@@ -117,7 +124,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       const SizedBox(
                         width: 15,
                       ),
-                      BotonRegistrar(),
+                      BotonRegistrar(context),
                     ]),
               ],
             ),
@@ -126,17 +133,17 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-Widget BotonRegistrar() {
+/*Widget BotonRegistrar() {
   // Método para el botón registrar
   return ElevatedButton(
     onPressed: () {},
     child: const Text('Registrar'),
   );
-}
+}*/
 
 //EL BOTON ANTES DE SUBIRLO
 
-/*Widget BotonRegistrar(BuildContext context) {
+Widget BotonRegistrar(BuildContext context) {
   return ElevatedButton(
     onPressed: () {
       // Navegar a la pantalla de registro al presionar el botón
@@ -147,13 +154,18 @@ Widget BotonRegistrar() {
     },
     child: const Text('Registrar'), // Texto del botón
   );
-}*/
+}
 
-Widget BotonAcceder() {
+Widget BotonAcceder(BuildContext context) {
   // Método para el botón acceder.
   return ElevatedButton(
-    style: ElevatedButton.styleFrom(minimumSize: Size(200, 90)), //cambio 
-    onPressed: () {},
+    style: ElevatedButton.styleFrom(minimumSize: Size(200, 90)), //cambio
+    onPressed: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Tap()),
+      );
+    },
     child: const Text('Login'),
   );
 }

@@ -1,8 +1,27 @@
 import 'package:flutter/material.dart';
 
 // Clase principal para la pantalla de registro
-class PantallaRegistro extends StatelessWidget {
-  const PantallaRegistro({super.key}); // Constructor de la clase
+class PantallaRegistro extends StatefulWidget {
+  const PantallaRegistro({super.key});
+  @override
+  State<PantallaRegistro> createState() => _PantallaRegistroState();
+}
+
+class _PantallaRegistroState extends State<PantallaRegistro> {
+  final TextEditingController _usernameController = TextEditingController();
+  String? _usernameError;
+
+  void _validateUsername(String value) {
+    setState(() {
+      if (value.length > 15) {
+        _usernameError = 'Máximo 15 caracteres';
+      } else if (!RegExp(r'^[a-zA-Z0-9]+$').hasMatch(value)) {
+        _usernameError = 'Sin caracteres especiales';
+      } else {
+        _usernameError = null;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,8 +35,6 @@ class PantallaRegistro extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
-              // Se eliminó el SizedBox en la parte superior
-
               const Text(
                 'Regístrate', // Texto de encabezado
                 style: TextStyle(
@@ -39,7 +56,9 @@ class PantallaRegistro extends StatelessWidget {
               // Contenedor para el campo de nombre de usuario
               Container(
                 width: 475, // Ancho del contenedor
-                child: const TextField(
+                child: TextField(
+                  controller: _usernameController,
+                  onChanged: _validateUsername,
                   decoration: InputDecoration(
                     hintStyle: TextStyle(
                       color: Colors.white, // Color del texto de sugerencia
@@ -49,6 +68,7 @@ class PantallaRegistro extends StatelessWidget {
                     hintText: 'Nombre de Usuario', // Texto de sugerencia
                     fillColor: Colors.red, // Color de fondo del campo
                     filled: true, // Habilitar el relleno
+                    errorText: _usernameError, // Muestra el error si existe
                   ),
                 ),
               ),
