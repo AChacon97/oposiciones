@@ -7,6 +7,7 @@ class PantallaRegistro extends StatefulWidget {
   State<PantallaRegistro> createState() => _PantallaRegistroState();
 }
 
+//pruebacommitdeveloped
 class _PantallaRegistroState extends State<PantallaRegistro> {
   final TextEditingController _usernameController = TextEditingController();
   String? _usernameError;
