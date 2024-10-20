@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 
-// Clase principal para la pantalla de registro
 class PantallaRegistro extends StatefulWidget {
   const PantallaRegistro({super.key});
+
   @override
   State<PantallaRegistro> createState() => _PantallaRegistroState();
 }
 
-//pruebacommitdeveloped
 class _PantallaRegistroState extends State<PantallaRegistro> {
   final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
   String? _usernameError;
+  String? _emailError;
+  String? _passwordError;
 
   void _validateUsername(String value) {
     setState(() {
@@ -24,111 +29,123 @@ class _PantallaRegistroState extends State<PantallaRegistro> {
     });
   }
 
+  void _validateEmail(String value) {
+    setState(() {
+      final emailRegex = RegExp(
+        r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
+      );
+
+      if (value.isEmpty) {
+        _emailError = 'El correo electrónico no puede estar vacío';
+      } else if (!emailRegex.hasMatch(value)) {
+        _emailError = 'Formato de correo electrónico inválido';
+      } else {
+        _emailError = null;
+      }
+    });
+  }
+
+  void _validatePassword(String value) {
+    setState(() {
+      if (value.length < 8) {
+        _passwordError = 'Mínimo 8 caracteres';
+      } else if (!RegExp(r'[A-Z]').hasMatch(value) ||
+          !RegExp(r'[a-z]').hasMatch(value) ||
+          !RegExp(r'[!@#$%^&*(),.?":{}|<>]').hasMatch(value)) {
+        _passwordError =
+            'Debe contener una mayúscula, una minúscula y un símbolo';
+      } else {
+        _passwordError = null;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Registro'), // Título de la barra de aplicación
+        title: const Text('Registro'),
       ),
       body: Center(
-        // Centra todo el contenido en la pantalla
         child: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               const Text(
-                'Regístrate', // Texto de encabezado
+                'Regístrate',
                 style: TextStyle(
-                  fontSize: 28.0, // Tamaño de la letra
-                  fontWeight: FontWeight.bold, // Estilo en negrita
-                  color: Colors.blueAccent, // Color del texto
+                  fontSize: 28.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blueAccent,
                   shadows: <Shadow>[
                     Shadow(
-                      offset: Offset(5.0, 10.0), // Desplazamiento de la sombra
-                      blurRadius: 3.0, // Difuminado de la sombra
-                      color: Colors.black26, // Color de la sombra
+                      offset: Offset(5.0, 10.0),
+                      blurRadius: 3.0,
+                      color: Colors.black26,
                     )
                   ],
-                  letterSpacing: 2.0, // Espaciado entre letras
+                  letterSpacing: 2.0,
                 ),
               ),
-              const SizedBox(height: 30), // Espacio entre widgets
-
-              // Contenedor para el campo de nombre de usuario
+              const SizedBox(height: 30),
               Container(
-                width: 475, // Ancho del contenedor
+                width: 475,
                 child: TextField(
                   controller: _usernameController,
                   onChanged: _validateUsername,
                   decoration: InputDecoration(
-                    hintStyle: TextStyle(
-                      color: Colors.white, // Color del texto de sugerencia
-                      fontSize: 20.0, // Tamaño del texto de sugerencia
-                      fontWeight: FontWeight.bold, // Negrita
-                    ),
-                    hintText: 'Nombre de Usuario', // Texto de sugerencia
-                    fillColor: Colors.red, // Color de fondo del campo
-                    filled: true, // Habilitar el relleno
-                    errorText: _usernameError, // Muestra el error si existe
-                  ),
-                ),
-              ),
-              const SizedBox(height: 25), // Espacio entre widgets
-
-              // Contenedor para el campo de correo electrónico
-              Container(
-                width: 475, // Ancho del contenedor
-                child: const TextField(
-                  decoration: InputDecoration(
-                    hintStyle: TextStyle(
+                    hintStyle: const TextStyle(
                       color: Colors.white,
                       fontSize: 20.0,
                       fontWeight: FontWeight.bold,
                     ),
-                    hintText: 'Correo Electrónico', // Texto de sugerencia
+                    hintText: 'Nombre de Usuario',
                     fillColor: Colors.red,
                     filled: true,
+                    errorText: _usernameError,
                   ),
                 ),
               ),
-              const SizedBox(height: 25), // Espacio entre widgets
-
-              // Contenedor para el campo de teléfono
+              const SizedBox(height: 25),
               Container(
-                width: 475, // Ancho del contenedor
-                child: const TextField(
+                width: 475,
+                child: TextField(
+                  controller: _emailController,
+                  onChanged: _validateEmail,
                   decoration: InputDecoration(
-                    hintStyle: TextStyle(
+                    hintStyle: const TextStyle(
                       color: Colors.white,
                       fontSize: 20.0,
                       fontWeight: FontWeight.bold,
                     ),
-                    hintText: 'Teléfono', // Texto de sugerencia
+                    hintText: 'Correo Electrónico',
                     fillColor: Colors.red,
                     filled: true,
+                    errorText: _emailError,
                   ),
                 ),
               ),
-              const SizedBox(height: 25), // Espacio entre widgets
-
-              // Contenedor para el campo de contraseña
+              const SizedBox(height: 25),
               Container(
-                width: 475, // Ancho del contenedor
-                child: const TextField(
+                width: 475,
+                child: TextField(
+                  controller: _passwordController,
+                  onChanged: _validatePassword,
                   decoration: InputDecoration(
-                    hintStyle: TextStyle(
+                    hintStyle: const TextStyle(
                       color: Colors.white,
                       fontSize: 20.0,
                       fontWeight: FontWeight.bold,
                     ),
-                    hintText: 'Contraseña', // Texto de sugerencia
+                    hintText: 'Contraseña',
                     fillColor: Colors.red,
                     filled: true,
+                    errorText: _passwordError,
                   ),
-                  obscureText: true, // Oculta el texto ingresado
+                  obscureText: true,
                 ),
               ),
-              const SizedBox(height: 25), // Espacio entre widgets
+              const SizedBox(height: 25),
               Registro(),
             ],
           ),
@@ -138,12 +155,11 @@ class _PantallaRegistroState extends State<PantallaRegistro> {
   }
 }
 
-// Botón para registrar al usuario
 Widget Registro() {
   return ElevatedButton(
     onPressed: () {
       // Aquí iría la lógica para registrar al usuario.
     },
-    child: const Text('Registrar'), // Texto del botón
+    child: const Text('Registrar'),
   );
 }
