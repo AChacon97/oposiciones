@@ -1,4 +1,8 @@
+import 'dart:convert'; // Para manejar JSON
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart'; // Para cargar archivos locales
+import 'package:path_provider/path_provider.dart'; // Para obtener el directorio del sistema
+import 'dart:io'; // Para manejar archivos
 
 class PantallaRegistro extends StatefulWidget {
   const PantallaRegistro({super.key});
@@ -17,9 +21,51 @@ class _PantallaRegistroState extends State<PantallaRegistro> {
   String? _emailError;
   String? _passwordError;
 
+  List<dynamic> _users = []; // Lista para almacenar usuarios
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUsers(); // Cargar usuarios al iniciar
+  }
+
+  Future<void> _loadUsers() async {
+    final String response = await rootBundle.loadString('assets/data.json');
+    final data = await json.decode(response);
+    setState(() {
+      _users = data;
+    });
+  }
+
+  Future<void> _saveUsers() async {
+    final directory = await getApplicationDocumentsDirectory();
+    final file = File('${directory.path}/data.json');
+
+    String jsonString = jsonEncode(_users);
+    await file.writeAsString(jsonString);
+  }
+
+  void _registerUser() {
+    final newUser = {
+      'username': _usernameController.text,
+      'email': _emailController.text,
+      'phone': _phoneController.text,
+      'password': _passwordController.text,
+    };
+
+    setState(() {
+      _users.add(newUser); // Agregar nuevo usuario a la lista
+    });
+
+    _saveUsers(); // Guardar usuarios en el archivo JSON
+    print('Usuario registrado: $newUser');
+  }
+
   void _validateUsername(String value) {
     setState(() {
-      if (value.length > 15) {
+      if (value.isEmpty) {
+        _usernameError = 'El nombre de usuario no puede estar vacío';
+      } else if (value.length > 15) {
         _usernameError = 'Máximo 15 caracteres';
       } else if (!RegExp(r'^[a-zA-Z0-9]+$').hasMatch(value)) {
         _usernameError = 'Sin caracteres especiales';
@@ -146,20 +192,16 @@ class _PantallaRegistroState extends State<PantallaRegistro> {
                 ),
               ),
               const SizedBox(height: 25),
-              Registro(),
+              ElevatedButton(
+                onPressed: () {
+                  _registerUser();
+                },
+                child: const Text('Registrar'),
+              ),
             ],
           ),
         ),
       ),
     );
   }
-}
-
-Widget Registro() {
-  return ElevatedButton(
-    onPressed: () {
-      // Aquí iría la lógica para registrar al usuario.
-    },
-    child: const Text('Registrar'),
-  );
 }
