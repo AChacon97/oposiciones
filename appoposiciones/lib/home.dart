@@ -1,10 +1,45 @@
 import 'package:appoposiciones/temario_temas.dart';
 import 'package:appoposiciones/temario_test.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'Tema.dart';
+import 'dart:convert';
+
 
 // Clase principal que representa la pantalla con la barra de navegación
-class Tap extends StatelessWidget {
-  const Tap({super.key});
+class Tap extends StatefulWidget {
+  @override
+ _TapState createState()=>_TapState();
+}
+
+
+
+class _TapState extends State<Tap>{
+  List<Tema> temas = [];
+
+  @override
+  void initState(){
+    super.initState();
+    cargarTemas();
+  
+}
+
+  Future<void> cargarTemas() async {
+    try{
+    // Cargar el archivo JSON
+    final String response = await rootBundle.loadString('assets/temas.json');
+    final data = json.decode(response);
+    // Convertir la lista de temas
+    setState(() {
+      temas = (data['temas'] as List)
+          .map((temaJson) => Tema.fromJson(temaJson))
+          .toList();
+    });
+    print("Temas cargados: $temas");
+    }catch (e){
+      print("Error al cargar temas: $e");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +80,7 @@ class Tap extends StatelessWidget {
           } else if (index == 1) {
             Navigator.push(
             context,
-            MaterialPageRoute(builder: (context)=>Temario_temas(numeroDeTemas: 4),),
+            MaterialPageRoute(builder: (context)=>Temario_temas(temas: temas),),
           ); // Navegar a la pantalla de Temario
           }
         },

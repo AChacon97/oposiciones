@@ -1,110 +1,101 @@
 
+import 'package:appoposiciones/Tema.dart';
 import 'package:appoposiciones/respuestas_temario.dart';
 import 'package:flutter/material.dart';
-// dsdadsds fdgfdgfd
+
+
 class Temario_temas extends StatelessWidget {
  //const Temario_temas({super.key});
-  final int numeroDeTemas;  // definimos el número de temas 
-  const Temario_temas({super.key, required this.numeroDeTemas});
+  final List<Tema> temas; // Lista de temas.
+    // definimos el número de temas 
+  
+  const Temario_temas({Key? key, required this.temas}) : super(key: key);
+
  
 
   @override
   Widget build(BuildContext context) {
+    List<Tema> temasPares = temas.where((tema) => tema.id % 2 == 0).toList();
+    List<Tema> temasImpares = temas.where((tema) => tema.id % 2 != 0).toList();
+    
     return Scaffold(
       appBar: AppBar(
         title: Text('Temario temas'),
-        backgroundColor: const Color.fromARGB(255, 1, 194, 248),
+        
       ),
-      backgroundColor: const Color.fromARGB(255, 1, 194, 248),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children:<Widget> [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(padding: EdgeInsets.all(20.0),
-                child: Text('TEMAS',style: TextStyle(color: Colors.white, fontSize: 30.0),
-                  ),
-                ),
-              ],
+
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Text(
+              'TEMAS',
+              style: TextStyle(color: Colors.white, fontSize: 30.0),
             ),
-            // Generamos dinámicamente los botones de los temas agrupados en filas de 2.
-            for (int i = 0; i< numeroDeTemas; i +=2)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  _boton(context, 'Tema ${i + 1}'), // tema 1,3,5, etc.
-                  if (i + 1<numeroDeTemas)
-                    _boton(context, 'Tema ${i+2}'), // Tema 2,4,6, etc.
-                ],
+          ),
+          Expanded(
+            child: Row(
+              children: [
+                Expanded(   // Se utiliza para expandir.
+                  child:ListView.builder(
+                    itemCount: temasImpares.length,
+                    itemBuilder: (context, index) {
+                     return _boton(context, temasImpares[index]);
+                        },
+                      ),
+                    ),
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: temasPares.length,
+                        itemBuilder: (context, index){
+                          return _boton(context, temasPares[index]);
+                        },
+                      ) 
+                    ),
+                  ],
+                ) 
               ),
-           /*Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _boton(context, 'Tema 1'),
-                _boton(context, 'Tema 2'),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _boton(context, 'Tema 3'),
-                _boton(context, 'Tema 4'),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _boton(context, 'Tema 5'),
-                _boton(context, 'Tema 6'),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _boton(context, 'Tema 7'),
-                _boton(context, 'Tema 8'),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _boton(context, 'Tema 9'),
-                _boton(context, 'Tema 10'),
-              ],
-             ),*/
+            ],
+          ),
+        );
+      }
+    }
+
+Widget _boton (BuildContext context,  Tema temas){
+  return InkWell(
+    child: Center(
+      child: Container(
+        width: MediaQuery.of(context).size.width * 0.45, // Ajusta el ancho al 45% del ancho de la pantalla
+        height: 60,                                // Anchura y altura de la carta
+        child: Card(
+          margin: EdgeInsets.all(5.0),                      // Margen entre las cartas
+          color: const Color.fromARGB(255, 2, 244, 10),  // Color de la carta
+          elevation: 10.0,                                // Elevamos el botón
+          shadowColor: Colors.red,                     // Color de la sombra
+        
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+            temas.ntema,
+            style: TextStyle(fontSize: 20), // Tamaño del texto.
+              ),
+              Text(
+                temas.titulo,
+                style: TextStyle(fontSize: 10),
+              )
             ],
           ),
         ),
       ),
-    );
-  }
-}
-
-Widget _boton (BuildContext context, String nombre){
-  return InkWell(
-    child: Container(
-      width: 70, height: 70,                                // Anchura y altura de la carta
-      child: Card(
-        margin: EdgeInsets.all(5.0),                      // Margen entre las cartas
-        color: const Color.fromARGB(255, 2, 244, 10),  // Color de la carta
-        elevation: 10.0,                                // Elevamos el botón
-        shadowColor: Colors.red,                     // Color de la sombra
-        
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(nombre),
-          ],
-        )
-      ),
     ),
+  ),
     onTap: () {
       Navigator.push(
         context, 
-        MaterialPageRoute(builder: (context) => Respuestas_Temario(nombre: nombre),
+        MaterialPageRoute(builder: (context) => Respuestas_Temario(nombre: temas.titulo, ),
+         // Pasamos el titulo del tema.
         ),
       );
     },
