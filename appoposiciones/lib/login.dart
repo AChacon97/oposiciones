@@ -31,7 +31,7 @@ class _PantallaLoginState extends State<PantallaLogin> {
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
                 Image.asset(
-                  "assets/images/Imagen de WhatsApp 2024-09-29 a las 14.01.40_25073ee1 - copia.jpg",
+                  "assets/images/LogoAcademia.jpg",
                   height: 100,
                   width: 150,
                 ),

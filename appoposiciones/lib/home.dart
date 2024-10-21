@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:appoposiciones/temario_temas.dart';
 import 'package:appoposiciones/temario_test.dart';
 import 'package:appoposiciones/estadisticas.dart';
+import 'package:appoposiciones/configuracion.dart';
 
 class Tap extends StatelessWidget {
   const Tap({super.key});
@@ -15,23 +16,34 @@ class Tap extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Home"),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings), // Icono de engranaje
+            onPressed: () {
+              // Navega a la página de configuración
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        const Configuracion()), // Asegúrate de que esta clase esté implementada
+              );
+            },
+          ),
+        ],
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(""),
             const SizedBox(
                 height: 20), // Espacio entre el texto y el recuadro de foto
             // Recuadro para la foto de perfil
             CircleAvatar(
-              radius: 50, // Radio para el tamaño del ovalo
+              radius: 50, // Radio para el tamaño del óvalo
               backgroundColor:
                   Colors.grey[300], // Color de fondo si no hay imagen
               backgroundImage: NetworkImage(
                   'https://example.com/tu_imagen.jpg'), // URL de la imagen
-              // Si no quieres usar una imagen de la red, puedes usar una imagen local con AssetImage
-              // backgroundImage: AssetImage('assets/tu_imagen.png'),
             ),
             const SizedBox(height: 20), // Espacio entre la foto y el botón
             ElevatedButton(
