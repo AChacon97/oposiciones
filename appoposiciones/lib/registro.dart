@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // Para cargar archivos locales
 import 'package:path_provider/path_provider.dart'; // Para obtener el directorio del sistema
 import 'dart:io'; // Para manejar archivos
+import 'package:appoposiciones/home.dart'; // Asegúrate de que la ruta sea correcta
 
 class PantallaRegistro extends StatefulWidget {
   const PantallaRegistro({super.key});
@@ -59,6 +60,13 @@ class _PantallaRegistroState extends State<PantallaRegistro> {
 
     _saveUsers(); // Guardar usuarios en el archivo JSON
     print('Usuario registrado: $newUser');
+
+    // Navega a la página de inicio
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+          builder: (context) => const Tap()), // Cambia a la página de inicio
+    );
   }
 
   void _validateUsername(String value) {

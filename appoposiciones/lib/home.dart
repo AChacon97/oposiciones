@@ -20,8 +20,20 @@ class Tap extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text("Como runea como runea"),
-            const SizedBox(height: 20), // Espacio entre el texto y el botón
+            const Text(""),
+            const SizedBox(
+                height: 20), // Espacio entre el texto y el recuadro de foto
+            // Recuadro para la foto de perfil
+            CircleAvatar(
+              radius: 50, // Radio para el tamaño del ovalo
+              backgroundColor:
+                  Colors.grey[300], // Color de fondo si no hay imagen
+              backgroundImage: NetworkImage(
+                  'https://example.com/tu_imagen.jpg'), // URL de la imagen
+              // Si no quieres usar una imagen de la red, puedes usar una imagen local con AssetImage
+              // backgroundImage: AssetImage('assets/tu_imagen.png'),
+            ),
+            const SizedBox(height: 20), // Espacio entre la foto y el botón
             ElevatedButton(
               onPressed: () {
                 // Navega a la página de Estadísticas

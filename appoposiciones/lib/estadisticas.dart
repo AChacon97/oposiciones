@@ -5,7 +5,7 @@ class Estadisticas extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Aquí defines los temas y sus puntuaciones (aciertos y fallos)
+    // Definimos los temas y sus puntuaciones (aciertos y fallos) en un array
     final List<Map<String, dynamic>> temas = [
       {'nombre': 'Tema 1', 'aciertos': 8, 'fallos': 2},
       {'nombre': 'Tema 2', 'aciertos': 5, 'fallos': 5},
@@ -23,22 +23,24 @@ class Estadisticas extends StatelessWidget {
           final tema = temas[index];
           return ListTile(
             title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment:
+                  MainAxisAlignment.center, // Centra el contenido
               children: [
-                Text(tema['nombre']),
-                Row(
-                  children: [
-                    Text(
-                      '${tema['aciertos']} aciertos',
-                      style: TextStyle(color: Colors.green),
-                    ),
-                    const SizedBox(
-                        width: 10), // Espacio entre aciertos y fallos
-                    Text(
-                      '${tema['fallos']} fallos',
-                      style: TextStyle(color: Colors.red),
-                    ),
-                  ],
+                Text(
+                  tema['nombre'],
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(
+                    width: 10), // Espacio entre el tema y las puntuaciones
+                Text(
+                  '${tema['aciertos']} aciertos',
+                  style: const TextStyle(color: Colors.green),
+                ),
+                const SizedBox(width: 5), // Espacio entre aciertos y fallos
+                Text(
+                  '${tema['fallos']} fallos',
+                  style: const TextStyle(color: Colors.red),
                 ),
               ],
             ),
