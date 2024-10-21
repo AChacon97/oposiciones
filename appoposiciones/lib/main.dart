@@ -3,6 +3,7 @@ import 'package:appoposiciones/registro.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'theme.dart'; // Importa el archivo que contiene el tema
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
