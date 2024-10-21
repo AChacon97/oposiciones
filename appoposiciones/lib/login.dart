@@ -20,10 +20,9 @@ class _PantallaLoginState extends State<PantallaLogin> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: const Text(
-              'login'), // Aquí le estamos dando el valor a title. Entonces por ejemplo en la pantalla main.dart cuando al presionar el botón login se le tiene que poner la clase y obligatoriamente el nombre del título que este caso es 'login'.
-        ),
+            //backgroundColor: Theme.of(context).colorScheme.inversePrimary, <--
+
+            ),
         body: Padding(
           padding: const EdgeInsets.all(20.0),
           child: SingleChildScrollView(
@@ -45,7 +44,7 @@ class _PantallaLoginState extends State<PantallaLogin> {
                       Shadow(
                         // Permite añadir sombras a los textos
                         offset:
-                            Offset(5.0, 10.0), // Desplazamiento de la sombra.
+                            Offset(1.0, 2.0), // Desplazamiento de la sombra.
                         blurRadius: 3.0, // Difuminado de la sombra.
                         color: Colors.black26, // Color de la sombra
                       )
