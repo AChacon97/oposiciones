@@ -1,6 +1,7 @@
 import 'package:appoposiciones/home.dart';
 import 'package:appoposiciones/registro.dart';
 import 'package:flutter/material.dart';
+import 'theme.dart'; // Importa el archivo de tema
 
 class PantallaLogin extends StatefulWidget {
   const PantallaLogin(
@@ -66,7 +67,8 @@ class _PantallaLoginState extends State<PantallaLogin> {
                           fontSize: 20.0,
                           fontWeight: FontWeight.bold),
                       hintText: 'Usuario',
-                      fillColor: Colors.red,
+                      fillColor: AppTheme
+                          .fondoBotonFuncional, // Usa el color personalizado,
                       filled: true,
                     ),
                   ),
@@ -82,12 +84,13 @@ class _PantallaLoginState extends State<PantallaLogin> {
                     obscureText: true,
                     decoration: InputDecoration(
                       hintStyle: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold),
+                          //color: Colors.white,
+                          //fontSize: 20.0,
+                          //fontWeight: FontWeight.bold
+                          ),
                       hintText: 'Contraseña',
-                      fillColor: Colors.red,
-                      filled: true,
+                      //fillColor: Colors.red,
+                      //filled: true,
                     ),
                   ),
                 ),
