@@ -1,52 +1,76 @@
+import 'package:flutter/material.dart';
 import 'package:appoposiciones/temario_temas.dart';
 import 'package:appoposiciones/temario_test.dart';
-import 'package:flutter/material.dart';
+import 'package:appoposiciones/estadisticas.dart';
 
-// Clase principal que representa la pantalla con la barra de navegación
 class Tap extends StatelessWidget {
   const Tap({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // Simulación de tiempos de conexión
+    final String tiempoPorDia = "2 horas";
+    final String tiempoTotal = "50 horas";
+
     return Scaffold(
-      // Barra de aplicación en la parte superior
       appBar: AppBar(
-        title: const Text("Home"), // Título de la aplicación
+        title: const Text("Home"),
       ),
-      // Cuerpo de la pantalla
       body: Center(
-        child:
-            Text("Como runea como runea"), // Puedes colocar tu contenido aquí
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text("Como runea como runea"),
+            const SizedBox(height: 20), // Espacio entre el texto y el botón
+            ElevatedButton(
+              onPressed: () {
+                // Navega a la página de Estadísticas
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Estadisticas()),
+                );
+              },
+              child: const Text("Estadísticas"),
+            ),
+            const SizedBox(height: 20), // Espacio entre el botón y los tiempos
+            Text(
+              "Tiempo de conexión por día: $tiempoPorDia",
+              style: const TextStyle(fontSize: 16),
+            ),
+            const SizedBox(height: 10), // Espacio entre los textos
+            Text(
+              "Tiempo de conexión total: $tiempoTotal",
+              style: const TextStyle(fontSize: 16),
+            ),
+          ],
+        ),
       ),
-      // Barra de navegación en la parte inferior
       bottomNavigationBar: BottomNavigationBar(
-        // Lista de ítems en la barra de navegación
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.quiz), // Ícono para "Test"
-            label: 'Test', // Etiqueta para "Test"
+            icon: Icon(Icons.quiz),
+            label: 'Test',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.book), // Ícono para "Temario"
-            label: 'Temario', // Etiqueta para "Temario"
+            icon: Icon(Icons.book),
+            label: 'Temario',
           ),
         ],
-        currentIndex: 0, // Índice del ítem seleccionado
-        selectedItemColor: Colors.blue, // Color del ítem seleccionado
+        currentIndex: 0,
+        selectedItemColor: Colors.blue,
         onTap: (index) {
-         
-          // Manejo de la navegación cuando se toca un ítem
-          // Puedes utilizar Navigator para cambiar de pantalla aquí
           if (index == 0) {
             Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context)=>Temario_Test(numeroDeTemas: 4),),
-          ); // Navegar a la pantalla de Test
+              context,
+              MaterialPageRoute(
+                  builder: (context) => Temario_Test(numeroDeTemas: 4)),
+            );
           } else if (index == 1) {
             Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context)=>Temario_temas(numeroDeTemas: 4),),
-          ); // Navegar a la pantalla de Temario
+              context,
+              MaterialPageRoute(
+                  builder: (context) => Temario_temas(numeroDeTemas: 4)),
+            );
           }
         },
       ),
