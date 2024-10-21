@@ -1,8 +1,12 @@
-import 'package:flutter/material.dart'; //cAMBIO
+import 'package:appoposiciones/login.dart';
+import 'package:appoposiciones/registro.dart';
+import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -36,109 +40,72 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   @override
+  void initState() {
+    // Mostrar el diálogo automáticamente cuando la pantalla se inicia
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      /* El WidgetsBinding es la clase que se encarga de la interacción entre el framework de flutter y el motor de renderizado.*/
+      // El addPostFrameCallBack((_) {...}) : Asegura que el código dentro del callback se ejecute justo después de que se haya completado el dibijo de la interfaz de usuario.
+      // El _showMyDialog(); : Dentro del callback, se llama a la función _showMyDialog(), que muestra dialogo.
+      _showMyDialog();
+    });
+  }
+
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible:
+          false, // El usuario no puede cerrar el diálogo tocando fuera
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Bienvenido'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text(
+                    'Hola. Si no estás registrado, resgistrate. Si de lo contrario estás registrado, accede pulsando en login'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('registro'),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            PantallaRegistro())); // Cerrar el diálogo
+              },
+            ),
+            TextButton(
+              child: Text('login'),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => PantallaLogin(title: 'login')));
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: const Text('PROYECTO'),
+      appBar: AppBar(),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text('Pantalla principal'),
+          ],
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: <Widget>[
-              Image.asset(
-                "assets/images/Imagen de WhatsApp 2024-09-29 a las 14.01.40_25073ee1 - copia.jpg",
-                height: 100,
-                width: 150,
-              ),
-              const Text(
-                'BIENVENIDOS A TU APP DE AUTOESCUELA',
-                style: TextStyle(
-                  fontSize: 28.0, // Tamaño de la letra.
-                  fontWeight: FontWeight.bold, // La letra en negrita.
-                  color: Colors.blueAccent, // Color de la letra
-                  shadows: <Shadow>[
-                    Shadow(
-                      // Permite añadir sombras a los textos
-                      offset: Offset(5.0, 10.0), // Desplazamiento de la sombra.
-                      blurRadius: 3.0, // Difuminado de la sombra.
-                      color: Colors.black26, // Color de la sombra
-                    )
-                  ],
-                  letterSpacing: 2.0,
-                ),
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              Container(
-                // Esto es un contenedor donde recogemos el TextField de la barra, se ha creado para poder meter un width para el ancho
-                width: 475,
-                child: const TextField(
-                  // Todo lo que conlleva la barra usuario.
-                  decoration: InputDecoration(
-                    hintStyle: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold),
-                    hintText: 'Usuario',
-                    fillColor: Colors.red,
-                    filled: true,
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              Container(
-                //Esto es un contenedor donde recogemos el TextField de la barra, se ha creado para poder meter un width para el ancho.
-                width: 475,
-                child: const TextField(
-                  // Todo lo que conlleva la barra contraseña.
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    hintStyle: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold),
-                    hintText: 'Contraseña',
-                    fillColor: Colors.red,
-                    filled: true,
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 25,
-              ),
-              Row(
-                  //fila para acoger los métodos de los botones.
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    BotonRegistrar(),
-                    const SizedBox(
-                      width: 15,
-                    ),
-                    BotonAcceder(),
-                  ]),
-            ],
-          ),
-        ));
+      ),
+    );
   }
-}
-
-Widget BotonRegistrar() {
-  // Método para el botón registrar
-  return ElevatedButton(
-    onPressed: () {},
-    child: const Text('Registrar'),
-  );
-}
-
-Widget BotonAcceder() {
-  // Método para el botón acceder.
-  return ElevatedButton(
-    onPressed: () {},
-    child: const Text('Acceder'),
-  );
 }
