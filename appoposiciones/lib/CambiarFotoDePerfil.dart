@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart'; // Importa el paquete de Flutter para la interfaz de usuario
 import 'dart:io'; // Importa la biblioteca para manejar archivos
 import 'package:image_picker/image_picker.dart'; // Importa la biblioteca para seleccionar imágenes
+import 'package:permission_handler/permission_handler.dart'; // Importa el paquete para manejar permisos
 
 // Clase principal para cambiar la foto de perfil
 class CambiarFotoDePerfil extends StatefulWidget {
@@ -17,11 +18,23 @@ class _CambiarFotoDePerfilState extends State<CambiarFotoDePerfil> {
 
   // Método para permitir al usuario seleccionar una imagen
   Future<void> _pickImage() async {
-    final ImagePicker picker =
-        ImagePicker(); // Crea una instancia de ImagePicker
-    // Permitir al usuario seleccionar una imagen desde la galería
-    _image = await picker.pickImage(source: ImageSource.gallery);
-    setState(() {}); // Actualiza el estado para mostrar la imagen seleccionada
+    // Pide permiso de almacenamiento
+    var status = await Permission.storage.request();
+
+    if (status.isGranted) {
+      final ImagePicker picker =
+          ImagePicker(); // Crea una instancia de ImagePicker
+      // Permitir al usuario seleccionar una imagen desde la galería
+      _image = await picker.pickImage(source: ImageSource.gallery);
+      setState(
+          () {}); // Actualiza el estado para mostrar la imagen seleccionada
+    } else {
+      // Manejar el caso en que el permiso no es otorgado
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+            content: Text('Permiso denegado para acceder a la galería.')),
+      );
+    }
   }
 
   @override
