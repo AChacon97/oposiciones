@@ -33,7 +33,8 @@ class AppTheme {
       Color.fromARGB(255, 65, 91, 241); // Fondo Botón Funcionales (No de TEMAS)
 
   // Estilo de TextField
-  static final InputDecorationTheme textFieldDecoration = InputDecorationTheme( //TEXTFIELD
+  static final InputDecorationTheme textFieldDecoration = InputDecorationTheme(
+    //TEXTFIELD
     hintStyle: const TextStyle(
       fontSize: 20.0,
       fontWeight: FontWeight.bold,

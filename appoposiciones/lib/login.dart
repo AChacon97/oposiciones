@@ -74,17 +74,7 @@ class _PantallaLoginState extends State<PantallaLogin> {
                   child: const TextField(
                       // Todo lo que conlleva la barra contraseña.
                       obscureText: true,
-                      decoration: InputDecoration(hintText: 'Contraseña')
-                      /*decoration: InputDecoration(
-                      hintStyle: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold),
-                  ,
-                      fillColor: Color.fromARGB(255, 255, 36, 20),
-                      filled: true,
-                    ),*/
-                      ),
+                      decoration: InputDecoration(hintText: 'Contraseña')),
                 ),
                 const SizedBox(
                   height: 30,
@@ -112,7 +102,7 @@ class _PantallaLoginState extends State<PantallaLogin> {
                           letterSpacing: 2.0,
                         ),
                       ),
-                      BotonRegistrar(context),
+                      BotonRegistrar(context), //Llamada al BOTÓN REGISTRAR
                     ]),
               ],
             ),
@@ -122,8 +112,9 @@ class _PantallaLoginState extends State<PantallaLogin> {
 }
 
 Widget BotonRegistrar(BuildContext context) {
+  //BOTÓN REGISTRAR
   return ElevatedButton(
-    style: AppTheme.botonFuncional(),
+    style: AppTheme.botonFuncional(), // Aplica tu estilo de botón funcional
     onPressed: () {
       // Navegar a la pantalla de registro al presionar el botón
       Navigator.push(
@@ -131,7 +122,13 @@ Widget BotonRegistrar(BuildContext context) {
         MaterialPageRoute(builder: (context) => const PantallaRegistro()),
       );
     },
-    child: const Text('Registrar'), // Texto del botón
+    child: const Text(
+      'Registrar', // Texto del botón
+      style: TextStyle(
+        fontSize: 20.0, // Cambia el tamaño del texto aquí
+        fontWeight: FontWeight.bold,
+      ),
+    ),
   );
 }
 
