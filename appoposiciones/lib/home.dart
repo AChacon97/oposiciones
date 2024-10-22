@@ -14,7 +14,7 @@ class Tap extends StatefulWidget {
 
 
 
-class _TapState extends State<Tap>{
+class _TapState extends State<Tap>{  // Permite mantener el estado de la pantalla. Esto es esencial para que la interfaz de usuario pueda reaccionar a cambios en los datos, como la carga de los temas.
   List<Tema> temas = [];
 
   @override
@@ -27,12 +27,16 @@ class _TapState extends State<Tap>{
   Future<void> cargarTemas() async {
     try{
     // Cargar el archivo JSON
+    // El await sirve para que decirle que la ejecución debe esperar hasta que se complete la opertación asincrona.
+    //rooBundle: Permite acceder al archivo JSON.
+    //loadString: Se utiliza para cargar un archivo de texto (como un JSON) y devolver el contenido como una cadena (String).
     final String response = await rootBundle.loadString('assets/temas.json');
+    //json.decode(reponse): El json es una biblioteca para trabajar con datos en formato JSON y el método con decode se utiliza para convertir una cadena JSON en un objeto de Dart. En este caso toma la cadena response, que contiene el contenido del archivo JSON y la convierte en un objeto DART
     final data = json.decode(response);
     // Convertir la lista de temas
-    setState(() {
-      temas = (data['temas'] as List)
-          .map((temaJson) => Tema.fromJson(temaJson))
+    setState(() {  // Al utilizar el setState notifica a Flutter que el estado ha cambiado, es decir, que la lista de temas ha sido actualizada.
+      temas = (data['temas'] as List)  // Accedes a la parte del JSON que tiene la lista de temas. y le dices con as List que el contenido es una lista.
+          .map((temaJson) => Tema.fromJson(temaJson)) //El temaJson dentro del parentesis de map: es cada elemento de la lista. 
           .toList();
     });
     print("Temas cargados: $temas");
@@ -60,6 +64,7 @@ class _TapState extends State<Tap>{
           BottomNavigationBarItem(
             icon: Icon(Icons.quiz), // Ícono para "Test"
             label: 'Test', // Etiqueta para "Test"
+            
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.book), // Ícono para "Temario"

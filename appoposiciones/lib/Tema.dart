@@ -1,17 +1,17 @@
-import 'package:flutter/material.dart';
-
 class Tema {
   final int id;
-  final String titulo;
-  final String ntema;
+  final String titulo; // Titulo definido en el JSON
+  final String ntema;   // Tema dinámico
 
-  Tema({required this.id, required this.titulo, required this.ntema});
+  Tema({required this.id, required this.titulo})
+  : ntema = 'Tema $id'; // ntema se genera dinamicamente
+ 
 
   factory Tema.fromJson(Map<String, dynamic> json){
     return Tema(
-      id: json['id'],
-      titulo: json['titulo'],
-      ntema:json['ntema'],
+      id: json['id'],         // Obtenemos el id del json.
+      titulo: json['titulo'], // Obtenemos el título del json.
+   
     );
   }
 }

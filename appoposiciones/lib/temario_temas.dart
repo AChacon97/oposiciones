@@ -15,8 +15,7 @@ class Temario_temas extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Tema> temasPares = temas.where((tema) => tema.id % 2 == 0).toList();
-    List<Tema> temasImpares = temas.where((tema) => tema.id % 2 != 0).toList();
+   
     
     return Scaffold(
       appBar: AppBar(
@@ -30,7 +29,7 @@ class Temario_temas extends StatelessWidget {
             padding: const EdgeInsets.all(20.0),
             child: Text(
               'TEMAS',
-              style: TextStyle(color: Colors.white, fontSize: 30.0),
+              style: TextStyle(color: const Color.fromARGB(255, 246, 2, 2), fontSize: 30.0),
             ),
           ),
           Expanded(
@@ -38,19 +37,11 @@ class Temario_temas extends StatelessWidget {
               children: [
                 Expanded(   // Se utiliza para expandir.
                   child:ListView.builder(
-                    itemCount: temasImpares.length,
+                    itemCount: temas.length,
                     itemBuilder: (context, index) {
-                     return _boton(context, temasImpares[index]);
+                     return _boton(context, temas[index]);
                         },
                       ),
-                    ),
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: temasPares.length,
-                        itemBuilder: (context, index){
-                          return _boton(context, temasPares[index]);
-                        },
-                      ) 
                     ),
                   ],
                 ) 
