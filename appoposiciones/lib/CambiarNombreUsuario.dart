@@ -1,48 +1,60 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'; // Importa el paquete de Flutter para la interfaz de usuario
 
+// Clase principal para cambiar el nombre de usuario
 class CambiarNombreUsuario extends StatelessWidget {
-  final TextEditingController _controller = TextEditingController();
+  final TextEditingController _controller =
+      TextEditingController(); // Controlador para el campo de texto
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cambiar Nombre de Usuario'),
+        title: const Text(
+            'Cambiar Nombre de Usuario'), // Título de la barra de aplicación
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding:
+            const EdgeInsets.all(16.0), // Espaciado alrededor del contenido
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment:
+              CrossAxisAlignment.start, // Alineación a la izquierda
           children: [
+            // Etiqueta para el nuevo nombre de usuario
             Text(
               'Nombre de usuario nuevo:',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold), // Estilo del texto
             ),
             const SizedBox(height: 10), // Espacio entre el texto y el campo
+            // Campo para ingresar el nuevo nombre de usuario
             TextField(
-              controller: _controller,
+              controller:
+                  _controller, // Asigna el controlador para manejar el texto
               decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Escribe tu nuevo nombre de usuario',
+                border: OutlineInputBorder(), // Bordes del campo de texto
+                hintText:
+                    'Escribe tu nuevo nombre de usuario', // Texto de sugerencia
               ),
             ),
             const SizedBox(height: 20), // Espacio entre el campo y el botón
+            // Botón para guardar el nuevo nombre de usuario
             ElevatedButton(
               onPressed: () {
-                // Obtener el nuevo nombre de usuario
+                // Obtener el nuevo nombre de usuario desde el controlador
                 String nuevoNombre = _controller.text;
 
-                // Mostrar el nombre de usuario cambiado en un SnackBar
+                // Mostrar un mensaje de confirmación en un SnackBar
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                      content:
-                          Text('Nombre de usuario cambiado a: $nuevoNombre')),
+                      content: Text(
+                          'Nombre de usuario cambiado a: $nuevoNombre')), // Mensaje que muestra el nuevo nombre
                 );
 
                 // Regresar a la página anterior
-                Navigator.pop(context);
+                Navigator.pop(context); // Cierra la pantalla actual
               },
-              child: const Text('Guardar Cambios'),
+              child: const Text('Guardar Cambios'), // Texto del botón
             ),
           ],
         ),
