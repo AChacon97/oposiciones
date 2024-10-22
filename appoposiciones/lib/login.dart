@@ -31,7 +31,7 @@ class _PantallaLoginState extends State<PantallaLogin> {
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
                 Image.asset(
-                  "assets/images/Imagen de WhatsApp 2024-09-29 a las 14.01.40_25073ee1 - copia.jpg",
+                  "assets/images/LogoAcademia.jpg",
                   height: 100,
                   width: 150,
                 ),
@@ -60,18 +60,10 @@ class _PantallaLoginState extends State<PantallaLogin> {
                   // Esto es un contenedor donde recogemos el TextField de la barra, se ha creado para poder meter un width para el ancho
                   width: 475,
                   child: const TextField(
-                    // Todo lo que conlleva la barra usuario.
-                    decoration: InputDecoration(
-                      hintStyle: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold),
-                      hintText: 'Usuario',
-                      fillColor: AppTheme
-                          .fondoBotonFuncional, // Usa el color personalizado,
-                      filled: true,
-                    ),
-                  ),
+                      decoration: InputDecoration(
+                    //filled: true,
+                    hintText: 'Usuario',
+                  )),
                 ),
                 const SizedBox(
                   height: 30,
@@ -80,19 +72,19 @@ class _PantallaLoginState extends State<PantallaLogin> {
                   //Esto es un contenedor donde recogemos el TextField de la barra, se ha creado para poder meter un width para el ancho.
                   width: 475,
                   child: const TextField(
-                    // Todo lo que conlleva la barra contraseña.
-                    obscureText: true,
-                    decoration: InputDecoration(
+                      // Todo lo que conlleva la barra contraseña.
+                      obscureText: true,
+                      decoration: InputDecoration(hintText: 'Contraseña')
+                      /*decoration: InputDecoration(
                       hintStyle: TextStyle(
-                          //color: Colors.white,
-                          //fontSize: 20.0,
-                          //fontWeight: FontWeight.bold
-                          ),
-                      hintText: 'Contraseña',
-                      //fillColor: Colors.red,
-                      //filled: true,
-                    ),
-                  ),
+                          color: Colors.white,
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold),
+                  ,
+                      fillColor: Color.fromARGB(255, 255, 36, 20),
+                      filled: true,
+                    ),*/
+                      ),
                 ),
                 const SizedBox(
                   height: 30,
@@ -101,15 +93,12 @@ class _PantallaLoginState extends State<PantallaLogin> {
                     //fila para acoger los métodos de los botones.
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      const SizedBox(
-                        width: 25,
-                      ),
                       BotonAcceder(context),
                     ]),
                 const SizedBox(
                   height: 60,
                 ),
-                Row(
+                Column(
                     //fila para acoger los métodos de los botones.
 
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -123,9 +112,6 @@ class _PantallaLoginState extends State<PantallaLogin> {
                           letterSpacing: 2.0,
                         ),
                       ),
-                      const SizedBox(
-                        width: 15,
-                      ),
                       BotonRegistrar(context),
                     ]),
               ],
@@ -135,18 +121,9 @@ class _PantallaLoginState extends State<PantallaLogin> {
   }
 }
 
-/*Widget BotonRegistrar() {
-  // Método para el botón registrar
-  return ElevatedButton(
-    onPressed: () {},
-    child: const Text('Registrar'),
-  );
-}*/
-
-//EL BOTON ANTES DE SUBIRLO
-
 Widget BotonRegistrar(BuildContext context) {
   return ElevatedButton(
+    style: AppTheme.botonFuncional(),
     onPressed: () {
       // Navegar a la pantalla de registro al presionar el botón
       Navigator.push(
@@ -161,7 +138,7 @@ Widget BotonRegistrar(BuildContext context) {
 Widget BotonAcceder(BuildContext context) {
   // Método para el botón acceder.
   return ElevatedButton(
-    style: ElevatedButton.styleFrom(minimumSize: Size(200, 90)), //cambio
+    style: AppTheme.botonFuncional(),
     onPressed: () {
       Navigator.push(
         context,
