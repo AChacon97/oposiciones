@@ -38,7 +38,7 @@ class AppTheme {
     hintStyle: const TextStyle(
       fontSize: 20.0,
       fontWeight: FontWeight.bold,
-      color: Color.fromARGB(255, 0, 0, 0), // Color del hint
+      color: Color.fromARGB(255, 45, 45, 45), // Color del hint
       fontFamily: fontFamily,
     ),
     fillColor: AppTheme.fondoCuadroTexto, // Color de fondo
