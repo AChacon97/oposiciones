@@ -6,6 +6,7 @@ import 'firebase_options.dart';
 import 'theme.dart'; // Importa el archivo que contiene el tema
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

@@ -91,19 +91,15 @@ class Tap extends StatelessWidget {
           if (index == 0) {
             // Si se toca el primer ítem (Test)
             Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => Temario_Test(
-                      numeroDeTemas: 4)), // Navega al temario de tests
-            );
+            context,
+            MaterialPageRoute(builder: (context)=>Temario_Test(temas: temas),),
+          ); // Navegar a la pantalla de Test
           } else if (index == 1) {
             // Si se toca el segundo ítem (Temario)
             Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => Temario_temas(
-                      numeroDeTemas: 4)), // Navega al temario de temas
-            );
+            context,
+            MaterialPageRoute(builder: (context)=>Temario_temas(temas: temas),),
+          ); // Navegar a la pantalla de Temario
           }
         },
       ),
