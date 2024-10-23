@@ -26,11 +26,12 @@ class _PreguntasTestState extends State<Preguntas_Test> {
 
   Future<void> _cargarPreguntas() async {
     final String response =
-        await rootBundle.loadString('assets/preguntas.json');
+        await rootBundle.loadString('assets/cuestiones.json');
     final data = await json.decode(response);
     setState(() {
-      preguntas =
-          (data['preguntas'] as List).map((i) => Pregunta.fromJson(i)).toList();
+      preguntas = (data['cuestiones'] as List)
+          .map((i) => Pregunta.fromJson(i))
+          .toList();
     });
   }
 
