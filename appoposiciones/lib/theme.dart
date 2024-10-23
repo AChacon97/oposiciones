@@ -41,7 +41,8 @@ class AppTheme {
     scaffoldBackgroundColor: const Color.fromARGB(255, 255, 255, 255),
     textTheme: const TextTheme(
       bodyLarge: TextStyle(
-        color: Colors.black,
+        fontSize: 20,
+        color: Color.fromARGB(255, 5, 0, 103),
         fontFamily: fontFamily,
       ),
       bodyMedium: TextStyle(
@@ -51,6 +52,7 @@ class AppTheme {
     ),
     inputDecorationTheme:
         textFieldDecoration, // Añadir aquí el estilo de TextField
+    cardTheme: cardThemeNormal, // Establecer un tema de Card por defecto
   );
 
   /*
@@ -88,4 +90,41 @@ class AppTheme {
       ),
     );
   }
+
+  /*
+                  ---ESTILO CARDS---
+  */
+
+// Estilo para Card SIN ABRIR
+  static final CardTheme cardThemeNormal = CardTheme(
+    color: Colors.white,
+    shadowColor: Colors.grey,
+    elevation: 4,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(10),
+    ),
+    margin: EdgeInsets.all(10),
+  );
+
+  // Estilo para Card COMPLETADAS
+  static final CardTheme cardThemeSuccess = CardTheme(
+    color: Colors.green.shade100,
+    shadowColor: Colors.green,
+    elevation: 4,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(10),
+    ),
+    margin: EdgeInsets.all(10),
+  );
+
+  // Estilo para Card EMPEZADAS
+  static final CardTheme cardThemeError = CardTheme(
+    color: Colors.red.shade100,
+    shadowColor: const Color.fromARGB(255, 225, 183, 28),
+    elevation: 4,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(10),
+    ),
+    margin: EdgeInsets.all(10),
+  );
 }
