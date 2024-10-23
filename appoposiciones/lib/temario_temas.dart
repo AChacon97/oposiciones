@@ -28,7 +28,7 @@ class Temario_temas extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: Text(
-              'TEMAS',
+              '',
               style: TextStyle(color: const Color.fromARGB(255, 246, 2, 2), fontSize: 30.0),
             ),
           ),

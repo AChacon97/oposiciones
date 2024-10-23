@@ -80,7 +80,7 @@ class _TapState extends State<Tap>{  // Permite mantener el estado de la pantall
           if (index == 0) {
             Navigator.push(
             context,
-            MaterialPageRoute(builder: (context)=>Temario_Test(numeroDeTemas: 4),),
+            MaterialPageRoute(builder: (context)=>Temario_Test(temas: temas),),
           ); // Navegar a la pantalla de Test
           } else if (index == 1) {
             Navigator.push(
