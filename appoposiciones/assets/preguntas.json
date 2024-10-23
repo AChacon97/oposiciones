@@ -1,0 +1,26 @@
+{
+    "preguntas": [
+        {
+            "id": 1, 
+            "pregunta": "¿Qué vehículos tienen que tener contratado una póliza de Seguro Obligatorio?"
+        },
+        {
+            "id": 2, 
+            "pregunta": "Si al aproximarse a una intersección, observa a un agente con el brazo levantado verticalmente, debe detenerse…"
+        },
+        {
+            "id": 3, 
+            "pregunta": "¿Cómo se debe circular en una pendiente ascendente con nieve?"
+        },
+        {
+            "id": 4, 
+            "pregunta": "¿Se permite hacer uso de ráfagas con el alumbrado de largo alcance para advertir al vehículo que le precede la intención de adelantar?"
+        },
+        {
+            "id": 5, 
+            "pregunta": "El sistema de ayuda de salida en pendiente, ¿cómo ayudará al conductor?"
+        }
+
+    
+    ]
+}

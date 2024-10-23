@@ -56,7 +56,7 @@ Widget _boton (BuildContext context,  Tema temas){
   return InkWell(
     child: Center(
       child: Container(
-        width: MediaQuery.of(context).size.width * 0.45, // Ajusta el ancho al 45% del ancho de la pantalla
+        width: MediaQuery.of(context).size.width * 0.99, // Ajusta el ancho al 45% del ancho de la pantalla
         height: 60,                                // Anchura y altura de la carta
         child: Card(
           margin: EdgeInsets.all(5.0),                      // Margen entre las cartas
@@ -85,7 +85,7 @@ Widget _boton (BuildContext context,  Tema temas){
     onTap: () {
       Navigator.push(
         context, 
-        MaterialPageRoute(builder: (context) => Respuestas_Temario(nombre: temas.titulo, ),
+        MaterialPageRoute(builder: (context) => Respuestas_Temario(tema: temas.titulo, ),
          // Pasamos el titulo del tema.
         ),
       );
