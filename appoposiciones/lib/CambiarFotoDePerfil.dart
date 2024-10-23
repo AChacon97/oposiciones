@@ -3,6 +3,7 @@ import 'dart:io'; // Importa la biblioteca para manejar archivos
 import 'package:image_picker/image_picker.dart'; // Importa la biblioteca para seleccionar imágenes
 import 'package:permission_handler/permission_handler.dart'; // Importa el paquete para manejar permisos
 import 'theme.dart'; // Importa el archivo que contiene el tema
+
 // Clase principal para cambiar la foto de perfil
 class CambiarFotoDePerfil extends StatefulWidget {
   const CambiarFotoDePerfil({super.key}); // Constructor de la clase
@@ -77,6 +78,7 @@ class _CambiarFotoDePerfilState extends State<CambiarFotoDePerfil> {
               const SizedBox(height: 20), // Espaciado vertical
               // Botón para cargar una imagen
               ElevatedButton(
+                style: AppTheme.botonFuncional(),
                 onPressed:
                     _pickImage, // Llama a la función para seleccionar una imagen
                 child: const Text(

@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'preguntas.dart';
 import 'respuestas.dart';
 import 'theme.dart'; // Importa el archivo que contiene el tema
+
 class Preguntas_Test extends StatefulWidget {
   final String nombre;
 
@@ -88,6 +89,7 @@ class _PreguntasTestState extends State<Preguntas_Test> {
                     : [],
               ),
               ElevatedButton(
+                style: AppTheme.botonFuncional(),
                 onPressed: () {
                   if (_respuestaSeleccionada != null) {
                     print(

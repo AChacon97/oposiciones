@@ -41,6 +41,7 @@ class CambiarNombreUsuario extends StatelessWidget {
             const SizedBox(height: 20), // Espacio entre el campo y el botón
             // Botón para guardar el nuevo nombre de usuario
             ElevatedButton(
+              style: AppTheme.botonFuncional(),
               onPressed: () {
                 // Obtener el nuevo nombre de usuario desde el controlador
                 String nuevoNombre = _controller.text;

@@ -81,8 +81,10 @@ class _CambiarContrasenaState extends State<CambiarContrasena> {
             const SizedBox(height: 20), // Espaciado vertical
             // Botón para guardar los cambios
             ElevatedButton(
+              style: AppTheme.botonFuncional(),
+              
               onPressed: () {
-                // Aquí puedes implementar la lógica para cambiar la contraseña
+                                // Aquí puedes implementar la lógica para cambiar la contraseña
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                       content: Text(

@@ -135,7 +135,7 @@ Widget BotonRegistrar(BuildContext context) {
 Widget BotonAcceder(BuildContext context) {
   // Método para el botón acceder.
   return ElevatedButton(
-    style: AppTheme.botonFuncional(),
+    style: AppTheme.botonFuncional(),//
     onPressed: () {
       Navigator.push(
         context,

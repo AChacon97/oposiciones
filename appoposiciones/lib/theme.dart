@@ -32,23 +32,6 @@ class AppTheme {
   static const Color fondoBotonFuncional =
       Color.fromARGB(255, 65, 91, 241); // Fondo Botón Funcionales (No de TEMAS)
 
-  // Estilo de TextField
-  static final InputDecorationTheme textFieldDecoration = InputDecorationTheme(
-    //TEXTFIELD
-    hintStyle: const TextStyle(
-      fontSize: 20.0,
-      fontWeight: FontWeight.bold,
-      color: Color.fromARGB(255, 45, 45, 45), // Color del hint
-      fontFamily: fontFamily,
-    ),
-    fillColor: AppTheme.fondoCuadroTexto, // Color de fondo
-    filled: true,
-    border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(8.0),
-    ),
-    // Añadir esto para el color del texto
-  );
-
   // Define un ThemeData para usar en toda la app
   static final ThemeData lightTheme = ThemeData(
     primaryColor: primaryColor,
@@ -70,12 +53,34 @@ class AppTheme {
         textFieldDecoration, // Añadir aquí el estilo de TextField
   );
 
-  // ESTILO BOTONES
+  /*
+                  ---ESTILO TEXTFIELD---
+  */
+
+  static final InputDecorationTheme textFieldDecoration = InputDecorationTheme(
+    hintStyle: const TextStyle(
+      fontSize: 20.0,
+      fontWeight: FontWeight.bold,
+      color: Color.fromARGB(255, 45, 45, 45), // Color del hint
+      fontFamily: fontFamily,
+    ),
+    fillColor: AppTheme.fondoCuadroTexto, // Color de fondo
+    filled: true,
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(8.0),
+    ),
+    // Añadir esto para el color del texto
+  );
+
+  /*
+                  ---ESTILO BOTONES---
+  */
+
   static ButtonStyle botonFuncional() {
     //Para los botones funcionales
     return ElevatedButton.styleFrom(
       backgroundColor: Color.fromARGB(255, 217, 227, 251),
-      foregroundColor: Color.fromARGB(255, 60, 120, 255),// Color del texto
+      foregroundColor: Color.fromARGB(255, 60, 120, 255), // Color del texto
       textStyle: TextStyle(
         fontFamily: fontFamily, //Establecido al principio Tipo de letra.
         fontWeight: FontWeight.bold,

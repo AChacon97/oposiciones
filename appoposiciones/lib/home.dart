@@ -15,18 +15,18 @@ class Tap extends StatefulWidget {
 }
 
 class _TapState extends State<Tap> {
-    final List<Tema> temas = [
-      Tema( id: 1, titulo: 'Volante'),
-      Tema( id: 2, titulo: 'Aprende'),
-      Tema( id: 3, titulo: 'Rueda'),
-      Tema( id: 4,  titulo: 'Llanta'),
-      Tema( id: 5, titulo: 'Calefacción'),
-      Tema( id: 6, titulo: 'A/C'),
-      Tema( id: 7, titulo: 'Luces'),
-      Tema( id: 8, titulo: 'Señales'),
+  final List<Tema> temas = [
+    Tema(id: 1, titulo: 'Volante'),
+    Tema(id: 2, titulo: 'Aprende'),
+    Tema(id: 3, titulo: 'Rueda'),
+    Tema(id: 4, titulo: 'Llanta'),
+    Tema(id: 5, titulo: 'Calefacción'),
+    Tema(id: 6, titulo: 'A/C'),
+    Tema(id: 7, titulo: 'Luces'),
+    Tema(id: 8, titulo: 'Señales'),
   ];
 
- // get temas => null; // Constructor de la clase
+  // get temas => null; // Constructor de la clase
   @override
   Widget build(BuildContext context) {
     // Simulación de tiempos de conexión
@@ -70,6 +70,7 @@ class _TapState extends State<Tap> {
             ),
             const SizedBox(height: 20), // Espacio entre la foto y el botón
             ElevatedButton(
+              style: AppTheme.botonFuncional(),
               onPressed: () {
                 // Navega a la página de Estadísticas
                 Navigator.push(
@@ -110,15 +111,19 @@ class _TapState extends State<Tap> {
           if (index == 0) {
             // Si se toca el primer ítem (Test)
             Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context)=>Temario_Test(temas: temas),),
-          ); // Navegar a la pantalla de Test
+              context,
+              MaterialPageRoute(
+                builder: (context) => Temario_Test(temas: temas),
+              ),
+            ); // Navegar a la pantalla de Test
           } else if (index == 1) {
             // Si se toca el segundo ítem (Temario)
             Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context)=>Temario_temas(temas: temas),),
-          ); // Navegar a la pantalla de Temario
+              context,
+              MaterialPageRoute(
+                builder: (context) => Temario_temas(temas: temas),
+              ),
+            ); // Navegar a la pantalla de Temario
           }
         },
       ),
