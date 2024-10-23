@@ -79,7 +79,7 @@ Widget _boton(BuildContext context, Tema temas) {
             0.45, // Ajusta el ancho al 45% del ancho de la pantalla
         height: 60, // Anchura y altura de la carta
         child: Card(
-          color: cardTheme.color, //      <-----------------------------------------------------Esto aplicará el esquema de color que aplique.
+          //color: cardTheme.color, //      <-----------------------------------------------------Esto aplicará el esquema de color que aplique.
           margin: EdgeInsets.all(5.0), // Margen entre las cartas
           //color: const Color.fromARGB(255, 2, 244, 10), // Color de la carta
           elevation: 10.0, // Elevamos el botón
