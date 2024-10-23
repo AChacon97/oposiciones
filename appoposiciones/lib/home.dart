@@ -3,11 +3,30 @@ import 'package:appoposiciones/temario_temas.dart'; // Importa la clase para el 
 import 'package:appoposiciones/temario_test.dart'; // Importa la clase para el temario de tests
 import 'package:appoposiciones/estadisticas.dart'; // Importa la clase de estadísticas
 import 'package:appoposiciones/configuracion.dart'; // Importa la clase de configuración
+import 'Tema.dart';
+import 'theme.dart'; // Importa el archivo que contiene el tema
 
 // Clase principal que representa la pantalla de inicio
-class Tap extends StatelessWidget {
-  const Tap({super.key}); // Constructor de la clase
+class Tap extends StatefulWidget {
+  const Tap({super.key});
 
+  @override
+  State<Tap> createState() => _TapState();
+}
+
+class _TapState extends State<Tap> {
+    final List<Tema> temas = [
+      Tema( id: 1, titulo: 'Volante'),
+      Tema( id: 2, titulo: 'Aprende'),
+      Tema( id: 3, titulo: 'Rueda'),
+      Tema( id: 4,  titulo: 'Llanta'),
+      Tema( id: 5, titulo: 'Calefacción'),
+      Tema( id: 6, titulo: 'A/C'),
+      Tema( id: 7, titulo: 'Luces'),
+      Tema( id: 8, titulo: 'Señales'),
+  ];
+
+ // get temas => null; // Constructor de la clase
   @override
   Widget build(BuildContext context) {
     // Simulación de tiempos de conexión

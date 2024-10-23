@@ -4,6 +4,7 @@ import 'package:flutter/services.dart'; // Para cargar archivos locales
 import 'package:path_provider/path_provider.dart'; // Para obtener el directorio del sistema
 import 'dart:io'; // Para manejar archivos
 import 'package:appoposiciones/home.dart'; // Asegúrate de que la ruta sea correcta
+import 'theme.dart'; // Importa el archivo que contiene el tema
 
 // Clase principal de la pantalla de registro
 class PantallaRegistro extends StatefulWidget {
@@ -182,14 +183,16 @@ class _PantallaRegistroState extends State<PantallaRegistro> {
                   onChanged:
                       _validateUsername, // Valida el nombre de usuario al cambiar
                   decoration: InputDecoration(
-                    hintStyle: const TextStyle(
+                   
+                   /* hintStyle: const TextStyle(
                       color: Colors.white, // Color del texto del hint
                       fontSize: 20.0,
                       fontWeight: FontWeight.bold,
-                    ),
+                    ),*/
                     hintText: 'Nombre de Usuario', // Texto de hint
-                    fillColor: Colors.red, // Color de fondo
-                    filled: true, // Relleno
+                    
+                    //fillColor: Colors.red, // Color de fondo
+                    //filled: true, // Relleno
                     errorText: _usernameError, // Mensaje de error si existe
                   ),
                 ),
@@ -203,14 +206,14 @@ class _PantallaRegistroState extends State<PantallaRegistro> {
                   onChanged:
                       _validateEmail, // Valida el correo electrónico al cambiar
                   decoration: InputDecoration(
-                    hintStyle: const TextStyle(
+                    /*hintStyle: const TextStyle(
                       color: Colors.white, // Color del texto del hint
                       fontSize: 20.0,
                       fontWeight: FontWeight.bold,
-                    ),
+                    ),*/
                     hintText: 'Correo Electrónico', // Texto de hint
-                    fillColor: Colors.red, // Color de fondo
-                    filled: true, // Relleno
+                    /*fillColor: Colors.red, // Color de fondo
+                    filled: true,*/ // Relleno
                     errorText: _emailError, // Mensaje de error si existe
                   ),
                 ),
@@ -224,14 +227,14 @@ class _PantallaRegistroState extends State<PantallaRegistro> {
                   onChanged:
                       _validatePassword, // Valida la contraseña al cambiar
                   decoration: InputDecoration(
-                    hintStyle: const TextStyle(
+                    /*hintStyle: const TextStyle(
                       color: Colors.white, // Color del texto del hint
                       fontSize: 20.0,
                       fontWeight: FontWeight.bold,
-                    ),
+                    ),*/
                     hintText: 'Contraseña', // Texto de hint
-                    fillColor: Colors.red, // Color de fondo
-                    filled: true, // Relleno
+                    /*fillColor: Colors.red, // Color de fondo
+                    filled: true,*/ // Relleno
                     errorText: _passwordError, // Mensaje de error si existe
                   ),
                   obscureText: true, // Oculta el texto de la contraseña

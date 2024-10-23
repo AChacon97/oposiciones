@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart'; // Importa el paquete de Flutter para la interfaz de usuario
+import 'theme.dart'; // Importa el archivo que contiene el tema
 
 // Clase principal para cambiar la contraseña
 class CambiarContrasena extends StatefulWidget {

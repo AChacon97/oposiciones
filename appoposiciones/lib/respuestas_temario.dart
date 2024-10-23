@@ -39,6 +39,7 @@ class Respuestas_Temario extends StatelessWidget {
                     preguntaAleatoria['pregunta'],
                     style: TextStyle(fontSize: 24),
                   ),
+                  _botonRespuesta(),
                   // Aquí puedes agregar lógica para mostrar las respuestas, etc.
                 ],
               ),

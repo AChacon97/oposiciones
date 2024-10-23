@@ -74,8 +74,8 @@ class AppTheme {
   static ButtonStyle botonFuncional() {
     //Para los botones funcionales
     return ElevatedButton.styleFrom(
-      backgroundColor: Color.fromARGB(255, 60, 120, 255),
-      foregroundColor: Color.fromARGB(255, 20, 20, 200), // Color del texto
+      backgroundColor: Color.fromARGB(255, 217, 227, 251),
+      foregroundColor: Color.fromARGB(255, 60, 120, 255),// Color del texto
       textStyle: TextStyle(
         fontFamily: fontFamily, //Establecido al principio Tipo de letra.
         fontWeight: FontWeight.bold,

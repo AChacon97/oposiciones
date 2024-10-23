@@ -1,6 +1,7 @@
 import 'package:appoposiciones/preguntas_test.dart';
 import 'package:flutter/material.dart';
 import 'Tema.dart';
+import 'theme.dart'; // Importa el archivo que contiene el tema
 
 class Temario_Test extends StatelessWidget {
   // const Temario_Test({super.key});

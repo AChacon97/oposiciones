@@ -2,6 +2,8 @@
 import 'package:appoposiciones/Tema.dart';
 import 'package:appoposiciones/respuestas_temario.dart';
 import 'package:flutter/material.dart';
+import 'Tema.dart';
+import 'theme.dart'; // Importa el archivo que contiene el tema
 
 
 class Temario_temas extends StatelessWidget {

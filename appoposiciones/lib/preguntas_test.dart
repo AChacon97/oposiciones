@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'preguntas.dart';
 import 'respuestas.dart';
-
+import 'theme.dart'; // Importa el archivo que contiene el tema
 class Preguntas_Test extends StatefulWidget {
   final String nombre;
 

@@ -3,6 +3,7 @@ import 'CambiarNombreUsuario.dart'; // Importa la página para cambiar el nombre
 import 'CambiarContrasena.dart'; // Importa la página para cambiar la contraseña
 import 'CambiarCorreoElectronico.dart'; // Importa la página para cambiar el correo electrónico
 import 'CambiarFotoDePerfil.dart'; // Importa la página para cambiar la foto de perfil
+import 'theme.dart'; // Importa el archivo que contiene el tema
 
 // Clase principal que representa la pantalla de configuración
 class Configuracion extends StatelessWidget {

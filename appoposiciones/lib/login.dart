@@ -2,7 +2,7 @@ import 'package:appoposiciones/home.dart';
 import 'package:appoposiciones/registro.dart';
 import 'package:flutter/material.dart';
 import 'theme.dart'; // Importa el archivo de tema
-
+import 'theme.dart'; // Importa el archivo que contiene el tema
 class PantallaLogin extends StatefulWidget {
   const PantallaLogin(
       {super.key,
