@@ -20,10 +20,7 @@ class AppTheme {
   static const Color respuestaCorecta = Color(0xFF4CAF50); // Verde
   static const Color respuestaIncorrecta = Color(0xFFD32F2F); // Rojo oscuro
 
-  /*
-   Define un ThemeData para usar en TODA LA APP
-   */
-
+  /* Define un ThemeData para usar en TODA LA APP */
   static final ThemeData lightTheme = ThemeData(
     primaryColor: primaryColor,
     colorScheme: ColorScheme.fromSwatch().copyWith(
@@ -31,13 +28,8 @@ class AppTheme {
     ),
     scaffoldBackgroundColor: const Color.fromARGB(255, 255, 255, 255),
     textTheme: const TextTheme(
-      //<--- Configuración del TEXTO.
-
-      /*
-          Texto TITULOS
-      */
       displayLarge: TextStyle(
-        fontSize: 28, //Tamaño letra
+        fontSize: 28, // Tamaño letra
         fontWeight: FontWeight.bold,
         color: Colors.blueAccent,
         fontFamily: fontFamily,
@@ -49,10 +41,6 @@ class AppTheme {
           )
         ],
       ),
-
-/*
-        Texto subtítulos o Frases secundarias (Tipo: ¿Estás regstrado?)
-*/
       bodyLarge: TextStyle(
         fontSize: 20.0, // Tamaño de la letra.
         fontWeight: FontWeight.bold, // La letra en negrita.
@@ -60,24 +48,16 @@ class AppTheme {
         letterSpacing: 2.0,
         fontFamily: fontFamily, //
       ),
-
-      /*
-Textos terciatios 
-      */
       bodyMedium: TextStyle(
         color: Colors.black54,
         fontFamily: fontFamily,
       ),
     ),
-    inputDecorationTheme:
-        textFieldDecoration, // Añadir aquí el estilo de TextField
+    inputDecorationTheme: textFieldDecoration,
     cardTheme: cardThemeNormal, // Establecer un tema de Card por defecto
   );
 
-  /*
-                  ---ESTILO TEXTFIELD---
-  */
-
+  /* ---ESTILO TEXTFIELD--- */
   static final InputDecorationTheme textFieldDecoration = InputDecorationTheme(
     hintStyle: const TextStyle(
       fontSize: 20.0,
@@ -90,47 +70,38 @@ Textos terciatios
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(8.0),
     ),
-    // Añadir esto para el color del texto
   );
 
-  /*
-                  ---ESTILO BOTONES---
-  */
-// BOTONES INICIALES
+  /* ---ESTILO BOTONES--- */
   static ButtonStyle botonFuncional() {
     return ElevatedButton.styleFrom(
       backgroundColor: Color.fromARGB(255, 217, 227, 251),
       foregroundColor: Color.fromARGB(255, 60, 120, 255), // Color del texto
       textStyle: TextStyle(
-        fontFamily: fontFamily, //Establecido al principio Tipo de letra.
+        fontFamily: fontFamily, // Establecido al principio Tipo de letra.
         fontWeight: FontWeight.bold,
         fontSize: 25,
       ),
     );
   }
 
-// BOTONES CONFIGURACIÓN
   static ButtonStyle botonConfiguracion() {
-    // Botones de Configuración
     return ElevatedButton.styleFrom(
       backgroundColor: Color.fromARGB(255, 183, 183, 183),
       foregroundColor: Color.fromARGB(255, 52, 57, 69), // Color del texto
       textStyle: TextStyle(
-        fontFamily: fontFamily, //Establecido al principio Tipo de letra.
+        fontFamily: fontFamily, // Establecido al principio Tipo de letra.
         fontWeight: FontWeight.bold,
         fontSize: 20,
       ),
     );
   }
 
-  /*
-                  ---ESTILO CARDS---
-  */
-
-// Estilo para Card SIN ABRIR
+  /* ---ESTILO CARDS--- */
+  // Estilo para Card SIN ABRIR
   static final CardTheme cardThemeNormal = CardTheme(
-    color: Colors.white,
-    shadowColor: const Color.fromARGB(255, 158, 158, 158),
+    color: const Color.fromARGB(255, 210, 210, 210),
+    shadowColor: const Color.fromARGB(255, 126, 126, 126),
     elevation: 4,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(10),
@@ -160,41 +131,3 @@ Textos terciatios
     margin: EdgeInsets.all(10),
   );
 }
-
-/*
-                ---ESTILOS TEXT---
-*/
-
-// Textos TITULOS
-// const TextTheme textoTitulo = TextTheme(
-//   displayLarge: TextStyle(
-//     fontSize: 15.0, // Tamaño de la letra.
-//     fontWeight: FontWeight.bold, // La letra en negrita.
-//     color: Colors.blueAccent, // Color de la letra
-//     shadows: <Shadow>[
-//       Shadow(
-//         // Permite añadir sombras a los textos
-//         offset: Offset(1.0, 2.0), // Desplazamiento de la sombra.
-//         blurRadius: 3.0, // Difuminado de la sombra.
-//         color: Colors.black26, // Color de la sombra
-//       )
-//     ],
-//     letterSpacing: 2.0,
-//     fontFamily: fontFamily,
-//   ),
-
-//   // bodyLarge: TextStyle(
-//   //   fontSize: 16.0,
-//   //   fontWeight: FontWeight.normal,
-//   //   color: Colors.black,
-//   //   fontFamily: fontFamily,
-//   // ),
-
-//   bodyMedium: TextStyle(
-//     fontSize: 14.0,
-//     fontWeight: FontWeight.normal,
-//     color: Colors.black54,
-//     fontFamily: fontFamily,
-//   ),
-//   // Añade más estilos de texto según necesites
-// );
