@@ -2,7 +2,7 @@ import 'package:appoposiciones/home.dart';
 import 'package:appoposiciones/registro.dart';
 import 'package:flutter/material.dart';
 import 'theme.dart'; // Importa el archivo de tema
-import 'theme.dart'; // Importa el archivo que contiene el tema
+
 class PantallaLogin extends StatefulWidget {
   const PantallaLogin(
       {super.key,
@@ -35,23 +35,9 @@ class _PantallaLoginState extends State<PantallaLogin> {
                   height: 100,
                   width: 150,
                 ),
-                const Text(
+                Text(
                   'BIENVENIDOS A TU APP DE AUTOESCUELA',
-                  style: TextStyle(
-                    fontSize: 28.0, // Tamaño de la letra.
-                    fontWeight: FontWeight.bold, // La letra en negrita.
-                    color: Colors.blueAccent, // Color de la letra
-                    shadows: <Shadow>[
-                      Shadow(
-                        // Permite añadir sombras a los textos
-                        offset:
-                            Offset(1.0, 2.0), // Desplazamiento de la sombra.
-                        blurRadius: 3.0, // Difuminado de la sombra.
-                        color: Colors.black26, // Color de la sombra
-                      )
-                    ],
-                    letterSpacing: 2.0,
-                  ),
+                  style: Theme.of(context).textTheme.displayLarge,
                 ),
                 const SizedBox(
                   height: 30,
@@ -93,14 +79,9 @@ class _PantallaLoginState extends State<PantallaLogin> {
 
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      const Text(
+                      Text(
                         '¿No estás registrado?',
-                        style: TextStyle(
-                          fontSize: 20.0, // Tamaño de la letra.
-                          fontWeight: FontWeight.bold, // La letra en negrita.
-                          color: Colors.blueAccent, // Color de la letra
-                          letterSpacing: 2.0,
-                        ),
+                        style: Theme.of(context).textTheme.bodyLarge,
                       ),
                       BotonRegistrar(context), //Llamada al BOTÓN REGISTRAR
                     ]),
@@ -135,7 +116,7 @@ Widget BotonRegistrar(BuildContext context) {
 Widget BotonAcceder(BuildContext context) {
   // Método para el botón acceder.
   return ElevatedButton(
-    style: AppTheme.botonFuncional(),//
+    style: AppTheme.botonFuncional(), //
     onPressed: () {
       Navigator.push(
         context,

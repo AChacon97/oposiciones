@@ -8,12 +8,6 @@ class AppTheme {
   static const Color secondaryColor =
       Color.fromARGB(255, 209, 225, 224); // Verde aguamarina
 
-  // Colores FONDO BOTONES TEMAS
-  static const Color fodoCompletado = Color(0xFF388E3C); // fondo TEMA COMPLETO
-  static const Color fondoEmpezado = Color(0xFFFFC107); // fondo TEMA EMPEZADO
-  static const Color FondoNoCompletado =
-      Color.fromARGB(255, 255, 255, 255); // Fondo TEMA sin EMPEZAR
-
   // Colores TEXTO BOTONES TEMAS
   static const Color textCompletado =
       Color.fromRGBO(32, 98, 35, 1); // Letras texto TEMA COMPLETO
@@ -26,25 +20,50 @@ class AppTheme {
   static const Color respuestaCorecta = Color(0xFF4CAF50); // Verde
   static const Color respuestaIncorrecta = Color(0xFFD32F2F); // Rojo oscuro
 
-  // Colores para Fondo cuadros de diálogo.
-  static const Color fondoCuadroTexto =
-      Color.fromARGB(255, 109, 172, 217); // Fondo casillas a RELLENAR
-  static const Color fondoBotonFuncional =
-      Color.fromARGB(255, 65, 91, 241); // Fondo Botón Funcionales (No de TEMAS)
+  /*
+   Define un ThemeData para usar en TODA LA APP
+   */
 
-  // Define un ThemeData para usar en toda la app
   static final ThemeData lightTheme = ThemeData(
     primaryColor: primaryColor,
     colorScheme: ColorScheme.fromSwatch().copyWith(
       secondary: secondaryColor,
     ),
     scaffoldBackgroundColor: const Color.fromARGB(255, 255, 255, 255),
-    textTheme: const TextTheme(              //<--- Configuración del TEXTO.
-      bodyLarge: TextStyle(
-        fontSize: 20,                               //Tamaño letra
-        color: Color.fromARGB(255, 5, 0, 103),    //Color letras
-        fontFamily: fontFamily,                     //
+    textTheme: const TextTheme(
+      //<--- Configuración del TEXTO.
+
+      /*
+          Texto TITULOS
+      */
+      displayLarge: TextStyle(
+        fontSize: 28, //Tamaño letra
+        fontWeight: FontWeight.bold,
+        color: Colors.blueAccent,
+        fontFamily: fontFamily,
+        shadows: <Shadow>[
+          Shadow(
+            offset: Offset(1.0, 2.0), // Desplazamiento de la sombra.
+            blurRadius: 3.0, // Difuminado de la sombra.
+            color: Colors.black26, // Color de la sombra
+          )
+        ],
       ),
+
+/*
+        Texto subtítulos o Frases secundarias (Tipo: ¿Estás regstrado?)
+*/
+      bodyLarge: TextStyle(
+        fontSize: 20.0, // Tamaño de la letra.
+        fontWeight: FontWeight.bold, // La letra en negrita.
+        color: Colors.blueAccent, // Color de la letra
+        letterSpacing: 2.0,
+        fontFamily: fontFamily, //
+      ),
+
+      /*
+Textos terciatios 
+      */
       bodyMedium: TextStyle(
         color: Colors.black54,
         fontFamily: fontFamily,
@@ -66,7 +85,7 @@ class AppTheme {
       color: Color.fromARGB(255, 45, 45, 45), // Color del hint
       fontFamily: fontFamily,
     ),
-    fillColor: AppTheme.fondoCuadroTexto, // Color de fondo
+    fillColor: Color.fromARGB(255, 109, 172, 217), // Color de fondo
     filled: true,
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(8.0),
@@ -77,9 +96,8 @@ class AppTheme {
   /*
                   ---ESTILO BOTONES---
   */
-
+// BOTONES INICIALES
   static ButtonStyle botonFuncional() {
-    //Para los botones funcionales
     return ElevatedButton.styleFrom(
       backgroundColor: Color.fromARGB(255, 217, 227, 251),
       foregroundColor: Color.fromARGB(255, 60, 120, 255), // Color del texto
@@ -87,6 +105,20 @@ class AppTheme {
         fontFamily: fontFamily, //Establecido al principio Tipo de letra.
         fontWeight: FontWeight.bold,
         fontSize: 25,
+      ),
+    );
+  }
+
+// BOTONES CONFIGURACIÓN
+  static ButtonStyle botonConfiguracion() {
+    // Botones de Configuración
+    return ElevatedButton.styleFrom(
+      backgroundColor: Color.fromARGB(255, 183, 183, 183),
+      foregroundColor: Color.fromARGB(255, 52, 57, 69), // Color del texto
+      textStyle: TextStyle(
+        fontFamily: fontFamily, //Establecido al principio Tipo de letra.
+        fontWeight: FontWeight.bold,
+        fontSize: 20,
       ),
     );
   }
@@ -128,3 +160,41 @@ class AppTheme {
     margin: EdgeInsets.all(10),
   );
 }
+
+/*
+                ---ESTILOS TEXT---
+*/
+
+// Textos TITULOS
+// const TextTheme textoTitulo = TextTheme(
+//   displayLarge: TextStyle(
+//     fontSize: 15.0, // Tamaño de la letra.
+//     fontWeight: FontWeight.bold, // La letra en negrita.
+//     color: Colors.blueAccent, // Color de la letra
+//     shadows: <Shadow>[
+//       Shadow(
+//         // Permite añadir sombras a los textos
+//         offset: Offset(1.0, 2.0), // Desplazamiento de la sombra.
+//         blurRadius: 3.0, // Difuminado de la sombra.
+//         color: Colors.black26, // Color de la sombra
+//       )
+//     ],
+//     letterSpacing: 2.0,
+//     fontFamily: fontFamily,
+//   ),
+
+//   // bodyLarge: TextStyle(
+//   //   fontSize: 16.0,
+//   //   fontWeight: FontWeight.normal,
+//   //   color: Colors.black,
+//   //   fontFamily: fontFamily,
+//   // ),
+
+//   bodyMedium: TextStyle(
+//     fontSize: 14.0,
+//     fontWeight: FontWeight.normal,
+//     color: Colors.black54,
+//     fontFamily: fontFamily,
+//   ),
+//   // Añade más estilos de texto según necesites
+// );

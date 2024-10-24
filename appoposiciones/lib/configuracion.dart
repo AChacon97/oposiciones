@@ -24,6 +24,8 @@ class Configuracion extends StatelessWidget {
           children: [
             // Botón para cambiar el nombre de usuario
             ElevatedButton(
+              style: AppTheme
+                  .botonConfiguracion(), // Aplica tu estilo de botón funcional
               onPressed: () {
                 // Navega a la página CambiarNombreUsuario al presionar
                 Navigator.push(
@@ -37,6 +39,7 @@ class Configuracion extends StatelessWidget {
             const SizedBox(height: 20), // Espacio entre las opciones
             // Botón para cambiar la contraseña
             ElevatedButton(
+              style: AppTheme.botonConfiguracion(), // Aplica tu estilo d
               onPressed: () {
                 // Navega a la página CambiarContrasena al presionar
                 Navigator.push(
@@ -49,6 +52,7 @@ class Configuracion extends StatelessWidget {
             const SizedBox(height: 20), // Espacio entre las opciones
             // Botón para cambiar el correo electrónico
             ElevatedButton(
+              style: AppTheme.botonConfiguracion(), // Aplica tu estilo d
               onPressed: () {
                 // Navega a la página CambiarCorreoElectronico al presionar
                 Navigator.push(
@@ -62,6 +66,7 @@ class Configuracion extends StatelessWidget {
             const SizedBox(height: 20), // Espacio entre las opciones
             // Botón para cambiar la foto de perfil
             ElevatedButton(
+              style: AppTheme.botonConfiguracion(), // Aplica tu estilo d
               onPressed: () {
                 // Navega a la página CambiarFotoDePerfil al presionar
                 Navigator.push(
