@@ -12,7 +12,7 @@ void main() async {
   );
   runApp(const MyApp());
 }
-// Este cambio es de Antonio
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
