@@ -39,11 +39,11 @@ class AppTheme {
       secondary: secondaryColor,
     ),
     scaffoldBackgroundColor: const Color.fromARGB(255, 255, 255, 255),
-    textTheme: const TextTheme(
+    textTheme: const TextTheme(              //<--- Configuración del TEXTO.
       bodyLarge: TextStyle(
-        fontSize: 20,
-        color: Color.fromARGB(255, 5, 0, 103),
-        fontFamily: fontFamily,
+        fontSize: 20,                               //Tamaño letra
+        color: Color.fromARGB(255, 5, 0, 103),    //Color letras
+        fontFamily: fontFamily,                     //
       ),
       bodyMedium: TextStyle(
         color: Colors.black54,
@@ -98,7 +98,7 @@ class AppTheme {
 // Estilo para Card SIN ABRIR
   static final CardTheme cardThemeNormal = CardTheme(
     color: Colors.white,
-    shadowColor: Colors.grey,
+    shadowColor: const Color.fromARGB(255, 158, 158, 158),
     elevation: 4,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(10),
