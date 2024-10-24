@@ -13,12 +13,37 @@ class Respuestas_Temario extends StatefulWidget {
 }
 
 class _Respuestas_TemarioState extends State<Respuestas_Temario> {
-  String? mensaje;
-  Future<Map<String, dynamic>> cargarPreguntas() async {
-    final String response =
-        await rootBundle.loadString('assets/preguntas.json');
-    return json.decode(response);
+  String? respuestaCorrecta;
+  List<dynamic> preguntas = [];
+  List<dynamic> respuestas = [];
+  int indicePregunta = 0; // Índice de la pregunta actual.
+
+  Future<void> cargarDatos() async {
+    // Cargar las preguntas
+    final String preguntasResponse = await rootBundle.loadString('assets/preguntas.json');
+    preguntas = json.decode(preguntasResponse)['preguntas'];
+
+    // Cargar las respuestas
+    final String respuestasReponse = await rootBundle.loadString('assets/respuestas.json');
+    respuestas = json.decode(respuestasReponse)['respuestas'];
+
+    setState(() {}); // Actualizar la interfaz después de cargar
+    
   }
+
+  @override
+  void initState (){
+    super.initState();
+    cargarDatos(); // Cargar datos al iniciar.
+  }
+  void mostrarRespuestaCorrecta (){
+    // Mostrar la respuesta correcta para la pregunta actual.
+    final respuestaActual = respuestas[indicePregunta]['respuestas'].firstWhere((respuesta) => respuesta ['id'] == respuestas[indicePregunta]['correcta']);
+    setState(() {
+      respuestaCorrecta = respuestaActual['respuesta'];
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -26,47 +51,31 @@ class _Respuestas_TemarioState extends State<Respuestas_Temario> {
       appBar: AppBar(
         title: Text('Pregunta Aleatoria - ${widget.tema}'),
       ),
-      body: FutureBuilder(
-        future: cargarPreguntas(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text('No preguntas'));
-          } else if (!snapshot.hasData || snapshot.data?['preguntas'] == null) {
-            return Center(child: Text('No hay preguntas disponibles'));
-          } else {
-            final preguntas = snapshot.data!['preguntas'] as List;
-            final preguntaAleatoria = (preguntas..shuffle())
-                .first; // Selecciona una pregunta aleatoria
-            return Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                children: [
-                  Text(
-                    preguntaAleatoria['pregunta'],
-                    style: TextStyle(fontSize: 24),
-                  ),
-                  _botonRespuesta((){
-                 setState(() {
-                   mensaje = 'Hola';
-                 });
-                  }),
-                  if (mensaje != null)
-                    Padding(
-                      padding: const EdgeInsets.only(top: 20.0),
-                      child: Text(
-                        mensaje!,
-                        style: TextStyle(fontSize: 24),
-                      ),
-                    ),
-                  // Aquí puedes agregar lógica para mostrar las respuestas, etc.
-                ],
+      body: preguntas.isEmpty || respuestas.isEmpty
+        ? Center(child: CircularProgressIndicator())
+        : Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                preguntas[indicePregunta]['pregunta'],
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
               ),
-            );
-          }
-        },
-      ),
+              _botonRespuesta(mostrarRespuestaCorrecta), // Pasar la función aquí
+              if (respuestaCorrecta != null)
+                Padding(
+                  padding: const EdgeInsets.only(top: 20.0),
+                  child: Text(
+                    'Respuesta correcta: $respuestaCorrecta',
+                    style: TextStyle(fontSize: 18.0, color: Colors.blue),
+                    ),
+                  ),
+                  _botonPasar(), // Llamar al botón para pasar
+              
+       
+        ],
+      )
     );
   }
 }
@@ -75,6 +84,14 @@ Widget _botonRespuesta(VoidCallback onPressed) {
   return ElevatedButton(
     style: AppTheme.botonFuncional(),
     onPressed: onPressed, 
-    child: Text('Respuesta'),
+    child: Text('Mostrar respuesta correcta'),
+  );
+}
+
+Widget _botonPasar (){
+  return ElevatedButton(
+    style: AppTheme.botonFuncional(),
+    onPressed: (){},
+    child: Text('Siguiente pregunta'),
   );
 }
