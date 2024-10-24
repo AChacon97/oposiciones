@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'preguntas.dart';
 import 'respuestas.dart';
 import 'theme.dart'; // Importa el archivo que contiene el tema
+
 class Preguntas_Test extends StatefulWidget {
   final String nombre;
 
@@ -25,11 +26,12 @@ class _PreguntasTestState extends State<Preguntas_Test> {
 
   Future<void> _cargarPreguntas() async {
     final String response =
-        await rootBundle.loadString('assets/preguntas.json');
+        await rootBundle.loadString('assets/cuestiones.json');
     final data = await json.decode(response);
     setState(() {
-      preguntas =
-          (data['preguntas'] as List).map((i) => Pregunta.fromJson(i)).toList();
+      preguntas = (data['cuestiones'] as List)
+          .map((i) => Pregunta.fromJson(i))
+          .toList();
     });
   }
 
@@ -88,6 +90,7 @@ class _PreguntasTestState extends State<Preguntas_Test> {
                     : [],
               ),
               ElevatedButton(
+                style: AppTheme.botonFuncional(),
                 onPressed: () {
                   if (_respuestaSeleccionada != null) {
                     print(

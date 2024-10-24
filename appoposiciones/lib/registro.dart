@@ -183,14 +183,13 @@ class _PantallaRegistroState extends State<PantallaRegistro> {
                   onChanged:
                       _validateUsername, // Valida el nombre de usuario al cambiar
                   decoration: InputDecoration(
-                   
-                   /* hintStyle: const TextStyle(
+                    /* hintStyle: const TextStyle(
                       color: Colors.white, // Color del texto del hint
                       fontSize: 20.0,
                       fontWeight: FontWeight.bold,
                     ),*/
                     hintText: 'Nombre de Usuario', // Texto de hint
-                    
+
                     //fillColor: Colors.red, // Color de fondo
                     //filled: true, // Relleno
                     errorText: _usernameError, // Mensaje de error si existe
@@ -242,6 +241,7 @@ class _PantallaRegistroState extends State<PantallaRegistro> {
               ),
               const SizedBox(height: 25), // Espaciado vertical
               ElevatedButton(
+                style: AppTheme.botonFuncional(),
                 onPressed: () {
                   if (_usernameError == null &&
                       _emailError == null &&

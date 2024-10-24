@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // Para cargar el JSON
+import 'theme.dart';
 
 class Respuestas_Temario extends StatelessWidget {
   final String tema;
@@ -8,7 +9,8 @@ class Respuestas_Temario extends StatelessWidget {
   const Respuestas_Temario({Key? key, required this.tema}) : super(key: key);
 
   Future<Map<String, dynamic>> cargarPreguntas() async {
-    final String response = await rootBundle.loadString('assets/preguntas.json');
+    final String response =
+        await rootBundle.loadString('assets/preguntas.json');
     return json.decode(response);
   }
 
@@ -25,12 +27,12 @@ class Respuestas_Temario extends StatelessWidget {
             return Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(child: Text('No preguntas'));
-          }else if (!snapshot.hasData || snapshot.data?['preguntas'] == null) {
+          } else if (!snapshot.hasData || snapshot.data?['preguntas'] == null) {
             return Center(child: Text('No hay preguntas disponibles'));
-          } 
-          else {
+          } else {
             final preguntas = snapshot.data!['preguntas'] as List;
-            final preguntaAleatoria = (preguntas..shuffle()).first; // Selecciona una pregunta aleatoria
+            final preguntaAleatoria = (preguntas..shuffle())
+                .first; // Selecciona una pregunta aleatoria
             return Padding(
               padding: const EdgeInsets.all(20.0),
               child: Column(
@@ -51,11 +53,10 @@ class Respuestas_Temario extends StatelessWidget {
   }
 }
 
-
-Widget _botonRespuesta (){
+Widget _botonRespuesta() {
   return ElevatedButton(
-    onPressed: (){}, 
+    style: AppTheme.botonFuncional(),
+    onPressed: () {},
     child: Text('Respuesta'),
-    );
+  );
 }
-

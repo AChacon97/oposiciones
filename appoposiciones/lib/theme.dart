@@ -32,9 +32,34 @@ class AppTheme {
   static const Color fondoBotonFuncional =
       Color.fromARGB(255, 65, 91, 241); // Fondo Botón Funcionales (No de TEMAS)
 
-  // Estilo de TextField
+  // Define un ThemeData para usar en toda la app
+  static final ThemeData lightTheme = ThemeData(
+    primaryColor: primaryColor,
+    colorScheme: ColorScheme.fromSwatch().copyWith(
+      secondary: secondaryColor,
+    ),
+    scaffoldBackgroundColor: const Color.fromARGB(255, 255, 255, 255),
+    textTheme: const TextTheme(
+      bodyLarge: TextStyle(
+        fontSize: 20,
+        color: Color.fromARGB(255, 5, 0, 103),
+        fontFamily: fontFamily,
+      ),
+      bodyMedium: TextStyle(
+        color: Colors.black54,
+        fontFamily: fontFamily,
+      ),
+    ),
+    inputDecorationTheme:
+        textFieldDecoration, // Añadir aquí el estilo de TextField
+    cardTheme: cardThemeNormal, // Establecer un tema de Card por defecto
+  );
+
+  /*
+                  ---ESTILO TEXTFIELD---
+  */
+
   static final InputDecorationTheme textFieldDecoration = InputDecorationTheme(
-    //TEXTFIELD
     hintStyle: const TextStyle(
       fontSize: 20.0,
       fontWeight: FontWeight.bold,
@@ -49,33 +74,15 @@ class AppTheme {
     // Añadir esto para el color del texto
   );
 
-  // Define un ThemeData para usar en toda la app
-  static final ThemeData lightTheme = ThemeData(
-    primaryColor: primaryColor,
-    colorScheme: ColorScheme.fromSwatch().copyWith(
-      secondary: secondaryColor,
-    ),
-    scaffoldBackgroundColor: const Color.fromARGB(255, 255, 255, 255),
-    textTheme: const TextTheme(
-      bodyLarge: TextStyle(
-        color: Colors.black,
-        fontFamily: fontFamily,
-      ),
-      bodyMedium: TextStyle(
-        color: Colors.black54,
-        fontFamily: fontFamily,
-      ),
-    ),
-    inputDecorationTheme:
-        textFieldDecoration, // Añadir aquí el estilo de TextField
-  );
+  /*
+                  ---ESTILO BOTONES---
+  */
 
-  // ESTILO BOTONES
   static ButtonStyle botonFuncional() {
     //Para los botones funcionales
     return ElevatedButton.styleFrom(
       backgroundColor: Color.fromARGB(255, 217, 227, 251),
-      foregroundColor: Color.fromARGB(255, 60, 120, 255),// Color del texto
+      foregroundColor: Color.fromARGB(255, 60, 120, 255), // Color del texto
       textStyle: TextStyle(
         fontFamily: fontFamily, //Establecido al principio Tipo de letra.
         fontWeight: FontWeight.bold,
@@ -83,4 +90,41 @@ class AppTheme {
       ),
     );
   }
+
+  /*
+                  ---ESTILO CARDS---
+  */
+
+// Estilo para Card SIN ABRIR
+  static final CardTheme cardThemeNormal = CardTheme(
+    color: Colors.white,
+    shadowColor: Colors.grey,
+    elevation: 4,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(10),
+    ),
+    margin: EdgeInsets.all(10),
+  );
+
+  // Estilo para Card COMPLETADAS
+  static final CardTheme cardThemeSuccess = CardTheme(
+    color: Colors.green.shade100,
+    shadowColor: Colors.green,
+    elevation: 4,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(10),
+    ),
+    margin: EdgeInsets.all(10),
+  );
+
+  // Estilo para Card EMPEZADAS
+  static final CardTheme cardThemeError = CardTheme(
+    color: Colors.red.shade100,
+    shadowColor: const Color.fromARGB(255, 225, 183, 28),
+    elevation: 4,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(10),
+    ),
+    margin: EdgeInsets.all(10),
+  );
 }

@@ -1,0 +1,39 @@
+{
+    "preguntas": [
+      {
+        "pregunta": "Pregunta?",
+        "respuestas": [
+          {
+            "texto": "Respuesta A",
+            "correcta": true
+          },
+          {
+            "texto": "Respuesta B",
+            "correcta": false
+          },
+          {
+            "texto": "Respueta C",
+            "correcta": false
+          }
+        ]
+      },
+      {
+        "pregunta": "Mi novia es la mas guapa",
+        "respuestas": [
+          {
+            "texto": "No",
+            "correcta": false
+          },
+          {
+            "texto": "Si",
+            "correcta": false
+          },
+          {
+            "texto": "Respuesta C",
+            "correcta": true
+          }
+        ]
+      }
+    ]
+  }
+  
