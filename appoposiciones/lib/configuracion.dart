@@ -22,75 +22,55 @@ class Configuracion extends StatelessWidget {
           crossAxisAlignment:
               CrossAxisAlignment.start, // Alineación a la izquierda
           children: [
-            // Opción para cambiar el nombre de usuario
-            GestureDetector(
-              onTap: () {
-                // Navega a la página CambiarNombreUsuario al tocar
+            // Botón para cambiar el nombre de usuario
+            ElevatedButton(
+              onPressed: () {
+                // Navega a la página CambiarNombreUsuario al presionar
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => CambiarNombreUsuario()),
                 );
               },
-              child: Text(
-                'Cambiar Nombre de Usuario', // Texto del enlace
-                style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold), // Estilo del texto
-              ),
+              child: Text('Actualizar Nombre'), // Texto del botón
             ),
             const SizedBox(height: 20), // Espacio entre las opciones
-            // Opción para cambiar la contraseña
-            GestureDetector(
-              onTap: () {
-                // Navega a la página CambiarContrasena al tocar
+            // Botón para cambiar la contraseña
+            ElevatedButton(
+              onPressed: () {
+                // Navega a la página CambiarContrasena al presionar
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => CambiarContrasena()),
                 );
               },
-              child: Text(
-                'Cambiar Contraseña', // Texto del enlace
-                style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold), // Estilo del texto
-              ),
+              child: Text('Modificar Contraseña'), // Texto del botón
             ),
             const SizedBox(height: 20), // Espacio entre las opciones
-            // Opción para cambiar el correo electrónico
-            GestureDetector(
-              onTap: () {
-                // Navega a la página CambiarCorreoElectronico al tocar
+            // Botón para cambiar el correo electrónico
+            ElevatedButton(
+              onPressed: () {
+                // Navega a la página CambiarCorreoElectronico al presionar
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => CambiarCorreoElectronico()),
                 );
               },
-              child: Text(
-                'Cambiar Correo Electrónico', // Texto del enlace
-                style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold), // Estilo del texto
-              ),
+              child: Text('Actualizar Correo'), // Texto del botón
             ),
             const SizedBox(height: 20), // Espacio entre las opciones
-            // Opción para cambiar la foto de perfil
-            GestureDetector(
-              onTap: () {
-                // Navega a la página CambiarFotoDePerfil al tocar
+            // Botón para cambiar la foto de perfil
+            ElevatedButton(
+              onPressed: () {
+                // Navega a la página CambiarFotoDePerfil al presionar
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => CambiarFotoDePerfil()),
                 );
               },
-              child: Text(
-                'Cambiar Foto de Perfil', // Texto del enlace
-                style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold), // Estilo del texto
-              ),
+              child: Text('Cambiar Imagen de Perfil'), // Texto del botón
             ),
           ],
         ),
