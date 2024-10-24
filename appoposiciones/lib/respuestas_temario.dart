@@ -16,16 +16,23 @@ class _Respuestas_TemarioState extends State<Respuestas_Temario> {
   String? respuestaCorrecta;
   List<dynamic> preguntas = [];
   List<dynamic> respuestas = [];
-  int indicePregunta = 0; // Índice de la pregunta actual.
+  int indicePregunta = -1; // Índice de la pregunta actual. (Inicialmente  no hay preguntas)
 
   Future<void> cargarDatos() async {
     // Cargar las preguntas
+
     final String preguntasResponse = await rootBundle.loadString('assets/preguntas.json');
     preguntas = json.decode(preguntasResponse)['preguntas'];
+    
 
     // Cargar las respuestas
     final String respuestasReponse = await rootBundle.loadString('assets/respuestas.json');
-    respuestas = json.decode(respuestasReponse)['respuestas'];
+    respuestas = json.decode(respuestasReponse);
+
+    //Generar una pregunta aleatoria al cargar
+    if (preguntas.isNotEmpty){
+      indicePregunta = (DateTime.now().millisecondsSinceEpoch % preguntas.length).toInt();
+    }
 
     setState(() {}); // Actualizar la interfaz después de cargar
     
@@ -37,12 +44,36 @@ class _Respuestas_TemarioState extends State<Respuestas_Temario> {
     cargarDatos(); // Cargar datos al iniciar.
   }
   void mostrarRespuestaCorrecta (){
-    // Mostrar la respuesta correcta para la pregunta actual.
-    final respuestaActual = respuestas[indicePregunta]['respuestas'].firstWhere((respuesta) => respuesta ['id'] == respuestas[indicePregunta]['correcta']);
-    setState(() {
-      respuestaCorrecta = respuestaActual['respuesta'];
-    });
+    
+    if (indicePregunta >= 0 && indicePregunta < respuestas.length){
+      //Obtener el ID de la pregunta actual
+     
+    final preguntaActual = preguntas[indicePregunta];
+    final preguntaID = preguntaActual['id'];
+
+    // Buscar la respuesta correcta basada en el ID de la pregunta.
+
+    final respuestaActual = respuestas.firstWhere(
+      (respuesta)=> respuesta['preguntaId'] == preguntaID,
+       orElse: () => null,
+    );
+    if (respuestaActual != null){
+      final correcta = respuestaActual['correcta'];
+      respuestaCorrecta = respuestaActual['respuestas'].firstWhere(
+        (respuesta) => respuesta['id'] == correcta,
+         orElse: () => null,
+      )?['respuesta']?? 'Respuesta no encontrada';
+    }
+    setState(() {}); // Actualizar la interfaz para mostrar la respuesta correcta.
   }
+}
+void siguientePregunta(){
+  setState(() {
+    // Generar un índice aleatorio
+    indicePregunta = (DateTime.now().millisecondsSinceEpoch % preguntas.length).toInt();
+    respuestaCorrecta = null; // Reiniciar la respuesta correcta.
+  });
+}
 
 
   @override
@@ -58,7 +89,7 @@ class _Respuestas_TemarioState extends State<Respuestas_Temario> {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
-                preguntas[indicePregunta]['pregunta'],
+                preguntas[indicePregunta]['pregunta'], // Muestra la pregunta
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
               ),
@@ -71,11 +102,11 @@ class _Respuestas_TemarioState extends State<Respuestas_Temario> {
                     style: TextStyle(fontSize: 18.0, color: Colors.blue),
                     ),
                   ),
-                  _botonPasar(), // Llamar al botón para pasar
+                  _botonPasar(siguientePregunta), // Llamar al botón para pasar
               
-       
+        
         ],
-      )
+      ),
     );
   }
 }
@@ -88,10 +119,10 @@ Widget _botonRespuesta(VoidCallback onPressed) {
   );
 }
 
-Widget _botonPasar (){
+Widget _botonPasar (VoidCallback onPressed){
   return ElevatedButton(
     style: AppTheme.botonFuncional(),
-    onPressed: (){},
+    onPressed: onPressed,
     child: Text('Siguiente pregunta'),
   );
 }
