@@ -3,12 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // Para cargar el JSON
 import 'theme.dart';
 
-class Respuestas_Temario extends StatelessWidget {
+class Respuestas_Temario extends StatefulWidget {
   final String tema;
 
   const Respuestas_Temario({Key? key, required this.tema}) : super(key: key);
 
-  Future<Map<String, dynamic>> cargarPreguntas() async {
+  @override
+  State<Respuestas_Temario> createState() => _Respuestas_TemarioState();
+}
+
+class _Respuestas_TemarioState extends State<Respuestas_Temario> {
+ String? mensaje;
+ Future<Map<String, dynamic>> cargarPreguntas() async {
     final String response =
         await rootBundle.loadString('assets/preguntas.json');
     return json.decode(response);
@@ -16,9 +22,9 @@ class Respuestas_Temario extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+        return Scaffold(
       appBar: AppBar(
-        title: Text('Pregunta Aleatoria - $tema'),
+        title: Text('Pregunta Aleatoria - ${widget.tema}'),
       ),
       body: FutureBuilder(
         future: cargarPreguntas(),
@@ -41,7 +47,19 @@ class Respuestas_Temario extends StatelessWidget {
                     preguntaAleatoria['pregunta'],
                     style: TextStyle(fontSize: 24),
                   ),
-                  _botonRespuesta(),
+                  _botonRespuesta((){
+                    setState (() {
+                      mensaje = 'Hola';
+                    });
+                  }),
+                    if (mensaje != null)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20.0),
+                      child: Text(
+                        mensaje!,
+                        style: TextStyle(fontSize: 24),
+                        )
+                    ),
                   // Aquí puedes agregar lógica para mostrar las respuestas, etc.
                 ],
               ),
@@ -53,10 +71,13 @@ class Respuestas_Temario extends StatelessWidget {
   }
 }
 
-Widget _botonRespuesta() {
+Widget _botonRespuesta(VoidCallback onPressed) {
   return ElevatedButton(
     style: AppTheme.botonFuncional(),
-    onPressed: () {},
-    child: Text('Respuesta'),
+    onPressed: onPressed,
+    child:Text ('Respuesta'),
   );
-}
+
+
+    }
+   
