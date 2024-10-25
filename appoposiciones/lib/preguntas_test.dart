@@ -6,9 +6,9 @@ import 'respuestas.dart';
 import 'theme.dart'; // Importa el archivo que contiene el tema
 
 class Preguntas_Test extends StatefulWidget {
-  final String nombre;
+  final String tema;
 
-  const Preguntas_Test({super.key, required this.nombre});
+  const Preguntas_Test({super.key, required this.tema});
 
   @override
   _PreguntasTestState createState() => _PreguntasTestState();
@@ -26,10 +26,10 @@ class _PreguntasTestState extends State<Preguntas_Test> {
 
   Future<void> _cargarPreguntas() async {
     final String response =
-        await rootBundle.loadString('assets/cuestiones.json');
+        await rootBundle.loadString('assets/respuestas.json');
     final data = await json.decode(response);
     setState(() {
-      preguntas = (data['cuestiones'] as List)
+      preguntas = (data['respuestas'] as List)
           .map((i) => Pregunta.fromJson(i))
           .toList();
     });
@@ -39,7 +39,7 @@ class _PreguntasTestState extends State<Preguntas_Test> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Preguntas del ${widget.nombre}'),
+        title: Text('Preguntas del ${widget.tema}'),
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       ),
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
