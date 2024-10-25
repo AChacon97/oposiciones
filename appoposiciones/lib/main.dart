@@ -66,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: ListBody(
               children: <Widget>[
                 Text(
-                    'Hola. Si no estás registrado, resgistrate. Si de lo contrario estás registrado, accede pulsando en login'),
+                    'Hola. Si no estás registrado, resgístrate. Si de lo contrario estás registrado, accede pulsando en login'),
               ],
             ),
           ),
