@@ -8,11 +8,9 @@ class Temario_Test extends StatelessWidget {
   final List<Tema> temas;
   const Temario_Test({super.key, required this.temas});
 
-
-
 // JOSE esto es para que puedas crear las reglas de los colores en las card, Tema COMPLETADAS, SIN ABRIR y EMPEZADAS. En el archivo "theme" al final del todo lo tienes cada color.
 
- /* ExampleCard({required this.state});
+  /* ExampleCard({required this.state});
 
   @override
   Widget build(BuildContext context) {
@@ -29,12 +27,6 @@ class Temario_Test extends StatelessWidget {
         cardTheme = AppTheme.cardThemeNormal;
     }
     */
-
-    
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -76,14 +68,15 @@ Widget _boton(BuildContext context, Tema temas) {
     child: Center(
       child: Container(
         width: MediaQuery.of(context).size.width *
-            0.45, // Ajusta el ancho al 45% del ancho de la pantalla
+            0.95, // Ajusta el ancho al 45% del ancho de la pantalla
         height: 60, // Anchura y altura de la carta
         child: Card(
+          color: Theme.of(context)
+              .cardTheme
+              .color, // Aplica el esquema de color del tema
           //color: cardTheme.color, //      <-----------------------------------------------------Esto aplicará el esquema de color que aplique.
           margin: EdgeInsets.all(5.0), // Margen entre las cartas
-          //color: const Color.fromARGB(255, 2, 244, 10), // Color de la carta
           elevation: 10.0, // Elevamos el botón
-          //shadowColor: Colors.red, // Color de la sombra
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
