@@ -1,0 +1,56 @@
+{
+    "temas": [
+      {
+        "tema": "1",
+        "preguntas": [
+          {
+            "pregunta": "¿Cuál es el concepto básico de la teoría de la relatividad?",
+            "respuesta": "La teoría de la relatividad establece que las leyes de la física son las mismas para todos los observadores y que la velocidad de la luz en el vacío es constante."
+          },
+          {
+            "pregunta": "¿Qué es la programación orientada a objetos?",
+            "respuesta": "La programación orientada a objetos es un paradigma de programación basado en la creación de objetos que contienen datos y métodos."
+          },
+          {
+            "pregunta": "¿Qué es un algoritmo?",
+            "respuesta": "Un algoritmo es un conjunto de instrucciones paso a paso que resuelven un problema o realizan una tarea."
+          }
+        ]
+      },
+      {
+        "tema": "2",
+        "preguntas": [
+          {
+            "pregunta": "¿Cuál es la función de la célula en el cuerpo humano?",
+            "respuesta": "La célula es la unidad básica de vida y realiza todas las funciones vitales del organismo."
+          },
+          {
+            "pregunta": "¿Qué es una función en matemáticas?",
+            "respuesta": "Una función es una relación que asigna a cada elemento de un conjunto de entrada un único elemento de un conjunto de salida."
+          },
+          {
+            "pregunta": "¿Qué es la teoría del Big Bang?",
+            "respuesta": "Es una teoría cosmológica que describe el origen del universo a partir de una singularidad hace unos 13.8 mil millones de años."
+          }
+        ]
+      },
+      {
+        "tema": "3",
+        "preguntas": [
+          {
+            "pregunta": "¿Cuál es la importancia del reciclaje?",
+            "respuesta": "El reciclaje ayuda a reducir la contaminación, conservar recursos y reducir la cantidad de residuos."
+          },
+          {
+            "pregunta": "¿Qué es un ecosistema?",
+            "respuesta": "Un ecosistema es una comunidad de organismos vivos que interactúan con su entorno físico en un área específica."
+          },
+          {
+            "pregunta": "¿Qué es la energía renovable?",
+            "respuesta": "La energía renovable es la que se obtiene de fuentes naturales que se regeneran de forma continua, como el sol y el viento."
+          }
+        ]
+      }
+    ]
+  }
+  

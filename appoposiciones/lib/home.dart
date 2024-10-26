@@ -1,139 +1,134 @@
-import 'package:flutter/material.dart'; // Importa el paquete de Flutter para la interfaz de usuario
-import 'package:appoposiciones/temario_temas.dart'; // Importa la clase para el temario de temas
-import 'package:appoposiciones/temario_test.dart'; // Importa la clase para el temario de tests
-import 'package:appoposiciones/estadisticas.dart'; // Importa la clase de estadísticas
-import 'package:appoposiciones/configuracion.dart'; // Importa la clase de configuración
-import 'Tema.dart';
-import 'theme.dart'; // Importa el archivo que contiene el tema
+import 'package:flutter/material.dart';
+import 'package:appoposiciones/preguntas_test.dart';
+import 'package:appoposiciones/preguntas_desarrollo.dart';
+import 'preguntas_desarrollo.dart';
+import 'theme.dart';
 
-// Clase principal que representa la pantalla de inicio
-class Tap extends StatefulWidget {
-  const Tap({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  State<Tap> createState() => _TapState();
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _TapState extends State<Tap> {
-  final List<Tema> temas = [
-    Tema(id: 1, titulo: 'Volante'),
-    Tema(id: 2, titulo: 'Aprende'),
-    Tema(id: 3, titulo: 'Rueda'),
-    Tema(id: 4, titulo: 'Llanta'),
-    Tema(id: 5, titulo: 'Calefacción'),
-    Tema(id: 6, titulo: 'A/C'),
-    Tema(id: 7, titulo: 'Luces'),
-    Tema(id: 8, titulo: 'Señales'),
+class _HomeScreenState extends State<HomeScreen> {
+  int _currentIndex = 0;
+
+  // Mapas para almacenar el progreso de cada tema en Test y en Desarrollo
+  Map<String, int> temaProgressTest = {
+    'Tema 1': 0,
+    'Tema 2': 0,
+    'Tema 3': 0,
+  };
+  Map<String, int> temaProgressDesarrollo = {
+    'Tema 1': 0,
+    'Tema 2': 0,
+    'Tema 3': 0,
+  };
+
+  // Actualiza el progreso del tema cuando el usuario ha avanzado o completado
+  void _updateTemaProgress(String tema, int status) {
+    setState(() {
+      if (_currentIndex == 0) {
+        temaProgressTest[tema] = status; // Test
+      } else {
+        temaProgressDesarrollo[tema] = status; // Desarrollo
+      }
+    });
+  }
+
+  final List<String> temas = [
+    'Tema 1',
+    'Tema 2',
+    'Tema 3',
   ];
 
-  // get temas => null; // Constructor de la clase
+  // Función para obtener el estilo del botón según el progreso del tema
+  ButtonStyle _getButtonStyle(String tema, BuildContext context) {
+    final progress =
+        _currentIndex == 0 ? temaProgressTest : temaProgressDesarrollo;
+    switch (progress[tema]) {
+      case 1:
+        return AppTheme.inProgressColor(context);
+      case 2:
+        return AppTheme.completedColor(context);
+      default:
+        return AppTheme.notStartedColor(context);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    // Simulación de tiempos de conexión
-    final String tiempoPorDia =
-        "2 horas"; // Tiempo promedio de conexión por día
-    final String tiempoTotal = "50 horas"; // Tiempo total de conexión
-
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Home"), // Título de la barra de aplicación
-        actions: [
-          IconButton(
-            icon: const Icon(
-                Icons.settings), // Icono de engranaje para configuración
-            onPressed: () {
-              // Navega a la página de configuración
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        const Configuracion()), // Asegúrate de que esta clase esté implementada
-              );
-            },
-          ),
-        ],
+        title: Text(
+          _currentIndex == 0 ? 'Preguntas Test' : 'Preguntas de Desarrollo',
+        ), // Título de la pantalla principal
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment
-              .center, // Centra los elementos en el eje vertical
-          children: [
-            const SizedBox(
-                height: 20), // Espacio entre el texto y el recuadro de foto
-            // Recuadro para la foto de perfil
-            CircleAvatar(
-              radius: 50, // Radio para el tamaño del círculo
-              backgroundColor:
-                  Colors.grey[300], // Color de fondo si no hay imagen
-              backgroundImage: NetworkImage(
-                  'https://example.com/tu_imagen.jpg'), // URL de la imagen del perfil
-            ),
-            const SizedBox(height: 20), // Espacio entre la foto y el botón
-            ElevatedButton(
-              style: AppTheme.botonFuncional(),
-              onPressed: () {
-                // Navega a la página de Estadísticas
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const Estadisticas()),
-                );
-              },
-              child: const Text("Estadísticas"), // Texto del botón
-            ),
-            const SizedBox(height: 20), // Espacio entre el botón y los tiempos
-            Text(
-              "Tiempo de conexión por día: $tiempoPorDia", // Muestra el tiempo de conexión diario
-              style: const TextStyle(fontSize: 16), // Estilo del texto
-            ),
-            const SizedBox(height: 10), // Espacio entre los textos
-            Text(
-              "Tiempo de conexión total: $tiempoTotal", // Muestra el tiempo total de conexión
-              style: const TextStyle(fontSize: 16), // Estilo del texto
-            ),
-          ],
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: temas.map((tema) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: ElevatedButton(
+                style: _getButtonStyle(tema,
+                    context), // Aplica el estilo del botón según el estado del tema
+                onPressed: () async {
+                  _updateTemaProgress(tema,
+                      1); // Cambia a "en progreso" cuando se inicia el tema
+
+                  // Navega a la pantalla de preguntas y espera el resultado
+                  final resultado = await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => _currentIndex == 0
+                          ? Preguntas_Test(nombre: tema)
+                          : Preguntas_Desarrollo(nombre: tema),
+                    ),
+                  );
+
+                  // Actualiza el progreso del tema en función del resultado
+                  if (resultado == 'completado') {
+                    _updateTemaProgress(
+                        tema, 2); // Marca el tema como completado
+                  } else {
+                    _updateTemaProgress(tema, 1); // Deja el tema en progreso
+                  }
+                },
+                child: Text(tema), // Texto del botón (nombre del tema)
+              ),
+            );
+          }).toList(),
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        iconSize: 60,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.quiz), // Icono para la sección de tests
-            label: 'Test', // Etiqueta para la sección de tests
+            icon: Icon(Icons.quiz),
+            label: 'Test', // Icono y etiqueta para el test
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.book), // Icono para la sección de temario
-            label: 'Temario', // Etiqueta para la sección de temario
+            icon: Icon(Icons.book),
+            label: 'Temario', // Icono y etiqueta para el temario
           ),
         ],
-        currentIndex: 0, // Índice del elemento seleccionado
-        selectedItemColor: Colors.blue, // Color del ítem seleccionado
+        currentIndex: _currentIndex,
+        selectedItemColor: Colors.blue,
         onTap: (index) {
-          // Función que se ejecuta al tocar un ítem
-          if (index == 0) {
-            // Si se toca el primer ítem (Test)
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => Temario_Test(temas: temas),
-              ),
-            ); // Navegar a la pantalla de Test
-          } else if (index == 1) {
-            // Si se toca el segundo ítem (Temario)
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => Temario_temas(temas: temas),
-              ),
-            ); // Navegar a la pantalla de Temario
-          }
+          setState(() {
+            _currentIndex =
+                index; // Cambia la vista actual en la barra de navegación
+          });
         },
       ),
     );
   }
 }
 
-// Punto de entrada de la aplicación
-/*void main() {
+void main() {
   runApp(MaterialApp(
-    home: Tap(), // Inicia la aplicación con la clase Tap
+    home: HomeScreen(),
   ));
-}*/
+}
