@@ -21,6 +21,7 @@ class _PantallaLoginState extends State<PantallaLogin> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          title: Text('login'),
             //backgroundColor: Theme.of(context).colorScheme.inversePrimary, <--
 
             ),
