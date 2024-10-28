@@ -3,6 +3,7 @@ import 'package:appoposiciones/preguntas_test.dart';
 import 'package:appoposiciones/preguntas_desarrollo.dart';
 import 'preguntas_desarrollo.dart';
 import 'theme.dart';
+import 'configuracion.dart'; // Importa Configuracion
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -113,18 +114,39 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: Icon(Icons.book),
             label: 'Temario', // Icono y etiqueta para el temario
           ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Perfil', // Nuevo tab de perfil
+          ),
         ],
         currentIndex: _currentIndex,
         selectedItemColor: Colors.blue,
         onTap: (index) {
           setState(() {
-            _currentIndex =
-                index; // Cambia la vista actual en la barra de navegación
+            if (index == 2) { 
+              // Navega a Configuracion cuando se selecciona el índice 2 (Perfil)
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Configuracion()),
+              );
+            } else {
+              _currentIndex = index;
+            }
           });
         },
       ),
-    );
+      );
   }
+}
+
+// Método para construir la pantalla de perfil
+Widget _buildPerfilScreen() {
+  return Center(
+    child: Text(
+      'Aquí va tu información de perfil.',
+      style: TextStyle(fontSize: 20),
+    ),
+  );
 }
 
 void main() {
