@@ -98,7 +98,7 @@ Widget BotonRegistrar(BuildContext context) {
     style: AppTheme.botonFuncional(), // Aplica tu estilo de botón funcional
     onPressed: () {
       // Navegar a la pantalla de registro al presionar el botón
-      Navigator.push(
+      Navigator.pop(
         context,
         MaterialPageRoute(builder: (context) => const PantallaRegistro()),
       );
@@ -114,9 +114,8 @@ Widget BotonRegistrar(BuildContext context) {
 }
 
 Widget BotonAcceder(BuildContext context) {
-  // Método para el botón acceder.
   return ElevatedButton(
-    style: AppTheme.botonFuncional(), //
+    style: AppTheme.botonFuncional(),
     onPressed: () {
       Navigator.push(
         context,

@@ -3,6 +3,7 @@ import 'package:appoposiciones/preguntas_test.dart';
 import 'package:appoposiciones/preguntas_desarrollo.dart';
 import 'preguntas_desarrollo.dart';
 import 'theme.dart';
+import 'configuracion.dart'; // Importa Configuracion
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -30,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void _updateTemaProgress(String tema, int status) {
     setState(() {
       if (_currentIndex == 0) {
-        temaProgressTest[tema] = status; // Test
+        /*temaProgressTest[tema] = status; <-- DESACTIVACION DE COLOR DE REALIZADO O POR HACER */
       } else {
         temaProgressDesarrollo[tema] = status; // Desarrollo
       }
@@ -122,12 +123,19 @@ class _HomeScreenState extends State<HomeScreen> {
         selectedItemColor: Colors.blue,
         onTap: (index) {
           setState(() {
-            _currentIndex =
-                index; // Cambia la vista actual en la barra de navegación
+            if (index == 2) { 
+              // Navega a Configuracion cuando se selecciona el índice 2 (Perfil)
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Configuracion()),
+              );
+            } else {
+              _currentIndex = index;
+            }
           });
         },
       ),
-    );
+      );
   }
 }
 
