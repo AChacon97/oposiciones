@@ -1,10 +1,13 @@
 import 'dart:convert'; // Para manejar JSON
+import 'package:appoposiciones/login.dart';
 import 'package:flutter/material.dart'; // Paquete de Flutter para la interfaz de usuario
 import 'package:flutter/services.dart'; // Para cargar archivos locales
 import 'package:path_provider/path_provider.dart'; // Para obtener el directorio del sistema
 import 'dart:io'; // Para manejar archivos
 import 'package:appoposiciones/home.dart'; // Asegúrate de que la ruta sea correcta
 import 'theme.dart'; // Importa el archivo que contiene el tema
+
+
 
 // Clase principal de la pantalla de registro
 class PantallaRegistro extends StatefulWidget {
@@ -22,6 +25,8 @@ class _PantallaRegistroState extends State<PantallaRegistro> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+
+
   // Variables para almacenar errores de validación
   String? _usernameError;
   String? _emailError;
@@ -38,18 +43,49 @@ class _PantallaRegistroState extends State<PantallaRegistro> {
   // Función para cargar usuarios desde un archivo JSON
   Future<void> _loadUsers() async {
     try {
-      final directory =
+
+      // Cargar desde el almacenamiento local
+
+      /*String? jsongString = html.window.localStorage['registro'];
+
+      if (jsongString != null){
+        //decodificar el JSON
+        List<dynamic>data = jsonDecode(jsongString);
+        setState(() {
+          _users = List<Map<String, dynamic>>.from(data.map((user)=>{
+            'username': user['username']??'',
+            'email': user['email']??'',
+            'password': user['password']??''
+          }));
+        });
+      }*/
+
+
+     final directory =
           await getApplicationDocumentsDirectory(); // Obtiene el directorio de documentos
-      final file =
-          File('${directory.path}/data.json'); // Define la ruta del archivo
+      final file = File('${directory.path}/registro.json'); // Define la ruta del archivo
       if (await file.exists()) {
         // Verifica si el archivo existe
         final String response =
             await file.readAsString(); // Lee el contenido del archivo
-        final data = json.decode(response); // Decodifica el JSON
+        final List<dynamic> data = json.decode(response);
+        //final data = json.decode(response); // Decodifica el JSON
         setState(() {
-          _users = data; // Asigna los usuarios a la lista
+          _users = List<Map<String, dynamic>>.from(data);
+  
+      });
+          //_users.removeWhere((user) => user['username'] == null || user ['email']== null|| user['password'] == null);
+         // _users = data; // Asigna los usuarios a la lista
+      
+        // Crea el archivo con una lista vacía.
+      }else{
+        //si el archivo no existe, inicializa _users como una lista vacía
+
+        await file.writeAsString(json.encode([]));
+        setState(() {
+          _users = [];
         });
+        
       }
     } catch (e) {
       print('Error al cargar usuarios: $e'); // Manejo de errores
@@ -58,38 +94,78 @@ class _PantallaRegistroState extends State<PantallaRegistro> {
 
   // Función para guardar usuarios en el archivo JSON
   Future<void> _saveUsers() async {
-    final directory =
-        await getApplicationDocumentsDirectory(); // Obtiene el directorio de documentos
-    final file =
-        File('${directory.path}/data.json'); // Define la ruta del archivo
+    try{
+   /* final directory =
+        await getApplicationDocumentsDirectory(); // Obtiene el directorio de documentos*/
+    final file = File('C:\\Users\\Jose Manuel\\Desktop\\github\\oposiciones\\appoposiciones\\assets\\registro.json'); // Define la ruta del archivo*/
 
-    String jsonString =
-        jsonEncode(_users); // Convierte la lista de usuarios a JSON
-    await file.writeAsString(jsonString); // Guarda el JSON en el archivo
+
+
+         //Imprime la ruta del archivo
+    print('Ruta del archivo: ${file.path}');
+    
+  
+       String jsonString = jsonEncode(_users); // Convierte la lista de usuarios a JSON
+
+       //Guardar en el almacenamiento local del navegador
+       //html.window.localStorage['registro'] = jsonString;
+      await file.writeAsString(jsonString); // Guarda el JSON en el archivo
+          print('Usuarios guardados correctamente');
+     } catch (e){
+    print('Error al guardar usuarios: $e');
+  }
   }
 
   // Función para registrar un nuevo usuario
-  void _registerUser() {
+  void _registerUser() async {
+    print('Intentando registrar usuario...');
+    
+    // Validar campos no vacíos
+    if(_usernameController.text.isEmpty
+        || _emailController.text.isEmpty
+        || _passwordController.text.isEmpty){
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Todos los campos son obligatorios.')),
+          );
+          return;
+        }
     final newUser = {
       'username': _usernameController.text, // Obtiene el nombre de usuario
       'email': _emailController.text, // Obtiene el correo electrónico
       'password': _passwordController.text, // Obtiene la contraseña
     };
+      bool userExists = _users.any((user) =>
+      user['username'] == newUser['username'] ||
+      user['email'] == newUser['email']);
 
-    setState(() {
+  if (!userExists) {
+     setState(() {
       _users.add(newUser); // Agrega el nuevo usuario a la lista
+      print('Lista de usuarios antes de guardar: $_users');
     });
+      await _saveUsers(); // Guarda usuarios en el archivo JSON
+      print('Usuario registrado: $newUser'); // Imprime el nuevo usuario en consola
+  }else{
+    
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('El usuario ya existe.')),
+    );
+    return; 
+  }
 
-    _saveUsers(); // Guarda usuarios en el archivo JSON
-    print(
-        'Usuario registrado: $newUser'); // Imprime el nuevo usuario en consola
+   
+    
+    
+  
+
+
 
     // Navega a la página de inicio
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
           builder: (context) =>
-              const HomeScreen()), // Cambia a la página de inicio
+              const PantallaLogin(title: 'login',)), // Cambia a la página de inicio
     );
   }
 
