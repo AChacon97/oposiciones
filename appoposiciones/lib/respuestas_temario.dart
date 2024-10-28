@@ -119,8 +119,8 @@ void siguientePregunta(){
                         Slider(
                           value: valoracionDificultad,
                           min: 1,
-                          max: 10,
-                          divisions: 9,  // Lo partimos en 9 puntos para seleccionar
+                          max: 5,
+                          divisions: 5,  // Lo partimos en 9 puntos para seleccionar
                           label: valoracionDificultad.round().toString(), /* Se utiliza para mostrar una etiqueta en el Slider que indica el valor actual seleccionado por el usuario.
                                                                              El .round() sirve para rendondear al entero mas cercano.
                                                                              El toString convierte el tipo entero a String porque el label tiene que recibir un tipo de dato String para mostrarlo.*/

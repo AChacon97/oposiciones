@@ -36,7 +36,7 @@ class _PantallaLoginState extends State<PantallaLogin> {
                   width: 150,
                 ),
                 Text(
-                  'BIENVENIDOS A TU APP DE AUTOESCUELA',
+                  'BIENVENIDOS A TU APP',
                   style: Theme.of(context).textTheme.displayLarge,
                 ),
                 const SizedBox(
