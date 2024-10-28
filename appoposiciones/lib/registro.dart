@@ -88,7 +88,8 @@ class _PantallaRegistroState extends State<PantallaRegistro> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-          builder: (context) => const Tap()), // Cambia a la página de inicio
+          builder: (context) =>
+              const HomeScreen()), // Cambia a la página de inicio
     );
   }
 

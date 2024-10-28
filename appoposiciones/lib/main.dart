@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'theme.dart'; // Importa el archivo que contiene el tema
+import 'preguntas_desarrollo.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -66,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: ListBody(
               children: <Widget>[
                 Text(
-                    'Hola. Si no estás registrado, resgistrate. Si de lo contrario estás registrado, accede pulsando en login'),
+                    'Hola. Si no estás registrado, resgístrate. Si de lo contrario estás registrado, accede pulsando en login'),
               ],
             ),
           ),

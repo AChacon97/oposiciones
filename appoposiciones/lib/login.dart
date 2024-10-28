@@ -36,7 +36,7 @@ class _PantallaLoginState extends State<PantallaLogin> {
                   width: 150,
                 ),
                 Text(
-                  'BIENVENIDOS A TU APP DE AUTOESCUELA',
+                  'BIENVENIDOS A TU APP',
                   style: Theme.of(context).textTheme.displayLarge,
                 ),
                 const SizedBox(
@@ -119,8 +119,12 @@ Widget BotonAcceder(BuildContext context) {
     onPressed: () {
       Navigator.push(
         context,
+<<<<<<< HEAD
         MaterialPageRoute(
             builder: (context) => Tap()), // Ruta a la nueva pantalla
+=======
+        MaterialPageRoute(builder: (context) => HomeScreen()),
+>>>>>>> developed
       );
     },
     child: const Text('Login'),
