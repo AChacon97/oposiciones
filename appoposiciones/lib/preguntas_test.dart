@@ -102,7 +102,7 @@ class _PreguntasTestState extends State<Preguntas_Test> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Preguntas del Tema ${widget.nombre}'),
+        title: Text('Preguntas del  ${widget.nombre}'),
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       ),
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
@@ -131,25 +131,28 @@ class _PreguntasTestState extends State<Preguntas_Test> {
               ...preguntaActual!['opciones'].map<Widget>((opcion) {
                 int index = preguntaActual!['opciones'].indexOf(opcion);
                 return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 5.0),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 10.0), // Aumentar la separación
                   child: Center(
-                    // Centra el botón
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0),
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width *
+                          0.9, // 90% del ancho
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          padding: EdgeInsets.symmetric(vertical: 15.0),
                         ),
-                        padding: EdgeInsets.symmetric(
-                            vertical: 15.0, horizontal: 30.0),
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          _respuestaSeleccionada = index;
-                        });
-                      },
-                      child: Text(
-                        opcion,
-                        style: TextStyle(fontSize: 18),
+                        onPressed: () {
+                          setState(() {
+                            _respuestaSeleccionada = index;
+                          });
+                        },
+                        child: Text(
+                          opcion,
+                          style: TextStyle(fontSize: 18),
+                        ),
                       ),
                     ),
                   ),
