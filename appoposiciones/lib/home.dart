@@ -113,6 +113,10 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: Icon(Icons.book),
             label: 'Temario', // Icono y etiqueta para el temario
           ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Perfil', // Nuevo tab de perfil
+          ),
         ],
         currentIndex: _currentIndex,
         selectedItemColor: Colors.blue,
@@ -125,6 +129,16 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+}
+
+// Método para construir la pantalla de perfil
+Widget _buildPerfilScreen() {
+  return Center(
+    child: Text(
+      'Aquí va tu información de perfil.',
+      style: TextStyle(fontSize: 20),
+    ),
+  );
 }
 
 void main() {
