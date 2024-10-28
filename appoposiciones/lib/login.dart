@@ -119,12 +119,7 @@ Widget BotonAcceder(BuildContext context) {
     onPressed: () {
       Navigator.push(
         context,
-<<<<<<< HEAD
-        MaterialPageRoute(
-            builder: (context) => Tap()), // Ruta a la nueva pantalla
-=======
         MaterialPageRoute(builder: (context) => HomeScreen()),
->>>>>>> developed
       );
     },
     child: const Text('Login'),

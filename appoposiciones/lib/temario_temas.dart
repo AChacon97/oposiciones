@@ -15,11 +15,7 @@ class Temario_temas extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-<<<<<<< HEAD
-        title: Text(''),
-=======
         title: Text('Temario temas'),
->>>>>>> developed
       ),
       body: Column(
         children: [
@@ -56,16 +52,6 @@ Widget _boton(BuildContext context, Tema temas) {
     child: Center(
       child: Container(
         width: MediaQuery.of(context).size.width *
-<<<<<<< HEAD
-            0.99, // Ajusta el ancho al 45% del ancho de la pantalla
-        height: 60, // Anchura y altura de la carta
-        child: Card(
-          margin: EdgeInsets.all(5.0), // Margen entre las cartas
-          color: const Color.fromARGB(255, 2, 244, 10), // Color de la carta
-          elevation: 10.0, // Elevamos el botón
-          shadowColor: Colors.red, // Color de la sombra
-
-=======
             0.95, // Ajusta el ancho al 45% del ancho de la pantalla
         height: 60, // Anchura y altura de la carta
         child: Card(
@@ -74,7 +60,6 @@ Widget _boton(BuildContext context, Tema temas) {
               .color, // Aplica el esquema de color del tema
           margin: EdgeInsets.all(5.0), // Margen entre las cartas
           elevation: 10.0, // Elevamos el botón
->>>>>>> developed
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

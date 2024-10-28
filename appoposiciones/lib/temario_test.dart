@@ -4,11 +4,8 @@ import 'Tema.dart';
 
 class Temario_Test extends StatelessWidget {
   // const Temario_Test({super.key});
-  final List<Tema> temas;
-  const Temario_Test({super.key, required this.temas});
-<<<<<<< HEAD
-//dfsdfds
-=======
+  final List<Tema> nombre;
+  const Temario_Test({super.key, required this.nombre});
 
 // JOSE esto es para que puedas crear las reglas de los colores en las card, Tema COMPLETADAS, SIN ABRIR y EMPEZADAS. En el archivo "theme" al final del todo lo tienes cada color.
 
@@ -30,7 +27,6 @@ class Temario_Test extends StatelessWidget {
     }
     */
 
->>>>>>> developed
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,9 +49,9 @@ class Temario_Test extends StatelessWidget {
               Expanded(
                 // Se utiliza para expandir.
                 child: ListView.builder(
-                  itemCount: temas.length,
+                  itemCount: nombre.length,
                   itemBuilder: (context, index) {
-                    return _boton(context, temas[index]);
+                    return _boton(context, nombre[index]);
                   },
                 ),
               ),
@@ -78,10 +74,7 @@ Widget _boton(BuildContext context, Tema temas) {
           color: Theme.of(context)
               .cardTheme
               .color, // Aplica el esquema de color del tema
-<<<<<<< HEAD
-=======
           //color: cardTheme.color, //      <-----------------------------------------------------Esto aplicará el esquema de color que aplique.
->>>>>>> developed
           margin: EdgeInsets.all(5.0), // Margen entre las cartas
           elevation: 10.0, // Elevamos el botón
           child: Center(
@@ -107,7 +100,7 @@ Widget _boton(BuildContext context, Tema temas) {
         context,
         MaterialPageRoute(
           builder: (context) => Preguntas_Test(
-            tema: temas.titulo,
+            nombre: temas.titulo,
           ),
           // Pasamos el titulo del tema.
         ),

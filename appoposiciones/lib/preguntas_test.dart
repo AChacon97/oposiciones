@@ -5,9 +5,9 @@ import 'dart:math'; // Import for random selection
 import 'theme.dart'; // Importa el archivo que contiene el tema
 
 class Preguntas_Test extends StatefulWidget {
-  final String tema;
+  final String nombre;
 
-  const Preguntas_Test({super.key, required this.tema});
+  const Preguntas_Test({super.key, required this.nombre});
 
   @override
   _PreguntasTestState createState() => _PreguntasTestState();
@@ -31,14 +31,6 @@ class _PreguntasTestState extends State<Preguntas_Test> {
 
   Future<void> _cargarPreguntas() async {
     final String response =
-<<<<<<< HEAD
-        await rootBundle.loadString('assets/respuestas.json');
-    final data = await json.decode(response);
-    setState(() {
-      preguntas = (data['respuestas'] as List)
-          .map((i) => Pregunta.fromJson(i))
-          .toList();
-=======
         await rootBundle.loadString('assets/preguntas_test.json');
     final data = json.decode(response);
 
@@ -81,11 +73,10 @@ class _PreguntasTestState extends State<Preguntas_Test> {
       preguntaActual = preguntasTema[index];
       respuestaComprobada = false;
       _respuestaSeleccionada = null;
->>>>>>> developed
     });
   }
 
-void _mostrarResumen() {
+  void _mostrarResumen() {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -96,7 +87,8 @@ void _mostrarResumen() {
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(); // Cierra el cuadro de diálogo
-                Navigator.of(context).pop("completado"); // Vuelve al menú e indica "completado"
+                Navigator.of(context)
+                    .pop("completado"); // Vuelve al menú e indica "completado"
               },
               child: Text("Volver al Menú"),
             ),
@@ -106,16 +98,11 @@ void _mostrarResumen() {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-<<<<<<< HEAD
-        title: Text('Preguntas del ${widget.tema}'),
-=======
         title: Text('Preguntas del Tema ${widget.nombre}'),
->>>>>>> developed
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       ),
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),

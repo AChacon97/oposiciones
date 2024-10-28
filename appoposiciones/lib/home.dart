@@ -1,15 +1,3 @@
-<<<<<<< HEAD
-import 'package:appoposiciones/temario_test.dart';
-import 'package:flutter/material.dart';
-import 'package:appoposiciones/temario_temas.dart';
-import 'package:appoposiciones/estadisticas.dart';
-import 'package:appoposiciones/configuracion.dart';
-import 'Tema.dart';
-import 'theme.dart';
-
-class Tap extends StatefulWidget {
-  const Tap({super.key});
-=======
 import 'package:flutter/material.dart';
 import 'package:appoposiciones/preguntas_test.dart';
 import 'package:appoposiciones/preguntas_desarrollo.dart';
@@ -18,7 +6,6 @@ import 'theme.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
->>>>>>> developed
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -56,33 +43,6 @@ class _HomeScreenState extends State<HomeScreen> {
     'Tema 3',
   ];
 
-<<<<<<< HEAD
-  int _selectedIndex = 0;
-
-  @override
-  Widget build(BuildContext context) {
-    final String tiempoPorDia = "2 horas";
-    final String tiempoTotal = "50 horas";
-
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("HOME"),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const Configuracion()),
-              );
-            },
-          ),
-        ],
-      ),
-      body: _selectedIndex == 0
-          ? Temario_Test(temas: temas) // Reemplaza con tu pantalla de test
-          : Temario_temas(temas: temas), // Pantalla de Temario
-=======
   // Función para obtener el estilo del botón según el progreso del tema
   ButtonStyle _getButtonStyle(String tema, BuildContext context) {
     final progress =
@@ -142,20 +102,9 @@ class _HomeScreenState extends State<HomeScreen> {
           }).toList(),
         ),
       ),
->>>>>>> developed
       bottomNavigationBar: BottomNavigationBar(
         iconSize: 60,
         items: const [
-<<<<<<< HEAD
-          BottomNavigationBarItem(icon: Icon(Icons.quiz), label: 'Test'),
-          BottomNavigationBarItem(icon: Icon(Icons.book), label: 'Temario'),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.blue,
-        onTap: (index) {
-          setState(() {
-            _selectedIndex = index;
-=======
           BottomNavigationBarItem(
             icon: Icon(Icons.quiz),
             label: 'Test', // Icono y etiqueta para el test
@@ -171,7 +120,6 @@ class _HomeScreenState extends State<HomeScreen> {
           setState(() {
             _currentIndex =
                 index; // Cambia la vista actual en la barra de navegación
->>>>>>> developed
           });
         },
       ),
@@ -179,15 +127,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-<<<<<<< HEAD
-// Punto de entrada de la aplicación
-void main() {
-  runApp(MaterialApp(
-    home: Tap(),
-=======
 void main() {
   runApp(MaterialApp(
     home: HomeScreen(),
->>>>>>> developed
   ));
 }
