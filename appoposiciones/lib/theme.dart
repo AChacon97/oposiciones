@@ -3,6 +3,12 @@ import 'package:flutter/material.dart';
 const String fontFamily = 'Times New Roman';
 
 class AppTheme {
+  /* ANCHO BOTONES TEMAS */
+  static double getButtonWidth(BuildContext context) {
+    return MediaQuery.of(context).size.width *
+        0.95; // 95% del ancho de la pantalla
+  }
+
   // Paleta de colores
   static const Color primaryColor = Color(0xFF6200EA); // Morado
   static const Color secondaryColor =
@@ -16,8 +22,8 @@ class AppTheme {
   static const Color textNoAbierto =
       Colors.black; // Letras texto TEMA sin EMPEZAR
 
-  // Colores para respuesta correcta e incorrecta.
-  static const Color respuestaCorecta = Color(0xFF4CAF50); // Verde
+  // Colores para respuesta correcta e incorrecta
+  static const Color respuestaCorrecta = Color(0xFF4CAF50); // Verde
   static const Color respuestaIncorrecta = Color(0xFFD32F2F); // Rojo oscuro
 
   /* Define un ThemeData para usar en TODA LA APP */
@@ -97,12 +103,57 @@ class AppTheme {
     );
   }
 
+  static ButtonStyle notStartedColor(BuildContext context) {
+    return ElevatedButton.styleFrom(
+      minimumSize:
+          Size(getButtonWidth(context), 50), // Ancho al 95% y altura fija de 50
+      backgroundColor: Color.fromARGB(
+          255, 217, 227, 251), // Color de fondo para "no empezado"
+      foregroundColor: Color.fromARGB(255, 60, 120, 255), // Color del texto
+      textStyle: const TextStyle(
+        fontFamily: fontFamily, // Tipo de letra definido previamente
+        fontWeight: FontWeight.bold,
+        fontSize: 20,
+      ),
+    );
+  }
+
+  static ButtonStyle completedColor(BuildContext context) {
+    return ElevatedButton.styleFrom(
+      minimumSize:
+          Size(getButtonWidth(context), 50), // Ancho al 95% y altura fija de 50
+      backgroundColor: Color.fromARGB(
+          255, 110, 255, 165), // Color de fondo para "completado"
+      foregroundColor: Color.fromARGB(255, 0, 32, 2), // Color del texto
+      textStyle: const TextStyle(
+        fontFamily: fontFamily,
+        fontWeight: FontWeight.bold,
+        fontSize: 20,
+      ),
+    );
+  }
+
+  static ButtonStyle inProgressColor(BuildContext context) {
+    return ElevatedButton.styleFrom(
+      minimumSize:
+          Size(getButtonWidth(context), 50), // Ancho al 95% y altura fija de 50
+      backgroundColor: Color.fromARGB(
+          255, 255, 216, 86), // Color de fondo para "en progreso"
+      foregroundColor: Color.fromARGB(255, 58, 19, 0), // Color del texto
+      textStyle: const TextStyle(
+        fontFamily: fontFamily,
+        fontWeight: FontWeight.bold,
+        fontSize: 20,
+      ),
+    );
+  }
+
   /* ---ESTILO CARDS--- */
   // Estilo para Card SIN ABRIR
   static final CardTheme cardThemeNormal = CardTheme(
     color: const Color.fromARGB(255, 210, 210, 210),
     shadowColor: const Color.fromARGB(255, 126, 126, 126),
-    elevation: 4,
+    elevation: 6,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(10),
     ),
@@ -113,7 +164,7 @@ class AppTheme {
   static final CardTheme cardThemeSuccess = CardTheme(
     color: Colors.green.shade100,
     shadowColor: Colors.green,
-    elevation: 4,
+    elevation: 6,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(10),
     ),
@@ -124,7 +175,7 @@ class AppTheme {
   static final CardTheme cardThemeError = CardTheme(
     color: Colors.red.shade100,
     shadowColor: const Color.fromARGB(255, 225, 183, 28),
-    elevation: 4,
+    elevation: 6,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(10),
     ),
