@@ -1,12 +1,11 @@
 import 'package:appoposiciones/preguntas_test.dart';
 import 'package:flutter/material.dart';
 import 'Tema.dart';
-import 'theme.dart'; // Importa el archivo que contiene el tema
 
 class Temario_Test extends StatelessWidget {
   // const Temario_Test({super.key});
-  final List<Tema> temas;
-  const Temario_Test({super.key, required this.temas});
+  final List<Tema> nombre;
+  const Temario_Test({super.key, required this.nombre});
 
 // JOSE esto es para que puedas crear las reglas de los colores en las card, Tema COMPLETADAS, SIN ABRIR y EMPEZADAS. En el archivo "theme" al final del todo lo tienes cada color.
 
@@ -32,12 +31,12 @@ class Temario_Test extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('TEST'),
+        title: Text(''),
       ),
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(20.0),
             child: Text(
               '',
               style: TextStyle(
@@ -45,18 +44,19 @@ class Temario_Test extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: Row(
-              children: [
-                Expanded(
-                  child: ListView.builder(
-                      itemCount: temas.length,
-                      itemBuilder: (context, index) {
-                        return _boton(context, temas[index]);
-                      }),
-                )
-              ],
-            ),
-          ),
+              child: Row(
+            children: [
+              Expanded(
+                // Se utiliza para expandir.
+                child: ListView.builder(
+                  itemCount: nombre.length,
+                  itemBuilder: (context, index) {
+                    return _boton(context, nombre[index]);
+                  },
+                ),
+              ),
+            ],
+          )),
         ],
       ),
     );
@@ -88,7 +88,7 @@ Widget _boton(BuildContext context, Tema temas) {
                 Text(
                   temas.titulo,
                   style: TextStyle(fontSize: 10),
-                ),
+                )
               ],
             ),
           ),
@@ -99,7 +99,11 @@ Widget _boton(BuildContext context, Tema temas) {
       Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => Preguntas_Test(nombre: temas.titulo)),
+          builder: (context) => Preguntas_Test(
+            nombre: temas.titulo,
+          ),
+          // Pasamos el titulo del tema.
+        ),
       );
     },
   );

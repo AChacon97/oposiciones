@@ -30,7 +30,11 @@ class _HomeScreenState extends State<HomeScreen> {
   void _updateTemaProgress(String tema, int status) {
     setState(() {
       if (_currentIndex == 0) {
+<<<<<<< HEAD
         //temaProgressTest[tema] = status; // Test
+=======
+        /*temaProgressTest[tema] = status; <-- DESACTIVACION DE COLOR DE REALIZADO O POR HACER */
+>>>>>>> luis
       } else {
         temaProgressDesarrollo[tema] = status; // Desarrollo
       }
