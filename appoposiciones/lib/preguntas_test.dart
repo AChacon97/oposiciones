@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart';
-import 'dart:math'; // Import for random selection
-import 'theme.dart'; // Importa el archivo que contiene el tema
+import 'dart:math'; // Import para selección aleatoria
 
 class Preguntas_Test extends StatefulWidget {
   final String nombre;
@@ -15,9 +14,10 @@ class Preguntas_Test extends StatefulWidget {
 
 class _PreguntasTestState extends State<Preguntas_Test> {
   int? _respuestaSeleccionada;
-  Map<String, dynamic>? preguntaActual; // Store the current question
-  List<Map<String, dynamic>> preguntasTema = []; // All questions in the theme
-  Set<int> preguntasVistas = {}; // Track seen questions by index
+  Map<String, dynamic>? preguntaActual; // Almacena la pregunta actual
+  List<Map<String, dynamic>> preguntasTema =
+      []; // Todas las preguntas en el tema
+  Set<int> preguntasVistas = {}; // Seguimiento de preguntas vistas por índice
   bool respuestaComprobada = false;
   bool esCorrecto = false;
   int correctas = 0;
@@ -46,7 +46,7 @@ class _PreguntasTestState extends State<Preguntas_Test> {
     if (preguntas != null && preguntas.isNotEmpty) {
       setState(() {
         preguntasTema = List<Map<String, dynamic>>.from(preguntas);
-        _siguientePregunta(); // Load the first question
+        _siguientePregunta(); // Carga la primera pregunta
       });
     } else {
       setState(() {
@@ -63,7 +63,7 @@ class _PreguntasTestState extends State<Preguntas_Test> {
     }
 
     setState(() {
-      // Select a new question that hasn't been seen
+      // Selecciona una nueva pregunta que no se haya visto
       int index;
       do {
         index = Random().nextInt(preguntasTema.length);
@@ -116,7 +116,7 @@ class _PreguntasTestState extends State<Preguntas_Test> {
               Text(
                 preguntaActual!['pregunta'],
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,
+                textAlign: TextAlign.center, // Centrado de la pregunta
               )
             else
               Text(
@@ -126,28 +126,31 @@ class _PreguntasTestState extends State<Preguntas_Test> {
               ),
             const SizedBox(height: 30.0),
 
-            // Display answer options as buttons
+            // Mostrar opciones de respuesta como botones
             if (preguntaActual != null)
               ...preguntaActual!['opciones'].map<Widget>((opcion) {
                 int index = preguntaActual!['opciones'].indexOf(opcion);
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 5.0),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0),
+                  child: Center(
+                    // Centra el botón
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                        padding: EdgeInsets.symmetric(
+                            vertical: 15.0, horizontal: 30.0),
                       ),
-                      padding: EdgeInsets.symmetric(
-                          vertical: 15.0, horizontal: 30.0),
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        _respuestaSeleccionada = index;
-                      });
-                    },
-                    child: Text(
-                      opcion,
-                      style: TextStyle(fontSize: 18),
+                      onPressed: () {
+                        setState(() {
+                          _respuestaSeleccionada = index;
+                        });
+                      },
+                      child: Text(
+                        opcion,
+                        style: TextStyle(fontSize: 18),
+                      ),
                     ),
                   ),
                 );
@@ -155,7 +158,7 @@ class _PreguntasTestState extends State<Preguntas_Test> {
 
             const SizedBox(height: 40.0),
 
-            // Button to check the answer
+            // Botón para comprobar la respuesta
             if (!respuestaComprobada && preguntaActual != null)
               ElevatedButton(
                 onPressed: _respuestaSeleccionada != null
@@ -172,11 +175,11 @@ class _PreguntasTestState extends State<Preguntas_Test> {
                           }
                         });
                       }
-                    : null, // Disable if no answer is selected
+                    : null, // Deshabilitar si no se selecciona ninguna respuesta
                 child: Text('Comprobar Respuesta'),
               ),
 
-            // Display if answer is correct or not
+            // Mostrar si la respuesta es correcta o no
             if (respuestaComprobada)
               Column(
                 children: [
@@ -187,6 +190,7 @@ class _PreguntasTestState extends State<Preguntas_Test> {
                       fontWeight: FontWeight.bold,
                       color: esCorrecto ? Colors.green : Colors.red,
                     ),
+                    textAlign: TextAlign.center, // Centrado del mensaje
                   ),
                   const SizedBox(height: 20.0),
                   ElevatedButton(
