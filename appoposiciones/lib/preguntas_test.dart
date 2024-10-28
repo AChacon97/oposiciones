@@ -102,7 +102,7 @@ class _PreguntasTestState extends State<Preguntas_Test> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Preguntas del  ${widget.nombre}'),
+        title: Text('Preguntas del ${widget.nombre}'),
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       ),
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
@@ -149,9 +149,17 @@ class _PreguntasTestState extends State<Preguntas_Test> {
                             _respuestaSeleccionada = index;
                           });
                         },
-                        child: Text(
-                          opcion,
-                          style: TextStyle(fontSize: 18),
+                        child: Container(
+                          alignment:
+                              Alignment.centerLeft, // Justificar a la izquierda
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 16.0), // Espaciado interno
+                          child: Text(
+                            opcion,
+                            style: TextStyle(fontSize: 18),
+                            textAlign: TextAlign
+                                .left, // Justificar el texto a la izquierda
+                          ),
                         ),
                       ),
                     ),
