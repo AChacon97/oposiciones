@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:appoposiciones/preguntas_test.dart';
 import 'package:appoposiciones/preguntas_desarrollo.dart';
-import 'preguntas_desarrollo.dart';
 import 'theme.dart';
 import 'configuracion.dart'; // Importa Configuracion
 
@@ -31,9 +30,9 @@ class _HomeScreenState extends State<HomeScreen> {
   void _updateTemaProgress(String tema, int status) {
     setState(() {
       if (_currentIndex == 0) {
-        /*temaProgressTest[tema] = status; <-- DESACTIVACION DE COLOR DE REALIZADO O POR HACER */
+        temaProgressTest[tema] = status;
       } else {
-        temaProgressDesarrollo[tema] = status; // Desarrollo
+        temaProgressDesarrollo[tema] = status;
       }
     });
   }
@@ -66,43 +65,46 @@ class _HomeScreenState extends State<HomeScreen> {
           _currentIndex == 0 ? 'Preguntas Test' : 'Preguntas de Desarrollo',
         ), // Título de la pantalla principal
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: temas.map((tema) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: ElevatedButton(
-                style: _getButtonStyle(tema,
-                    context), // Aplica el estilo del botón según el estado del tema
-                onPressed: () async {
-                  _updateTemaProgress(tema,
-                      1); // Cambia a "en progreso" cuando se inicia el tema
+      body: _currentIndex == 2
+          ? Configuracion() // Muestra Configuracion en la tercera pestaña
+          : Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: temas.map((tema) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: ElevatedButton(
+                      style: _getButtonStyle(tema,
+                          context), // Aplica el estilo del botón según el estado del tema
+                      onPressed: () async {
+                        _updateTemaProgress(tema,
+                            1); // Cambia a "en progreso" cuando se inicia el tema
 
-                  // Navega a la pantalla de preguntas y espera el resultado
-                  final resultado = await Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => _currentIndex == 0
-                          ? Preguntas_Test(nombre: tema)
-                          : Preguntas_Desarrollo(nombre: tema),
+                        // Navega a la pantalla de preguntas y espera el resultado
+                        final resultado = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => _currentIndex == 0
+                                ? Preguntas_Test(nombre: tema)
+                                : Preguntas_Desarrollo(nombre: tema),
+                          ),
+                        );
+
+                        // Actualiza el progreso del tema en función del resultado
+                        if (resultado == 'completado') {
+                          _updateTemaProgress(
+                              tema, 2); // Marca el tema como completado
+                        } else {
+                          _updateTemaProgress(
+                              tema, 1); // Deja el tema en progreso
+                        }
+                      },
+                      child: Text(tema), // Texto del botón (nombre del tema)
                     ),
                   );
-
-                  // Actualiza el progreso del tema en función del resultado
-                  if (resultado == 'completado') {
-                    _updateTemaProgress(
-                        tema, 2); // Marca el tema como completado
-                  } else {
-                    _updateTemaProgress(tema, 1); // Deja el tema en progreso
-                  }
-                },
-                child: Text(tema), // Texto del botón (nombre del tema)
+                }).toList(),
               ),
-            );
-          }).toList(),
-        ),
-      ),
+            ),
       bottomNavigationBar: BottomNavigationBar(
         iconSize: 60,
         items: const [
@@ -115,38 +117,20 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'Temario', // Icono y etiqueta para el temario
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Perfil', // Nuevo tab de perfil
+            icon: Icon(Icons.settings),
+            label: 'Configuración', // Icono y etiqueta para la configuración
           ),
         ],
         currentIndex: _currentIndex,
         selectedItemColor: Colors.blue,
         onTap: (index) {
           setState(() {
-            if (index == 2) { 
-              // Navega a Configuracion cuando se selecciona el índice 2 (Perfil)
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Configuracion()),
-              );
-            } else {
-              _currentIndex = index;
-            }
+            _currentIndex = index;
           });
         },
       ),
-      );
+    );
   }
-}
-
-// Método para construir la pantalla de perfil
-Widget _buildPerfilScreen() {
-  return Center(
-    child: Text(
-      'Aquí va tu información de perfil.',
-      style: TextStyle(fontSize: 20),
-    ),
-  );
 }
 
 void main() {
