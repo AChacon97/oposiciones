@@ -15,8 +15,7 @@ class _CambiarContrasenaState extends State<CambiarContrasena> {
   // Controladores para los campos de texto de las contraseñas
   final TextEditingController _oldPasswordController = TextEditingController();
   final TextEditingController _newPasswordController = TextEditingController();
-  final TextEditingController _repeatPasswordController =
-      TextEditingController();
+  final TextEditingController _repeatPasswordController = TextEditingController();
 
   // Variables booleanas para controlar la visibilidad de las contraseñas
   bool _oldPasswordVisible = false;
@@ -27,15 +26,12 @@ class _CambiarContrasenaState extends State<CambiarContrasena> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-            'Cambiar Contraseña'), // Título de la barra de aplicación
+        title: const Text('Cambiar Contraseña'), // Título de la barra de aplicación
       ),
       body: Padding(
-        padding:
-            const EdgeInsets.all(16.0), // Espaciado alrededor del contenido
+        padding: const EdgeInsets.all(16.0), // Espaciado alrededor del contenido
         child: Column(
-          crossAxisAlignment:
-              CrossAxisAlignment.start, // Alineación a la izquierda
+          crossAxisAlignment: CrossAxisAlignment.start, // Alineación a la izquierda
           children: [
             // Campo para la contraseña antigua
             _buildPasswordField(
@@ -45,8 +41,7 @@ class _CambiarContrasenaState extends State<CambiarContrasena> {
               toggleVisibility: () {
                 // Función para alternar la visibilidad
                 setState(() {
-                  _oldPasswordVisible =
-                      !_oldPasswordVisible; // Cambia el estado
+                  _oldPasswordVisible = !_oldPasswordVisible; // Cambia el estado
                 });
               },
             ),
@@ -59,8 +54,7 @@ class _CambiarContrasenaState extends State<CambiarContrasena> {
               toggleVisibility: () {
                 // Función para alternar la visibilidad
                 setState(() {
-                  _newPasswordVisible =
-                      !_newPasswordVisible; // Cambia el estado
+                  _newPasswordVisible = !_newPasswordVisible; // Cambia el estado
                 });
               },
             ),
@@ -73,8 +67,7 @@ class _CambiarContrasenaState extends State<CambiarContrasena> {
               toggleVisibility: () {
                 // Función para alternar la visibilidad
                 setState(() {
-                  _repeatPasswordVisible =
-                      !_repeatPasswordVisible; // Cambia el estado
+                  _repeatPasswordVisible = !_repeatPasswordVisible; // Cambia el estado
                 });
               },
             ),
@@ -82,13 +75,11 @@ class _CambiarContrasenaState extends State<CambiarContrasena> {
             // Botón para guardar los cambios
             ElevatedButton(
               style: AppTheme.botonFuncional(),
-              
               onPressed: () {
-                                // Aquí puedes implementar la lógica para cambiar la contraseña
+                // Aquí puedes implementar la lógica para cambiar la contraseña
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
-                      content: Text(
-                          'Contraseña cambiada')), // Mensaje de confirmación
+                      content: Text('Contraseña cambiada')), // Mensaje de confirmación
                 );
                 Navigator.pop(context); // Regresar a la página anterior
               },
@@ -102,28 +93,29 @@ class _CambiarContrasenaState extends State<CambiarContrasena> {
 
   // Método para construir un campo de texto para contraseñas
   Widget _buildPasswordField({
-    required TextEditingController
-        controller, // Controlador para el campo de texto
+    required TextEditingController controller, // Controlador para el campo de texto
     required String label, // Etiqueta del campo
     required bool isVisible, // Controla la visibilidad de la contraseña
-    required VoidCallback
-        toggleVisibility, // Función para alternar la visibilidad
+    required VoidCallback toggleVisibility, // Función para alternar la visibilidad
   }) {
     return TextField(
       controller: controller, // Asigna el controlador al campo de texto
       obscureText: !isVisible, // Oculta el texto si isVisible es false
       decoration: InputDecoration(
         labelText: label, // Muestra la etiqueta
+        labelStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.bold), // Color negro para el label
+        hintText: ' $label', // Texto de sugerencia
+        hintStyle: TextStyle(color: const Color.fromARGB(255, 83, 82, 82)), // Color gris para el texto de sugerencia
         border: OutlineInputBorder(), // Bordes del campo
         suffixIcon: IconButton(
           icon: Icon(
-            isVisible
-                ? Icons.visibility
-                : Icons.visibility_off, // Icono de visibilidad
+            isVisible ? Icons.visibility : Icons.visibility_off, // Icono de visibilidad
+            color: Colors.grey,
           ),
           onPressed: toggleVisibility, // Alterna la visibilidad al presionar
         ),
       ),
+      style: TextStyle(color: Colors.black), // Texto que escribe el usuario en negro
     );
   }
 }
