@@ -1,13 +1,2 @@
-[
-    {
-      "username": "usuario1",
-      "email": "usuario1@example.com",
-      "password": "Password1!"
-    },
-    {
-      "username": "usuario2",
-      "email": "usuario2@example.com",
-      "password": "Password2!"
-    }
-  ]
-  
+[{"username":"Sandra","email":"sandra@medac.es","password":"Sandra1234@"},
+{"username":"Angela","email":"angela@medac.es","password":"Angela1234@"}]

@@ -1,5 +1,6 @@
 import 'dart:convert'; // Para manejar JSON
 import 'package:appoposiciones/login.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart'; // Paquete de Flutter para la interfaz de usuario
 import 'package:flutter/services.dart'; // Para cargar archivos locales
 import 'package:path_provider/path_provider.dart'; // Para obtener el directorio del sistema
@@ -77,9 +78,20 @@ class _PantallaRegistroState extends State<PantallaRegistro> {
   // Función para guardar usuarios en el archivo JSON
   Future<void> _saveUsers() async {
     try{
-   final directory = await getApplicationDocumentsDirectory(); // Obtiene el directorio de documentos*/
-    final file = File('${directory.path}/registro.json'); // Define la ruta del archivo*/
+      var directory=null;
+      var file = null;
+      if(kIsWeb){
+        // Obtenemos la ruta desde el navegador
+         file = File('C:/Users/Jose Manuel/Desktop/github/oposiciones/appoposiciones/assets/registro.json'); // Define la ruta del archivo*/
 
+
+      }else{
+        
+       directory = await getApplicationDocumentsDirectory(); // Obtiene el directorio de documentos*/
+       file = File('${directory.path}/registro.json'); // Define la ruta del archivo*/
+
+      }
+    
 //Imprime la ruta del archivo
     print('Ruta del archivo: ${file.path}');
     
@@ -123,6 +135,7 @@ class _PantallaRegistroState extends State<PantallaRegistro> {
     });
       await _saveUsers(); // Guarda usuarios en el archivo JSON
       print('Usuario registrado: $newUser'); // Imprime el nuevo usuario en consola
+      print(_users);
   }else{
     
     ScaffoldMessenger.of(context).showSnackBar(
