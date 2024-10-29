@@ -22,37 +22,36 @@ class PantallaLogin extends StatefulWidget {
 }
 
 class _PantallaLoginState extends State<PantallaLogin> {
-
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   List<dynamic> _users = [];
 
   @override
-    void initState(){
-      super.initState();
-      _loadUsers(); // Cargar usuarios al iniciar.
-    }
+  void initState() {
+    super.initState();
+    _loadUsers(); // Cargar usuarios al iniciar.
+  }
 
-    Future<void>_loadUsers() async{
-      final directory = await getApplicationDocumentsDirectory();
-      final file = File('${directory.path}/registro.json');
+  Future<void> _loadUsers() async {
+    final directory = await getApplicationDocumentsDirectory();
+    final file = File('${directory.path}/registro.json');
 
-      if (await file.exists()){
-        final String response = await file.readAsString();
-        final List<dynamic> data = json.decode(response);
-        setState(() {
-          _users = data;
-        });
-      }
+    if (await file.exists()) {
+      final String response = await file.readAsString();
+      final List<dynamic> data = json.decode(response);
+      setState(() {
+        _users = data;
+      });
     }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: Text('login'),
-            //backgroundColor: Theme.of(context).colorScheme.inversePrimary, <--
-
-            ),
+          //backgroundColor: Theme.of(context).colorScheme.inversePrimary, <--
+        ),
         body: Padding(
           padding: const EdgeInsets.all(20.0),
           child: SingleChildScrollView(
@@ -74,19 +73,21 @@ class _PantallaLoginState extends State<PantallaLogin> {
                 Container(
                   // Esto es un contenedor donde recogemos el TextField de la barra, se ha creado para poder meter un width para el ancho
                   width: 475,
-                  child:  TextField(
+                  child: TextField(
                     controller: _usernameController,
                     decoration: InputDecoration(
-                    //filled: true,
-                    hintText: 'Usuario',
+                      //filled: true,
+                      hintText: 'Usuario',
+                    ),
                   ),
                 ),
-              ),
-                const SizedBox(height: 30,),
+                const SizedBox(
+                  height: 30,
+                ),
                 Container(
                   //Esto es un contenedor donde recogemos el TextField de la barra, se ha creado para poder meter un width para el ancho.
                   width: 475,
-                  child:  TextField(
+                  child: TextField(
                       // Todo lo que conlleva la barra contraseña.
                       controller: _passwordController,
                       obscureText: true,
@@ -99,7 +100,8 @@ class _PantallaLoginState extends State<PantallaLogin> {
                     //fila para acoger los métodos de los botones.
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      BotonAcceder(context, _users, _usernameController, _passwordController),
+                      BotonAcceder(context, _users, _usernameController,
+                          _passwordController),
                     ]),
                 const SizedBox(
                   height: 60,
@@ -143,32 +145,34 @@ Widget BotonRegistrar(BuildContext context) {
   );
 }
 
-<<<<<<< HEAD
-Widget BotonAcceder(BuildContext context) {
-=======
-Widget BotonAcceder(BuildContext context, List<dynamic>users,TextEditingController _usernameController, TextEditingController _passwordController ) {
+Widget BotonAcceder(
+    BuildContext context,
+    List<dynamic> users,
+    TextEditingController _usernameController,
+    TextEditingController _passwordController) {
   // Método para el botón acceder.
->>>>>>> JoséManuel
   return ElevatedButton(
     style: AppTheme.botonFuncional(),
     onPressed: () {
       String username = _usernameController.text;
       String password = _passwordController.text;
-      if (username.isEmpty || password.isEmpty){
-         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Todos los campos son obligatorios.')));
-                  return;
+      if (username.isEmpty || password.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Todos los campos son obligatorios.')));
+        return;
       }
-      bool userExists = users.any((user) => user['username'] == username && user['password']== password);
-      if (userExists){
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => HomeScreen()),
+      bool userExists = users.any((user) =>
+          user['username'] == username && user['password'] == password);
+      if (userExists) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => HomeScreen()),
         );
-      }else {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Credenciales incorrectas.')));
-                }
-      },
-    
+      } else {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('Credenciales incorrectas.')));
+      }
+    },
     child: const Text('Login'),
   );
 }
