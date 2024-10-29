@@ -152,12 +152,20 @@ class _PantallaRegistroState extends State<PantallaRegistro> {
 
 
     // Navega a la página de inicio
+    try{
+      print('NAVEGANDO A PANTALLA LOGIN...');
+      WidgetsBinding.instance.addPostFrameCallback((_){
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
           builder: (context) =>
               const PantallaLogin(title: 'login',)), // Cambia a la página de inicio
     );
+      });
+    print('NAVEGACIÓN EXITOSA');
+    }catch (e){
+      print('ERROR AL NAVEGAR A PANTALLALOGIN: $e');
+    }
   }
 
   // Función para validar el nombre de usuario
