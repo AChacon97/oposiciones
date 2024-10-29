@@ -44,30 +44,12 @@ class _PantallaRegistroState extends State<PantallaRegistro> {
   Future<void> _loadUsers() async {
     try {
 
-      // Cargar desde el almacenamiento local
 
-      /*String? jsongString = html.window.localStorage['registro'];
-
-      if (jsongString != null){
-        //decodificar el JSON
-        List<dynamic>data = jsonDecode(jsongString);
-        setState(() {
-          _users = List<Map<String, dynamic>>.from(data.map((user)=>{
-            'username': user['username']??'',
-            'email': user['email']??'',
-            'password': user['password']??''
-          }));
-        });
-      }*/
-
-
-     final directory =
-          await getApplicationDocumentsDirectory(); // Obtiene el directorio de documentos
+     final directory = await getApplicationDocumentsDirectory(); // Obtiene el directorio de documentos
       final file = File('${directory.path}/registro.json'); // Define la ruta del archivo
       if (await file.exists()) {
         // Verifica si el archivo existe
-        final String response =
-            await file.readAsString(); // Lee el contenido del archivo
+        final String response = await file.readAsString(); // Lee el contenido del archivo
         final List<dynamic> data = json.decode(response);
         //final data = json.decode(response); // Decodifica el JSON
         setState(() {
@@ -95,17 +77,13 @@ class _PantallaRegistroState extends State<PantallaRegistro> {
   // Función para guardar usuarios en el archivo JSON
   Future<void> _saveUsers() async {
     try{
-   /* final directory =
-        await getApplicationDocumentsDirectory(); // Obtiene el directorio de documentos*/
-    final file = File('C:\\Users\\Jose Manuel\\Desktop\\github\\oposiciones\\appoposiciones\\assets\\registro.json'); // Define la ruta del archivo*/
+   final directory = await getApplicationDocumentsDirectory(); // Obtiene el directorio de documentos*/
+    final file = File('${directory.path}/registro.json'); // Define la ruta del archivo*/
 
-
-
-         //Imprime la ruta del archivo
+//Imprime la ruta del archivo
     print('Ruta del archivo: ${file.path}');
     
-  
-       String jsonString = jsonEncode(_users); // Convierte la lista de usuarios a JSON
+      String jsonString = jsonEncode(_users); // Convierte la lista de usuarios a JSON
 
        //Guardar en el almacenamiento local del navegador
        //html.window.localStorage['registro'] = jsonString;
