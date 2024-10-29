@@ -1,6 +1,10 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:appoposiciones/home.dart';
 import 'package:appoposiciones/registro.dart';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 import 'theme.dart'; // Importa el archivo de tema
 
 class PantallaLogin extends StatefulWidget {
@@ -17,6 +21,29 @@ class PantallaLogin extends StatefulWidget {
 }
 
 class _PantallaLoginState extends State<PantallaLogin> {
+
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  List<dynamic> _users = [];
+
+  @override
+    void initState(){
+      super.initState();
+      _loadUsers(); // Cargar usuarios al iniciar.
+    }
+
+    Future<void>_loadUsers() async{
+      final directory = await getApplicationDocumentsDirectory();
+      final file = File('${directory.path}/registro.json');
+
+      if (await file.exists()){
+        final String response = await file.readAsString();
+        final List<dynamic> data = json.decode(response);
+        setState(() {
+          _users = data;
+        });
+      }
+    }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,6 +58,7 @@ class _PantallaLoginState extends State<PantallaLogin> {
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
+                
                 Image.asset(
                   "assets/images/LogoAcademia.jpg",
                   height: 100,
@@ -114,19 +142,28 @@ Widget BotonRegistrar(BuildContext context) {
   );
 }
 
-Widget BotonAcceder(BuildContext context) {
+Widget BotonAcceder(BuildContext context, List<dynamic>users,TextEditingController _usernameController, TextEditingController _passwordController ) {
   // Método para el botón acceder.
   return ElevatedButton(
     style: AppTheme.botonFuncional(), //
     onPressed: () {
-      if (){
-        
+      String username = _usernameController.text;
+      String password = _passwordController.text;
+      if (username.isEmpty || password.isEmpty){
+         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Todos los campos son obligatorios.')));
+                  return;
+      }
+      bool userExists = users.any((user) => user['username'] == username && user['password']== password);
+      if (userExists){
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => HomeScreen()),
         );
-      };
-    },
+      }else {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Credenciales incorrectas.')));
+                }
+      },
+    
     child: const Text('Login'),
   );
 }
