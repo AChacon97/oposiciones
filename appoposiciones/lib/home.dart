@@ -1,8 +1,10 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:appoposiciones/preguntas_test.dart';
 import 'package:appoposiciones/preguntas_desarrollo.dart';
 import 'theme.dart';
-import 'configuracion.dart'; // Importa Configuracion
+import 'configuracion.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -13,20 +15,47 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
+  List<Map<String, dynamic>> temas = [];
+  Map<String, int> temaProgressTest = {};
+  Map<String, int> temaProgressDesarrollo = {};
 
-  // Mapas para almacenar el progreso de cada tema en Test y en Desarrollo
-  Map<String, int> temaProgressTest = {
-    'Tema 1': 0,
-    'Tema 2': 0,
-    'Tema 3': 0,
-  };
-  Map<String, int> temaProgressDesarrollo = {
-    'Tema 1': 0,
-    'Tema 2': 0,
-    'Tema 3': 0,
-  };
+  @override
+  void initState() {
+    super.initState();
+    _loadTemas(); // Cargar temas en la inicialización
+  }
 
-  // Actualiza el progreso del tema cuando el usuario ha avanzado o completado
+  Future<void> _loadTemas() async {
+    try {
+      // Determina el archivo a cargar según la pestaña seleccionada
+      final String assetPath = _currentIndex == 0
+          ? 'assets/preguntas_test.json'
+          : 'assets/Preguntas_Desarrollo.json';
+
+      final String response = await rootBundle.loadString(assetPath);
+      final data = json.decode(response);
+
+      setState(() {
+        temas = List<Map<String, dynamic>>.from(data['temas']).map((tema) {
+          return {
+            'tema': tema['tema'],
+            'nombre_tema': tema['nombre_tema'] ?? 'Tema sin nombre',
+            'preguntas': tema['preguntas'] ?? [],
+          };
+        }).toList();
+
+        // Inicializar progreso de los temas para Test o Desarrollo
+        final progressMap =
+            _currentIndex == 0 ? temaProgressTest : temaProgressDesarrollo;
+        for (var tema in temas) {
+          progressMap[tema['tema']] = progressMap[tema['tema']] ?? 0;
+        }
+      });
+    } catch (e) {
+      print("Error al cargar los temas: $e");
+    }
+  }
+
   void _updateTemaProgress(String tema, int status) {
     setState(() {
       if (_currentIndex == 0) {
@@ -37,14 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  final List<String> temas = [
-    'Tema 1',
-    'Tema 2',
-    'Tema 3',
-  ];
-
-  // Función para obtener el estilo del botón según el progreso del tema
-  ButtonStyle _getButtonStyle(String tema, BuildContext context) {
+  ButtonStyle _getButtonStyle(String tema) {
     final progress =
         _currentIndex == 0 ? temaProgressTest : temaProgressDesarrollo;
     switch (progress[tema]) {
@@ -63,62 +85,59 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text(
           _currentIndex == 0 ? 'Preguntas Test' : 'Preguntas de Desarrollo',
-        ), // Título de la pantalla principal
+        ),
       ),
       body: _currentIndex == 2
-          ? Configuracion() // Muestra Configuracion en la tercera pestaña
+          ? Configuracion()
           : Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: temas.map((tema) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: ElevatedButton(
-                      style: _getButtonStyle(tema,
-                          context), // Aplica el estilo del botón según el estado del tema
-                      onPressed: () async {
-                        _updateTemaProgress(tema,
-                            1); // Cambia a "en progreso" cuando se inicia el tema
+              child: temas.isEmpty
+                  ? CircularProgressIndicator() // Muestra un indicador de carga mientras se cargan los temas
+                  : ListView(
+                      padding: EdgeInsets.all(16.0),
+                      children: temas.map((tema) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: ElevatedButton(
+                            style: _getButtonStyle(tema['tema']),
+                            onPressed: () async {
+                              _updateTemaProgress(tema['tema'], 1);
 
-                        // Navega a la pantalla de preguntas y espera el resultado
-                        final resultado = await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => _currentIndex == 0
-                                ? Preguntas_Test(nombre: tema)
-                                : Preguntas_Desarrollo(nombre: tema),
+                              final resultado = await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => _currentIndex == 0
+                                      ? Preguntas_Test(nombre: tema['tema'])
+                                      : Preguntas_Desarrollo(
+                                          nombre: tema['tema']),
+                                ),
+                              );
+
+                              if (resultado == 'completado') {
+                                _updateTemaProgress(tema['tema'], 2);
+                              } else {
+                                _updateTemaProgress(tema['tema'], 1);
+                              }
+                            },
+                            child: Text(tema['nombre_tema']),
                           ),
                         );
-
-                        // Actualiza el progreso del tema en función del resultado
-                        if (resultado == 'completado') {
-                          _updateTemaProgress(
-                              tema, 2); // Marca el tema como completado
-                        } else {
-                          _updateTemaProgress(
-                              tema, 1); // Deja el tema en progreso
-                        }
-                      },
-                      child: Text(tema), // Texto del botón (nombre del tema)
+                      }).toList(),
                     ),
-                  );
-                }).toList(),
-              ),
             ),
       bottomNavigationBar: BottomNavigationBar(
         iconSize: 60,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.quiz),
-            label: 'Test', // Icono y etiqueta para el test
+            label: 'Test',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.book),
-            label: 'Temario', // Icono y etiqueta para el temario
+            label: 'Temario',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
-            label: 'Configuración', // Icono y etiqueta para la configuración
+            label: 'Configuración',
           ),
         ],
         currentIndex: _currentIndex,
@@ -126,6 +145,7 @@ class _HomeScreenState extends State<HomeScreen> {
         onTap: (index) {
           setState(() {
             _currentIndex = index;
+            _loadTemas(); // Cargar temas al cambiar de pestaña
           });
         },
       ),
