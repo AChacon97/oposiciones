@@ -102,6 +102,8 @@ class _CambiarContrasenaState extends State<CambiarContrasena> {
       controller: controller, // Asigna el controlador al campo de texto
       obscureText: !isVisible, // Oculta el texto si isVisible es false
       decoration: InputDecoration(
+        filled: true, // Activa el color de fondo
+        fillColor: Color.fromARGB(255, 217, 227, 251), // Color de fondo azul claro
         labelText: label, // Muestra la etiqueta
         labelStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.bold), // Color negro para el label
         hintText: ' $label', // Texto de sugerencia

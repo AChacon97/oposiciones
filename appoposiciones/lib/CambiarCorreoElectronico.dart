@@ -33,6 +33,8 @@ class CambiarCorreoElectronico extends StatelessWidget {
             TextField(
               controller: _currentEmailController, // Asigna el controlador
               decoration: InputDecoration(
+                filled: true, // Activa el color de fondo
+                fillColor: Colors.blue[50], // Color de fondo azul claro
                 border: OutlineInputBorder(), // Bordes del campo
                 hintText: 'Actual...', // Texto de sugerencia
                 hintStyle: TextStyle(color: const Color.fromARGB(255, 83, 82, 82)), // Color gris en el texto de sugerencia
@@ -54,6 +56,8 @@ class CambiarCorreoElectronico extends StatelessWidget {
             TextField(
               controller: _newEmailController, // Asigna el controlador
               decoration: InputDecoration(
+                filled: true, // Activa el color de fondo
+                fillColor: Colors.blue[50], // Color de fondo azul claro
                 border: OutlineInputBorder(), // Bordes del campo
                 hintText: 'Nuevo correo...', // Texto de sugerencia
                 hintStyle: TextStyle(color: const Color.fromARGB(255, 83, 82, 82)), // Color gris en el texto de sugerencia
@@ -75,6 +79,8 @@ class CambiarCorreoElectronico extends StatelessWidget {
             TextField(
               controller: _repeatNewEmailController, // Asigna el controlador
               decoration: InputDecoration(
+                filled: true, // Activa el color de fondo
+                fillColor: Color.fromARGB(255, 217, 227, 251), // Color de fondo azul claro
                 border: OutlineInputBorder(), // Bordes del campo
                 hintText: 'Repetir correo...', // Texto de sugerencia
                 hintStyle: TextStyle(color: const Color.fromARGB(255, 83, 82, 82)), // Color gris en el texto de sugerencia

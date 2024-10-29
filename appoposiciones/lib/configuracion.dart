@@ -15,67 +15,69 @@ class Configuracion extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Configuración'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ElevatedButton(
-              style: AppTheme.botonConfiguracion(),
-              onPressed: () {
-                // Aquí puedes añadir la función de navegación a la pantalla de estadísticas
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Estadisticas()),
-                );
-              },
-              child: Text('Estadísticas'),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              style: AppTheme.botonConfiguracion(),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => CambiarNombreUsuario()),
-                );
-              },
-              child: Text('Actualizar Nombre'),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              style: AppTheme.botonConfiguracion(),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => CambiarContrasena()),
-                );
-              },
-              child: Text('Modificar Contraseña'),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              style: AppTheme.botonConfiguracion(),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => CambiarCorreoElectronico()),
-                );
-              },
-              child: Text('Actualizar Correo'),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              style: AppTheme.botonConfiguracion(),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => CambiarFotoDePerfil()),
-                );
-              },
-              child: Text('Cambiar Imagen de Perfil'),
-            ),
-          ],
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 32.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              ElevatedButton(
+                style: AppTheme.botonConfiguracion(),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Estadisticas()),
+                  );
+                },
+                child: const Text('Estadísticas'),
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                style: AppTheme.botonConfiguracion(),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => CambiarNombreUsuario()),
+                  );
+                },
+                child: const Text('Actualizar Nombre'),
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                style: AppTheme.botonConfiguracion(),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => CambiarContrasena()),
+                  );
+                },
+                child: const Text('Modificar Contraseña'),
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                style: AppTheme.botonConfiguracion(),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => CambiarCorreoElectronico()),
+                  );
+                },
+                child: const Text('Actualizar Correo'),
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                style: AppTheme.botonConfiguracion(),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => CambiarFotoDePerfil()),
+                  );
+                },
+                child: const Text('Cambiar Imagen de Perfil'),
+              ),
+            ],
+          ),
         ),
       ),
     );

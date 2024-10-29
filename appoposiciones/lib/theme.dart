@@ -92,13 +92,16 @@ class AppTheme {
   }
 
   static ButtonStyle botonConfiguracion() {
-    return ElevatedButton.styleFrom(
-      backgroundColor: Color.fromARGB(255, 183, 183, 183),
-      foregroundColor: Color.fromARGB(255, 52, 57, 69), // Color del texto
-      textStyle: TextStyle(
-        fontFamily: fontFamily, // Establecido al principio Tipo de letra.
+   return ElevatedButton.styleFrom(
+      backgroundColor: Color.fromARGB(255, 217, 227, 251),
+      foregroundColor: Color.fromARGB(255, 60, 120, 255), // Color del texto
+        padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 40.0), // Aumenta altura y ancho
+      textStyle: const TextStyle(
+        fontSize: 18, // Ajusta el tamaño de fuente si es necesario
         fontWeight: FontWeight.bold,
-        fontSize: 20,
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(30), // Bordes ligeramente redondeados
       ),
     );
   }
