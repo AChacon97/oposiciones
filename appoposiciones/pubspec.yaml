@@ -67,6 +67,7 @@ flutter:
   assets:
     - assets/images/
     - assets/data.json
+    - assets/registro.json
     - assets/temas.json
     - assets/preguntas.json
     - assets/respuestas.json

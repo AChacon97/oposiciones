@@ -13,15 +13,15 @@ class Preguntas_Test extends StatefulWidget {
 }
 
 class _PreguntasTestState extends State<Preguntas_Test> {
-  int? _respuestaSeleccionada;
+  int? _respuestaSeleccionada; // Índice de la respuesta seleccionada
   Map<String, dynamic>? preguntaActual; // Almacena la pregunta actual
   List<Map<String, dynamic>> preguntasTema =
       []; // Todas las preguntas en el tema
   Set<int> preguntasVistas = {}; // Seguimiento de preguntas vistas por índice
-  bool respuestaComprobada = false;
-  bool esCorrecto = false;
-  int correctas = 0;
-  int incorrectas = 0;
+  bool respuestaComprobada = false; // Indica si la respuesta fue comprobada
+  bool esCorrecto = false; // Resultado de la comprobación
+  int correctas = 0; // Contador de respuestas correctas
+  int incorrectas = 0; // Contador de respuestas incorrectas
 
   @override
   void initState() {
@@ -29,11 +29,13 @@ class _PreguntasTestState extends State<Preguntas_Test> {
     _cargarPreguntas();
   }
 
+  // Cargar las preguntas desde el archivo JSON
   Future<void> _cargarPreguntas() async {
     final String response =
         await rootBundle.loadString('assets/preguntas_test.json');
     final data = json.decode(response);
 
+    // Obtener el número del tema desde el nombre
     final temaNumero =
         int.tryParse(widget.nombre.replaceAll("Tema ", "")) ?? -1;
     print('Buscando preguntas para el tema número: $temaNumero');
@@ -56,6 +58,7 @@ class _PreguntasTestState extends State<Preguntas_Test> {
     }
   }
 
+  // Selecciona la siguiente pregunta aleatoria
   void _siguientePregunta() {
     if (preguntasVistas.length == preguntasTema.length) {
       _mostrarResumen();
@@ -76,6 +79,7 @@ class _PreguntasTestState extends State<Preguntas_Test> {
     });
   }
 
+  // Mostrar un resumen de las respuestas correctas e incorrectas
   void _mostrarResumen() {
     showDialog(
       context: context,
@@ -96,6 +100,15 @@ class _PreguntasTestState extends State<Preguntas_Test> {
         );
       },
     );
+  }
+
+  // Función para obtener el color de los botones de opciones de respuesta
+  Color _getColor(int index) {
+    // Cambia el color del botón si está seleccionado
+    return _respuestaSeleccionada == index
+        ? const Color.fromARGB(
+            255, 220, 175, 255) // Color de fondo para la respuesta seleccionada
+        : Colors.grey.shade300; // Color de fondo predeterminado
   }
 
   @override
@@ -128,8 +141,9 @@ class _PreguntasTestState extends State<Preguntas_Test> {
 
             // Mostrar opciones de respuesta como botones
             if (preguntaActual != null)
-              ...preguntaActual!['opciones'].map<Widget>((opcion) {
-                int index = preguntaActual!['opciones'].indexOf(opcion);
+              ...preguntaActual!['opciones'].asMap().entries.map((entry) {
+                int index = entry.key;
+                String opcion = entry.value;
                 return Padding(
                   padding: const EdgeInsets.symmetric(
                       vertical: 10.0), // Aumentar la separación
@@ -139,6 +153,8 @@ class _PreguntasTestState extends State<Preguntas_Test> {
                           0.9, // 90% del ancho
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
+                          backgroundColor: _getColor(
+                              index), // Color dinámico según selección
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20.0),
                           ),

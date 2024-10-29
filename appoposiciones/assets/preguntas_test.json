@@ -2,6 +2,7 @@
   "temas": [
     {
       "tema": "1",
+      "nombre_tema": "Platanos",
       "preguntas": [
         {
           "pregunta": "¿Qué vehículos tienen que tener contratado una póliza de Seguro Obligatorio?",
@@ -20,57 +21,13 @@
             "C) siempre que pueda hacerlo en condiciones de seguridad"
           ],
           "respuesta_correcta": "C) siempre que pueda hacerlo en condiciones de seguridad"
-        },
-        {
-          "pregunta": "¿Cómo se debe circular en una pendiente ascendente con nieve?",
-          "opciones": [
-            "A) Con una relación de marchas cortas.",
-            "B) Con una relación de marchas lo más alta posible.",
-            "C) Lentamente y reteniendo el vehículo."
-          ],
-          "respuesta_correcta": "B) Con una relación de marchas lo más alta posible."
-        },
-        {
-          "pregunta": "¿Se permite hacer uso de ráfagas con el alumbrado de largo alcance para advertir al vehículo que le precede la intención de adelantar?",
-          "opciones": [
-            "A) No.",
-            "B) Sí, pero únicamente fuera de poblado.",
-            "C) Sí, tanto en poblado como fuera de poblado."
-          ],
-          "respuesta_correcta": "C) Sí, tanto en poblado como fuera de poblado."
-        },
-        {
-          "pregunta": "El sistema de ayuda de salida en pendiente, ¿cómo ayudará al conductor?",
-          "opciones": [
-            "A) A través de un sensor que detecta el ángulo de inclinación del vehículo e impide que se vaya hacia atrás al levantar el pie de freno.",
-            "B) Acelerará rápidamente el motor para evitar que el vehículo se vaya hacia atrás al levantar el pie de freno.",
-            "C) Activará el freno de estacionamiento de manera automática y no lo desactivará hasta que el conductor presione el acelerador, evitando así que el vehículo se vaya hacia atrás."
-          ],
-          "respuesta_correcta": "A) A través de un sensor que detecta el ángulo de inclinación del vehículo e impide que se vaya hacia atrás al levantar el pie de freno."
         }
       ]
     },
     {
       "tema": "2",
+      "nombre_tema": "Funciones de Seguridad y Conducción en Nieve",
       "preguntas": [
-        {
-          "pregunta": "¿Qué vehículos tienen que tener contratado una póliza de Seguro Obligatorio?",
-          "opciones": [
-            "A) Todos los vehículos que circulen por las vías públicas",
-            "B) Todos los vehículos de motor excepto los ciclomotores.",
-            "C) Todos los vehículos de motor y los ciclomotores."
-          ],
-          "respuesta_correcta": "C) Todos los vehículos de motor y los ciclomotores."
-        },
-        {
-          "pregunta": "Si al aproximarse a una intersección, observa a un agente con el brazo levantado verticalmente, debe detenerse…",
-          "opciones": [
-            "A) sólo si ya ha entrado en la intersección.",
-            "B) sólo si ve al agente de frente y siempre que pueda hacerlo en condiciones de seguridad.",
-            "C) siempre que pueda hacerlo en condiciones de seguridad"
-          ],
-          "respuesta_correcta": "C) siempre que pueda hacerlo en condiciones de seguridad"
-        },
         {
           "pregunta": "¿Cómo se debe circular en una pendiente ascendente con nieve?",
           "opciones": [
@@ -88,315 +45,78 @@
             "C) Sí, tanto en poblado como fuera de poblado."
           ],
           "respuesta_correcta": "C) Sí, tanto en poblado como fuera de poblado."
-        },
-        {
-          "pregunta": "El sistema de ayuda de salida en pendiente, ¿cómo ayudará al conductor?",
-          "opciones": [
-            "A) A través de un sensor que detecta el ángulo de inclinación del vehículo e impide que se vaya hacia atrás al levantar el pie de freno.",
-            "B) Acelerará rápidamente el motor para evitar que el vehículo se vaya hacia atrás al levantar el pie de freno.",
-            "C) Activará el freno de estacionamiento de manera automática y no lo desactivará hasta que el conductor presione el acelerador, evitando así que el vehículo se vaya hacia atrás."
-          ],
-          "respuesta_correcta": "A) A través de un sensor que detecta el ángulo de inclinación del vehículo e impide que se vaya hacia atrás al levantar el pie de freno."
         }
       ]
     },
     {
       "tema": "3",
+      "nombre_tema": "Señalización y Semáforos",
       "preguntas": [
         {
-          "pregunta": "¿Qué vehículos tienen que tener contratado una póliza de Seguro Obligatorio?",
+          "pregunta": "Cuando nos encontramos ante un semáforo en ámbar fijo y una señal de ceda el paso al mismo tiempo, ¿qué debemos hacer y por qué?",
           "opciones": [
-            "A) Todos los vehículos que circulen por las vías públicas",
-            "B) Todos los vehículos de motor excepto los ciclomotores.",
-            "C) Todos los vehículos de motor y los ciclomotores."
+            "A) Avanzar con precaución, ya que el ámbar indica un cambio de fase próximo.",
+            "B) Detenerse de inmediato, pues el semáforo tiene prioridad sobre cualquier señal.",
+            "C) Ceder el paso según la señal y avanzar solo si es seguro."
           ],
-          "respuesta_correcta": "C) Todos los vehículos de motor y los ciclomotores."
+          "respuesta_correcta": "C) Ceder el paso según la señal y avanzar solo si es seguro."
         },
         {
-          "pregunta": "Si al aproximarse a una intersección, observa a un agente con el brazo levantado verticalmente, debe detenerse…",
+          "pregunta": "¿Cuál es la función principal de las líneas discontinuas en la carretera y cómo afectan a los adelantamientos?",
           "opciones": [
-            "A) sólo si ya ha entrado en la intersección.",
-            "B) sólo si ve al agente de frente y siempre que pueda hacerlo en condiciones de seguridad.",
-            "C) siempre que pueda hacerlo en condiciones de seguridad"
+            "A) Señalar la posibilidad de adelantamiento en tramos donde la visibilidad es adecuada.",
+            "B) Indicar la necesidad de cambiar de carril en cruces o intersecciones.",
+            "C) Establecer el límite de velocidad en áreas de alta densidad de tráfico."
           ],
-          "respuesta_correcta": "C) siempre que pueda hacerlo en condiciones de seguridad"
-        },
-        {
-          "pregunta": "¿Cómo se debe circular en una pendiente ascendente con nieve?",
-          "opciones": [
-            "A) Con una relación de marchas cortas.",
-            "B) Con una relación de marchas lo más alta posible.",
-            "C) Lentamente y reteniendo el vehículo."
-          ],
-          "respuesta_correcta": "B) Con una relación de marchas lo más alta posible."
-        },
-        {
-          "pregunta": "¿Se permite hacer uso de ráfagas con el alumbrado de largo alcance para advertir al vehículo que le precede la intención de adelantar?",
-          "opciones": [
-            "A) No.",
-            "B) Sí, pero únicamente fuera de poblado.",
-            "C) Sí, tanto en poblado como fuera de poblado."
-          ],
-          "respuesta_correcta": "C) Sí, tanto en poblado como fuera de poblado."
-        },
-        {
-          "pregunta": "El sistema de ayuda de salida en pendiente, ¿cómo ayudará al conductor?",
-          "opciones": [
-            "A) A través de un sensor que detecta el ángulo de inclinación del vehículo e impide que se vaya hacia atrás al levantar el pie de freno.",
-            "B) Acelerará rápidamente el motor para evitar que el vehículo se vaya hacia atrás al levantar el pie de freno.",
-            "C) Activará el freno de estacionamiento de manera automática y no lo desactivará hasta que el conductor presione el acelerador, evitando así que el vehículo se vaya hacia atrás."
-          ],
-          "respuesta_correcta": "A) A través de un sensor que detecta el ángulo de inclinación del vehículo e impide que se vaya hacia atrás al levantar el pie de freno."
+          "respuesta_correcta": "A) Señalar la posibilidad de adelantamiento en tramos donde la visibilidad es adecuada."
         }
       ]
     },
     {
       "tema": "4",
+      "nombre_tema": "Conducción en Condiciones Adversas",
       "preguntas": [
         {
-          "pregunta": "¿Qué vehículos tienen que tener contratado una póliza de Seguro Obligatorio?",
+          "pregunta": "Al conducir en una carretera nevada sin cadenas o neumáticos de invierno, ¿qué precauciones adicionales deberían tomarse para garantizar la seguridad durante el trayecto, considerando también la densidad de tráfico y la visibilidad?",
           "opciones": [
-            "A) Todos los vehículos que circulen por las vías públicas",
-            "B) Todos los vehículos de motor excepto los ciclomotores.",
-            "C) Todos los vehículos de motor y los ciclomotores."
+            "A) Reducir la velocidad y mantener una distancia de seguridad aún mayor, evitando frenadas bruscas.",
+            "B) Aumentar la velocidad para reducir el tiempo de exposición a condiciones adversas.",
+            "C) Detenerse en el arcén y esperar a que mejoren las condiciones de visibilidad."
           ],
-          "respuesta_correcta": "C) Todos los vehículos de motor y los ciclomotores."
+          "respuesta_correcta": "A) Reducir la velocidad y mantener una distancia de seguridad aún mayor, evitando frenadas bruscas."
         },
         {
-          "pregunta": "Si al aproximarse a una intersección, observa a un agente con el brazo levantado verticalmente, debe detenerse…",
+          "pregunta": "¿Qué factores adicionales deben tenerse en cuenta al conducir con lluvia intensa, especialmente en curvas o zonas de poca visibilidad?",
           "opciones": [
-            "A) sólo si ya ha entrado en la intersección.",
-            "B) sólo si ve al agente de frente y siempre que pueda hacerlo en condiciones de seguridad.",
-            "C) siempre que pueda hacerlo en condiciones de seguridad"
+            "A) Reducir la velocidad y frenar de forma suave para evitar deslizamientos.",
+            "B) Conducir de forma rápida para evitar quedarse más tiempo en la carretera.",
+            "C) Mantener la misma velocidad y encender solo las luces largas para mejorar la visibilidad."
           ],
-          "respuesta_correcta": "C) siempre que pueda hacerlo en condiciones de seguridad"
-        },
-        {
-          "pregunta": "¿Cómo se debe circular en una pendiente ascendente con nieve?",
-          "opciones": [
-            "A) Con una relación de marchas cortas.",
-            "B) Con una relación de marchas lo más alta posible.",
-            "C) Lentamente y reteniendo el vehículo."
-          ],
-          "respuesta_correcta": "B) Con una relación de marchas lo más alta posible."
-        },
-        {
-          "pregunta": "¿Se permite hacer uso de ráfagas con el alumbrado de largo alcance para advertir al vehículo que le precede la intención de adelantar?",
-          "opciones": [
-            "A) No.",
-            "B) Sí, pero únicamente fuera de poblado.",
-            "C) Sí, tanto en poblado como fuera de poblado."
-          ],
-          "respuesta_correcta": "C) Sí, tanto en poblado como fuera de poblado."
-        },
-        {
-          "pregunta": "El sistema de ayuda de salida en pendiente, ¿cómo ayudará al conductor?",
-          "opciones": [
-            "A) A través de un sensor que detecta el ángulo de inclinación del vehículo e impide que se vaya hacia atrás al levantar el pie de freno.",
-            "B) Acelerará rápidamente el motor para evitar que el vehículo se vaya hacia atrás al levantar el pie de freno.",
-            "C) Activará el freno de estacionamiento de manera automática y no lo desactivará hasta que el conductor presione el acelerador, evitando así que el vehículo se vaya hacia atrás."
-          ],
-          "respuesta_correcta": "A) A través de un sensor que detecta el ángulo de inclinación del vehículo e impide que se vaya hacia atrás al levantar el pie de freno."
+          "respuesta_correcta": "A) Reducir la velocidad y frenar de forma suave para evitar deslizamientos."
         }
       ]
     },
     {
       "tema": "5",
+      "nombre_tema": "Vehículos de Emergencia y Normas de Prioridad",
       "preguntas": [
         {
-          "pregunta": "¿Qué vehículos tienen que tener contratado una póliza de Seguro Obligatorio?",
+          "pregunta": "Al escuchar una sirena de emergencia acercándose desde atrás, ¿cuál es la acción más apropiada en una vía de un solo carril para cada sentido?",
           "opciones": [
-            "A) Todos los vehículos que circulen por las vías públicas",
-            "B) Todos los vehículos de motor excepto los ciclomotores.",
-            "C) Todos los vehículos de motor y los ciclomotores."
+            "A) Continuar en la misma dirección y detenerse solo si el vehículo lo indica.",
+            "B) Detenerse a la derecha si es seguro, dejando espacio para que el vehículo de emergencia avance.",
+            "C) Detenerse inmediatamente en el carril y esperar instrucciones."
           ],
-          "respuesta_correcta": "C) Todos los vehículos de motor y los ciclomotores."
+          "respuesta_correcta": "B) Detenerse a la derecha si es seguro, dejando espacio para que el vehículo de emergencia avance."
         },
         {
-          "pregunta": "Si al aproximarse a una intersección, observa a un agente con el brazo levantado verticalmente, debe detenerse…",
+          "pregunta": "¿En qué situaciones los vehículos prioritarios tienen el derecho de paso, incluso ante semáforos en rojo?",
           "opciones": [
-            "A) sólo si ya ha entrado en la intersección.",
-            "B) sólo si ve al agente de frente y siempre que pueda hacerlo en condiciones de seguridad.",
-            "C) siempre que pueda hacerlo en condiciones de seguridad"
+            "A) Solo en casos de emergencia extrema y siempre que los demás vehículos puedan detenerse sin riesgo.",
+            "B) En todas las situaciones, ya que la prioridad siempre es absoluta.",
+            "C) Cuando circulan en zonas de tráfico controlado y tienen luces intermitentes activas."
           ],
-          "respuesta_correcta": "C) siempre que pueda hacerlo en condiciones de seguridad"
-        },
-        {
-          "pregunta": "¿Cómo se debe circular en una pendiente ascendente con nieve?",
-          "opciones": [
-            "A) Con una relación de marchas cortas.",
-            "B) Con una relación de marchas lo más alta posible.",
-            "C) Lentamente y reteniendo el vehículo."
-          ],
-          "respuesta_correcta": "B) Con una relación de marchas lo más alta posible."
-        },
-        {
-          "pregunta": "¿Se permite hacer uso de ráfagas con el alumbrado de largo alcance para advertir al vehículo que le precede la intención de adelantar?",
-          "opciones": [
-            "A) No.",
-            "B) Sí, pero únicamente fuera de poblado.",
-            "C) Sí, tanto en poblado como fuera de poblado."
-          ],
-          "respuesta_correcta": "C) Sí, tanto en poblado como fuera de poblado."
-        },
-        {
-          "pregunta": "El sistema de ayuda de salida en pendiente, ¿cómo ayudará al conductor?",
-          "opciones": [
-            "A) A través de un sensor que detecta el ángulo de inclinación del vehículo e impide que se vaya hacia atrás al levantar el pie de freno.",
-            "B) Acelerará rápidamente el motor para evitar que el vehículo se vaya hacia atrás al levantar el pie de freno.",
-            "C) Activará el freno de estacionamiento de manera automática y no lo desactivará hasta que el conductor presione el acelerador, evitando así que el vehículo se vaya hacia atrás."
-          ],
-          "respuesta_correcta": "A) A través de un sensor que detecta el ángulo de inclinación del vehículo e impide que se vaya hacia atrás al levantar el pie de freno."
-        }
-      ]
-    },
-    {
-      "tema": "6",
-      "preguntas": [
-        {
-          "pregunta": "¿Qué vehículos tienen que tener contratado una póliza de Seguro Obligatorio?",
-          "opciones": [
-            "A) Todos los vehículos que circulen por las vías públicas",
-            "B) Todos los vehículos de motor excepto los ciclomotores.",
-            "C) Todos los vehículos de motor y los ciclomotores."
-          ],
-          "respuesta_correcta": "C) Todos los vehículos de motor y los ciclomotores."
-        },
-        {
-          "pregunta": "Si al aproximarse a una intersección, observa a un agente con el brazo levantado verticalmente, debe detenerse…",
-          "opciones": [
-            "A) sólo si ya ha entrado en la intersección.",
-            "B) sólo si ve al agente de frente y siempre que pueda hacerlo en condiciones de seguridad.",
-            "C) siempre que pueda hacerlo en condiciones de seguridad"
-          ],
-          "respuesta_correcta": "C) siempre que pueda hacerlo en condiciones de seguridad"
-        },
-        {
-          "pregunta": "¿Cómo se debe circular en una pendiente ascendente con nieve?",
-          "opciones": [
-            "A) Con una relación de marchas cortas.",
-            "B) Con una relación de marchas lo más alta posible.",
-            "C) Lentamente y reteniendo el vehículo."
-          ],
-          "respuesta_correcta": "B) Con una relación de marchas lo más alta posible."
-        },
-        {
-          "pregunta": "¿Se permite hacer uso de ráfagas con el alumbrado de largo alcance para advertir al vehículo que le precede la intención de adelantar?",
-          "opciones": [
-            "A) No.",
-            "B) Sí, pero únicamente fuera de poblado.",
-            "C) Sí, tanto en poblado como fuera de poblado."
-          ],
-          "respuesta_correcta": "C) Sí, tanto en poblado como fuera de poblado."
-        },
-        {
-          "pregunta": "El sistema de ayuda de salida en pendiente, ¿cómo ayudará al conductor?",
-          "opciones": [
-            "A) A través de un sensor que detecta el ángulo de inclinación del vehículo e impide que se vaya hacia atrás al levantar el pie de freno.",
-            "B) Acelerará rápidamente el motor para evitar que el vehículo se vaya hacia atrás al levantar el pie de freno.",
-            "C) Activará el freno de estacionamiento de manera automática y no lo desactivará hasta que el conductor presione el acelerador, evitando así que el vehículo se vaya hacia atrás."
-          ],
-          "respuesta_correcta": "A) A través de un sensor que detecta el ángulo de inclinación del vehículo e impide que se vaya hacia atrás al levantar el pie de freno."
-        }
-      ]
-    },
-    {
-      "tema": "7",
-      "preguntas": [
-        {
-          "pregunta": "¿Qué vehículos tienen que tener contratado una póliza de Seguro Obligatorio?",
-          "opciones": [
-            "A) Todos los vehículos que circulen por las vías públicas",
-            "B) Todos los vehículos de motor excepto los ciclomotores.",
-            "C) Todos los vehículos de motor y los ciclomotores."
-          ],
-          "respuesta_correcta": "C) Todos los vehículos de motor y los ciclomotores."
-        },
-        {
-          "pregunta": "Si al aproximarse a una intersección, observa a un agente con el brazo levantado verticalmente, debe detenerse…",
-          "opciones": [
-            "A) sólo si ya ha entrado en la intersección.",
-            "B) sólo si ve al agente de frente y siempre que pueda hacerlo en condiciones de seguridad.",
-            "C) siempre que pueda hacerlo en condiciones de seguridad"
-          ],
-          "respuesta_correcta": "C) siempre que pueda hacerlo en condiciones de seguridad"
-        },
-        {
-          "pregunta": "¿Cómo se debe circular en una pendiente ascendente con nieve?",
-          "opciones": [
-            "A) Con una relación de marchas cortas.",
-            "B) Con una relación de marchas lo más alta posible.",
-            "C) Lentamente y reteniendo el vehículo."
-          ],
-          "respuesta_correcta": "B) Con una relación de marchas lo más alta posible."
-        },
-        {
-          "pregunta": "¿Se permite hacer uso de ráfagas con el alumbrado de largo alcance para advertir al vehículo que le precede la intención de adelantar?",
-          "opciones": [
-            "A) No.",
-            "B) Sí, pero únicamente fuera de poblado.",
-            "C) Sí, tanto en poblado como fuera de poblado."
-          ],
-          "respuesta_correcta": "C) Sí, tanto en poblado como fuera de poblado."
-        },
-        {
-          "pregunta": "El sistema de ayuda de salida en pendiente, ¿cómo ayudará al conductor?",
-          "opciones": [
-            "A) A través de un sensor que detecta el ángulo de inclinación del vehículo e impide que se vaya hacia atrás al levantar el pie de freno.",
-            "B) Acelerará rápidamente el motor para evitar que el vehículo se vaya hacia atrás al levantar el pie de freno.",
-            "C) Activará el freno de estacionamiento de manera automática y no lo desactivará hasta que el conductor presione el acelerador, evitando así que el vehículo se vaya hacia atrás."
-          ],
-          "respuesta_correcta": "A) A través de un sensor que detecta el ángulo de inclinación del vehículo e impide que se vaya hacia atrás al levantar el pie de freno."
-        }
-      ]
-    },
-    {
-      "tema": "8",
-      "preguntas": [
-        {
-          "pregunta": "¿Qué vehículos tienen que tener contratado una póliza de Seguro Obligatorio?",
-          "opciones": [
-            "A) Todos los vehículos que circulen por las vías públicas",
-            "B) Todos los vehículos de motor excepto los ciclomotores.",
-            "C) Todos los vehículos de motor y los ciclomotores."
-          ],
-          "respuesta_correcta": "C) Todos los vehículos de motor y los ciclomotores."
-        },
-        {
-          "pregunta": "Si al aproximarse a una intersección, observa a un agente con el brazo levantado verticalmente, debe detenerse…",
-          "opciones": [
-            "A) sólo si ya ha entrado en la intersección.",
-            "B) sólo si ve al agente de frente y siempre que pueda hacerlo en condiciones de seguridad.",
-            "C) siempre que pueda hacerlo en condiciones de seguridad"
-          ],
-          "respuesta_correcta": "C) siempre que pueda hacerlo en condiciones de seguridad"
-        },
-        {
-          "pregunta": "¿Cómo se debe circular en una pendiente ascendente con nieve?",
-          "opciones": [
-            "A) Con una relación de marchas cortas.",
-            "B) Con una relación de marchas lo más alta posible.",
-            "C) Lentamente y reteniendo el vehículo."
-          ],
-          "respuesta_correcta": "B) Con una relación de marchas lo más alta posible."
-        },
-        {
-          "pregunta": "¿Se permite hacer uso de ráfagas con el alumbrado de largo alcance para advertir al vehículo que le precede la intención de adelantar?",
-          "opciones": [
-            "A) No.",
-            "B) Sí, pero únicamente fuera de poblado.",
-            "C) Sí, tanto en poblado como fuera de poblado."
-          ],
-          "respuesta_correcta": "C) Sí, tanto en poblado como fuera de poblado."
-        },
-        {
-          "pregunta": "El sistema de ayuda de salida en pendiente, ¿cómo ayudará al conductor?",
-          "opciones": [
-            "A) A través de un sensor que detecta el ángulo de inclinación del vehículo e impide que se vaya hacia atrás al levantar el pie de freno.",
-            "B) Acelerará rápidamente el motor para evitar que el vehículo se vaya hacia atrás al levantar el pie de freno.",
-            "C) Activará el freno de estacionamiento de manera automática y no lo desactivará hasta que el conductor presione el acelerador, evitando así que el vehículo se vaya hacia atrás."
-          ],
-          "respuesta_correcta": "A) A través de un sensor que detecta el ángulo de inclinación del vehículo e impide que se vaya hacia atrás al levantar el pie de freno."
+          "respuesta_correcta": "A) Solo en casos de emergencia extrema y siempre que los demás vehículos puedan detenerse sin riesgo."
         }
       ]
     }
