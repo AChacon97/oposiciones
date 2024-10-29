@@ -27,7 +27,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> _loadTemas() async {
     try {
-      // Determina el archivo a cargar según la pestaña seleccionada
       final String assetPath = _currentIndex == 0
           ? 'assets/preguntas_test.json'
           : 'assets/Preguntas_Desarrollo.json';
@@ -44,7 +43,6 @@ class _HomeScreenState extends State<HomeScreen> {
           };
         }).toList();
 
-        // Inicializar progreso de los temas para Test o Desarrollo
         final progressMap =
             _currentIndex == 0 ? temaProgressTest : temaProgressDesarrollo;
         for (var tema in temas) {
@@ -91,8 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ? Configuracion()
           : Center(
               child: temas.isEmpty
-                  ? CircularProgressIndicator() // Muestra un indicador de carga mientras se cargan los temas
-// Dentro de `build` y específicamente en el `ListView` donde se generan los botones:
+                  ? CircularProgressIndicator()
                   : ListView(
                       padding: EdgeInsets.all(16.0),
                       children: temas.map((tema) {
@@ -119,45 +116,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                 _updateTemaProgress(tema['tema'], 1);
                               }
                             },
-                            // Actualiza el `Text` del botón para mostrar el prefijo "Tema ", el número, y el título.
                             child: Text(
                                 "Tema ${tema['tema']}. ${tema['nombre_tema']}"),
                           ),
                         );
                       }).toList(),
                     ),
-
-              // : ListView(
-              //     padding: EdgeInsets.all(16.0),
-              //     children: temas.map((tema) {
-              //       return Padding(
-              //         padding: const EdgeInsets.symmetric(vertical: 8.0),
-              //         child: ElevatedButton(
-              //           style: _getButtonStyle(tema['tema']),
-              //           onPressed: () async {
-              //             _updateTemaProgress(tema['tema'], 1);
-
-              //             final resultado = await Navigator.push(
-              //               context,
-              //               MaterialPageRoute(
-              //                 builder: (context) => _currentIndex == 0
-              //                     ? Preguntas_Test(nombre: tema['tema'])
-              //                     : Preguntas_Desarrollo(
-              //                         nombre: tema['tema']),
-              //               ),
-              //             );
-
-              //             if (resultado == 'completado') {
-              //               _updateTemaProgress(tema['tema'], 2);
-              //             } else {
-              //               _updateTemaProgress(tema['tema'], 1);
-              //             }
-              //           },
-              //           child: Text(tema['nombre_tema']),
-              //         ),
-              //       );
-              //     }).toList(),
-              //   ),
             ),
       bottomNavigationBar: BottomNavigationBar(
         iconSize: 60,
@@ -180,7 +144,7 @@ class _HomeScreenState extends State<HomeScreen> {
         onTap: (index) {
           setState(() {
             _currentIndex = index;
-            _loadTemas(); // Cargar temas al cambiar de pestaña
+            _loadTemas(); // Recargar temas al cambiar de pestaña
           });
         },
       ),

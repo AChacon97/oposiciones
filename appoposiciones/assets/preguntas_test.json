@@ -2,7 +2,7 @@
   "temas": [
     {
       "tema": "1",
-      "nombre_tema": "Seguro Obligatorio y Normativa de Tráfico",
+      "nombre_tema": "Platanos",
       "preguntas": [
         {
           "pregunta": "¿Qué vehículos tienen que tener contratado una póliza de Seguro Obligatorio?",
@@ -47,7 +47,78 @@
           "respuesta_correcta": "C) Sí, tanto en poblado como fuera de poblado."
         }
       ]
+    },
+    {
+      "tema": "3",
+      "nombre_tema": "Señalización y Semáforos",
+      "preguntas": [
+        {
+          "pregunta": "Cuando nos encontramos ante un semáforo en ámbar fijo y una señal de ceda el paso al mismo tiempo, ¿qué debemos hacer y por qué?",
+          "opciones": [
+            "A) Avanzar con precaución, ya que el ámbar indica un cambio de fase próximo.",
+            "B) Detenerse de inmediato, pues el semáforo tiene prioridad sobre cualquier señal.",
+            "C) Ceder el paso según la señal y avanzar solo si es seguro."
+          ],
+          "respuesta_correcta": "C) Ceder el paso según la señal y avanzar solo si es seguro."
+        },
+        {
+          "pregunta": "¿Cuál es la función principal de las líneas discontinuas en la carretera y cómo afectan a los adelantamientos?",
+          "opciones": [
+            "A) Señalar la posibilidad de adelantamiento en tramos donde la visibilidad es adecuada.",
+            "B) Indicar la necesidad de cambiar de carril en cruces o intersecciones.",
+            "C) Establecer el límite de velocidad en áreas de alta densidad de tráfico."
+          ],
+          "respuesta_correcta": "A) Señalar la posibilidad de adelantamiento en tramos donde la visibilidad es adecuada."
+        }
+      ]
+    },
+    {
+      "tema": "4",
+      "nombre_tema": "Conducción en Condiciones Adversas",
+      "preguntas": [
+        {
+          "pregunta": "Al conducir en una carretera nevada sin cadenas o neumáticos de invierno, ¿qué precauciones adicionales deberían tomarse para garantizar la seguridad durante el trayecto, considerando también la densidad de tráfico y la visibilidad?",
+          "opciones": [
+            "A) Reducir la velocidad y mantener una distancia de seguridad aún mayor, evitando frenadas bruscas.",
+            "B) Aumentar la velocidad para reducir el tiempo de exposición a condiciones adversas.",
+            "C) Detenerse en el arcén y esperar a que mejoren las condiciones de visibilidad."
+          ],
+          "respuesta_correcta": "A) Reducir la velocidad y mantener una distancia de seguridad aún mayor, evitando frenadas bruscas."
+        },
+        {
+          "pregunta": "¿Qué factores adicionales deben tenerse en cuenta al conducir con lluvia intensa, especialmente en curvas o zonas de poca visibilidad?",
+          "opciones": [
+            "A) Reducir la velocidad y frenar de forma suave para evitar deslizamientos.",
+            "B) Conducir de forma rápida para evitar quedarse más tiempo en la carretera.",
+            "C) Mantener la misma velocidad y encender solo las luces largas para mejorar la visibilidad."
+          ],
+          "respuesta_correcta": "A) Reducir la velocidad y frenar de forma suave para evitar deslizamientos."
+        }
+      ]
+    },
+    {
+      "tema": "5",
+      "nombre_tema": "Vehículos de Emergencia y Normas de Prioridad",
+      "preguntas": [
+        {
+          "pregunta": "Al escuchar una sirena de emergencia acercándose desde atrás, ¿cuál es la acción más apropiada en una vía de un solo carril para cada sentido?",
+          "opciones": [
+            "A) Continuar en la misma dirección y detenerse solo si el vehículo lo indica.",
+            "B) Detenerse a la derecha si es seguro, dejando espacio para que el vehículo de emergencia avance.",
+            "C) Detenerse inmediatamente en el carril y esperar instrucciones."
+          ],
+          "respuesta_correcta": "B) Detenerse a la derecha si es seguro, dejando espacio para que el vehículo de emergencia avance."
+        },
+        {
+          "pregunta": "¿En qué situaciones los vehículos prioritarios tienen el derecho de paso, incluso ante semáforos en rojo?",
+          "opciones": [
+            "A) Solo en casos de emergencia extrema y siempre que los demás vehículos puedan detenerse sin riesgo.",
+            "B) En todas las situaciones, ya que la prioridad siempre es absoluta.",
+            "C) Cuando circulan en zonas de tráfico controlado y tienen luces intermitentes activas."
+          ],
+          "respuesta_correcta": "A) Solo en casos de emergencia extrema y siempre que los demás vehículos puedan detenerse sin riesgo."
+        }
+      ]
     }
-    
   ]
 }
