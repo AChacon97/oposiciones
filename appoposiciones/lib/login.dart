@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:appoposiciones/home.dart';
 import 'package:appoposiciones/registro.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'theme.dart'; // Importa el archivo de tema
@@ -58,7 +59,6 @@ class _PantallaLoginState extends State<PantallaLogin> {
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
-                
                 Image.asset(
                   "assets/images/LogoAcademia.jpg",
                   height: 100,
@@ -74,20 +74,21 @@ class _PantallaLoginState extends State<PantallaLogin> {
                 Container(
                   // Esto es un contenedor donde recogemos el TextField de la barra, se ha creado para poder meter un width para el ancho
                   width: 475,
-                  child: const TextField(
-                      decoration: InputDecoration(
+                  child:  TextField(
+                    controller: _usernameController,
+                    decoration: InputDecoration(
                     //filled: true,
                     hintText: 'Usuario',
-                  )),
+                  ),
                 ),
-                const SizedBox(
-                  height: 30,
-                ),
+              ),
+                const SizedBox(height: 30,),
                 Container(
                   //Esto es un contenedor donde recogemos el TextField de la barra, se ha creado para poder meter un width para el ancho.
                   width: 475,
-                  child: const TextField(
+                  child:  TextField(
                       // Todo lo que conlleva la barra contraseña.
+                      controller: _passwordController,
                       obscureText: true,
                       decoration: InputDecoration(hintText: 'Contraseña')),
                 ),
@@ -98,7 +99,7 @@ class _PantallaLoginState extends State<PantallaLogin> {
                     //fila para acoger los métodos de los botones.
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      BotonAcceder(context),
+                      BotonAcceder(context, _users, _usernameController, _passwordController),
                     ]),
                 const SizedBox(
                   height: 60,
