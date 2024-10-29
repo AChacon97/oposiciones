@@ -30,6 +30,8 @@ class CambiarNombreUsuario extends StatelessWidget {
             TextField(
               controller: _controller, // Asigna el controlador para manejar el texto
               decoration: InputDecoration(
+                filled: true, // Activa el color de fondo
+                fillColor: Color.fromARGB(255, 217, 227, 251), // Cambia el color de fondo de la caja de texto
                 border: OutlineInputBorder(), // Bordes del campo de texto
                 hintText: 'Escribe tu nuevo nombre de usuario', // Texto de sugerencia
                 hintStyle: TextStyle(color: const Color.fromARGB(255, 83, 82, 82)), // Color gris en el texto de sugerencia
