@@ -225,7 +225,7 @@
     },
     {
       "name": "image_picker_android",
-      "rootUri": "file:///C:/Users/XaruGamer/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker_android-0.8.12+16",
+      "rootUri": "file:///C:/Users/XaruGamer/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker_android-0.8.12+17",
       "packageUri": "lib/",
       "languageVersion": "3.5"
     },
@@ -476,7 +476,7 @@
       "languageVersion": "3.5"
     }
   ],
-  "generated": "2024-10-28T19:10:17.856532Z",
+  "generated": "2024-10-29T10:21:39.060478Z",
   "generator": "pub",
   "generatorVersion": "3.5.3",
   "flutterRoot": "file:///C:/DEV/flutter",
