@@ -28,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void _updateTemaProgress(String tema, int status) {
     setState(() {
       if (_currentIndex == 0) {
-        // temaProgressTest[tema] = status;
+        temaProgressTest[tema] = status;
       } else {
         temaProgressDesarrollo[tema] = status;
       }
@@ -63,27 +63,38 @@ class _HomeScreenState extends State<HomeScreen> {
               ? 'Preguntas Test'
               : _currentIndex == 1
                   ? 'Preguntas de Desarrollo'
-                  : 'Configuración', // Ajusta el título según la pestaña
+                  : 'Configuración',
         ),
       ),
       body: _currentIndex == 0
           ? _buildTemasScreen(context)
           : _currentIndex == 1
               ? _buildTemasScreen(context)
-              : Configuracion(), // Muestra Configuracion cuando el índice es 2
+              : Configuracion(),
       bottomNavigationBar: BottomNavigationBar(
-        iconSize: 30,
+        iconSize: 40, // Tamaño de los iconos
+        selectedFontSize: 16, // Ajuste de tamaño de texto seleccionado
+        unselectedFontSize: 14, // Ajuste de tamaño de texto no seleccionado
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.quiz),
+            icon: Padding(
+              padding: EdgeInsets.only(top: 8.0), // Ajuste de espaciado superior
+              child: Icon(Icons.quiz),
+            ),
             label: 'Test',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.book),
+            icon: Padding(
+              padding: EdgeInsets.only(top: 8.0),
+              child: Icon(Icons.book),
+            ),
             label: 'Temario',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
+            icon: Padding(
+              padding: EdgeInsets.only(top: 8.0),
+              child: Icon(Icons.settings),
+            ),
             label: 'Configuración',
           ),
         ],
@@ -91,14 +102,13 @@ class _HomeScreenState extends State<HomeScreen> {
         selectedItemColor: Colors.blue,
         onTap: (index) {
           setState(() {
-            _currentIndex = index; // Cambia la pantalla según el índice
+            _currentIndex = index;
           });
         },
       ),
     );
   }
 
-  // Construye la pantalla de Temas (usada tanto para Test como para Desarrollo)
   Widget _buildTemasScreen(BuildContext context) {
     return Center(
       child: Column(
@@ -133,4 +143,10 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+}
+
+void main() {
+  runApp(MaterialApp(
+    home: HomeScreen(),
+));
 }
