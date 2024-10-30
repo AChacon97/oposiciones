@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:appoposiciones/preguntas_test.dart';
 import 'package:appoposiciones/preguntas_desarrollo.dart';
-import 'preguntas_desarrollo.dart';
 import 'theme.dart';
-import 'configuracion.dart'; // Importa Configuracion
+import 'configuracion.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -15,7 +14,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
 
-  // Mapas para almacenar el progreso de cada tema en Test y en Desarrollo
   Map<String, int> temaProgressTest = {
     'Tema 1': 0,
     'Tema 2': 0,
@@ -27,13 +25,12 @@ class _HomeScreenState extends State<HomeScreen> {
     'Tema 3': 0,
   };
 
-  // Actualiza el progreso del tema cuando el usuario ha avanzado o completado
   void _updateTemaProgress(String tema, int status) {
     setState(() {
       if (_currentIndex == 0) {
-        /*temaProgressTest[tema] = status; <-- DESACTIVACION DE COLOR DE REALIZADO O POR HACER */
+        // temaProgressTest[tema] = status;
       } else {
-        temaProgressDesarrollo[tema] = status; // Desarrollo
+        temaProgressDesarrollo[tema] = status;
       }
     });
   }
@@ -44,7 +41,6 @@ class _HomeScreenState extends State<HomeScreen> {
     'Tema 3',
   ];
 
-  // Función para obtener el estilo del botón según el progreso del tema
   ButtonStyle _getButtonStyle(String tema, BuildContext context) {
     final progress =
         _currentIndex == 0 ? temaProgressTest : temaProgressDesarrollo;
@@ -63,94 +59,78 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          _currentIndex == 0 ? 'Preguntas Test' : 'Preguntas de Desarrollo',
-        ), // Título de la pantalla principal
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: temas.map((tema) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: ElevatedButton(
-                style: _getButtonStyle(tema,
-                    context), // Aplica el estilo del botón según el estado del tema
-                onPressed: () async {
-                  _updateTemaProgress(tema,
-                      1); // Cambia a "en progreso" cuando se inicia el tema
-
-                  // Navega a la pantalla de preguntas y espera el resultado
-                  final resultado = await Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => _currentIndex == 0
-                          ? Preguntas_Test(nombre: tema)
-                          : Preguntas_Desarrollo(nombre: tema),
-                    ),
-                  );
-
-                  // Actualiza el progreso del tema en función del resultado
-                  if (resultado == 'completado') {
-                    _updateTemaProgress(
-                        tema, 2); // Marca el tema como completado
-                  } else {
-                    _updateTemaProgress(tema, 1); // Deja el tema en progreso
-                  }
-                },
-                child: Text(tema), // Texto del botón (nombre del tema)
-              ),
-            );
-          }).toList(),
+          _currentIndex == 0
+              ? 'Preguntas Test'
+              : _currentIndex == 1
+                  ? 'Preguntas de Desarrollo'
+                  : 'Configuración', // Ajusta el título según la pestaña
         ),
       ),
+      body: _currentIndex == 0
+          ? _buildTemasScreen(context)
+          : _currentIndex == 1
+              ? _buildTemasScreen(context)
+              : Configuracion(), // Muestra Configuracion cuando el índice es 2
       bottomNavigationBar: BottomNavigationBar(
-        iconSize: 60,
+        iconSize: 30,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.quiz),
-            label: 'Test', // Icono y etiqueta para el test
+            label: 'Test',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.book),
-            label: 'Temario', // Icono y etiqueta para el temario
+            label: 'Temario',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Perfil', // Nuevo tab de perfil
+            icon: Icon(Icons.settings),
+            label: 'Configuración',
           ),
         ],
         currentIndex: _currentIndex,
         selectedItemColor: Colors.blue,
         onTap: (index) {
           setState(() {
-            if (index == 2) { 
-              // Navega a Configuracion cuando se selecciona el índice 2 (Perfil)
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Configuracion()),
-              );
-            } else {
-              _currentIndex = index;
-            }
+            _currentIndex = index; // Cambia la pantalla según el índice
           });
         },
       ),
-      );
+    );
   }
-}
 
-// Método para construir la pantalla de perfil
-Widget _buildPerfilScreen() {
-  return Center(
-    child: Text(
-      'Aquí va tu información de perfil.',
-      style: TextStyle(fontSize: 20),
-    ),
-  );
-}
+  // Construye la pantalla de Temas (usada tanto para Test como para Desarrollo)
+  Widget _buildTemasScreen(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: temas.map((tema) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: ElevatedButton(
+              style: _getButtonStyle(tema, context),
+              onPressed: () async {
+                _updateTemaProgress(tema, 1);
 
-void main() {
-  runApp(MaterialApp(
-    home: HomeScreen(),
-  ));
+                final resultado = await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => _currentIndex == 0
+                        ? Preguntas_Test(nombre: tema)
+                        : Preguntas_Desarrollo(nombre: tema),
+                  ),
+                );
+
+                if (resultado == 'completado') {
+                  _updateTemaProgress(tema, 2);
+                } else {
+                  _updateTemaProgress(tema, 1);
+                }
+              },
+              child: Text(tema),
+            ),
+          );
+        }).toList(),
+      ),
+    );
+  }
 }

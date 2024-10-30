@@ -7,7 +7,7 @@ import 'theme.dart';
 import 'estadisticas.dart';
 
 class Configuracion extends StatelessWidget {
-  const Configuracion({super.key});
+  const Configuracion({super.key });
 
   @override
   Widget build(BuildContext context) {
