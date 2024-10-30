@@ -24,8 +24,7 @@ class _Preguntas_DesarrolloState extends State<Preguntas_Desarrollo> {
 
   // Cargar preguntas desde el archivo JSON
   Future<void> _cargarPreguntas() async {
-    final String response =
-        await rootBundle.loadString('assets/Preguntas_Desarrollo.json');
+    final String response = await rootBundle.loadString('assets/Preguntas_Desarrollo.json');
     print(response); // Imprime el contenido del JSON
     final data = json.decode(response);
 
