@@ -28,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void _updateTemaProgress(String tema, int status) {
     setState(() {
       if (_currentIndex == 0) {
-        temaProgressTest[tema] = status;
+        // temaProgressTest[tema] = status;
       } else {
         temaProgressDesarrollo[tema] = status;
       }
@@ -63,38 +63,28 @@ class _HomeScreenState extends State<HomeScreen> {
               ? 'Preguntas Test'
               : _currentIndex == 1
                   ? 'Preguntas de Desarrollo'
-                  : 'Configuración',
+                  : 'Configuración', // Ajusta el título según la pestaña
         ),
+        leading: _currentIndex == 2 ? null : BackButton(), // Solo muestra la flecha en Configuración
       ),
       body: _currentIndex == 0
           ? _buildTemasScreen(context)
           : _currentIndex == 1
               ? _buildTemasScreen(context)
-              : Configuracion(),
+              : Configuracion(), // Muestra Configuracion cuando el índice es 2
       bottomNavigationBar: BottomNavigationBar(
-        iconSize: 40, // Tamaño de los iconos
-        selectedFontSize: 16, // Ajuste de tamaño de texto seleccionado
-        unselectedFontSize: 14, // Ajuste de tamaño de texto no seleccionado
+        iconSize: 40, // Aumenta el tamaño de los iconos
         items: const [
           BottomNavigationBarItem(
-            icon: Padding(
-              padding: EdgeInsets.only(top: 8.0), // Ajuste de espaciado superior
-              child: Icon(Icons.quiz),
-            ),
+            icon: Icon(Icons.quiz),
             label: 'Test',
           ),
           BottomNavigationBarItem(
-            icon: Padding(
-              padding: EdgeInsets.only(top: 8.0),
-              child: Icon(Icons.book),
-            ),
+            icon: Icon(Icons.book),
             label: 'Temario',
           ),
           BottomNavigationBarItem(
-            icon: Padding(
-              padding: EdgeInsets.only(top: 8.0),
-              child: Icon(Icons.settings),
-            ),
+            icon: Icon(Icons.settings),
             label: 'Configuración',
           ),
         ],
@@ -102,13 +92,21 @@ class _HomeScreenState extends State<HomeScreen> {
         selectedItemColor: Colors.blue,
         onTap: (index) {
           setState(() {
-            _currentIndex = index;
+            _currentIndex = index; // Cambia la pantalla según el índice
           });
         },
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Colors.white,
+        elevation: 10,
+        selectedFontSize: 14,
+        unselectedFontSize: 12,
+        selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
+        unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal),
       ),
     );
   }
 
+  // Construye la pantalla de Temas (usada tanto para Test como para Desarrollo)
   Widget _buildTemasScreen(BuildContext context) {
     return Center(
       child: Column(
