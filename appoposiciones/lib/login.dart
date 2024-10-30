@@ -130,7 +130,7 @@ Widget BotonRegistrar(BuildContext context) {
     style: AppTheme.botonFuncional(), // Aplica tu estilo de botón funcional
     onPressed: () {
       // Navegar a la pantalla de registro al presionar el botón
-      Navigator.pop(
+      Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const PantallaRegistro()),
       );
@@ -145,14 +145,18 @@ Widget BotonRegistrar(BuildContext context) {
   );
 }
 
+<<<<<<< HEAD
 Widget BotonAcceder(
     BuildContext context,
     List<dynamic> users,
     TextEditingController _usernameController,
     TextEditingController _passwordController) {
+=======
+Widget BotonAcceder(BuildContext context, List<dynamic>users,TextEditingController _usernameController, TextEditingController _passwordController ) {
+>>>>>>> antonio
   // Método para el botón acceder.
   return ElevatedButton(
-    style: AppTheme.botonFuncional(),
+    style: AppTheme.botonFuncional(), //
     onPressed: () {
       String username = _usernameController.text;
       String password = _passwordController.text;

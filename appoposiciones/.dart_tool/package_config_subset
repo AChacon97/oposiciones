@@ -136,8 +136,13 @@ file:///C:/Users/Jose%20Manuel/AppData/Local/Pub/Cache/hosted/pub.dev/image_pick
 file:///C:/Users/Jose%20Manuel/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker-0.8.9/lib/
 image_picker_android
 3.5
+<<<<<<< HEAD
 file:///C:/Users/Jose%20Manuel/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker_android-0.8.12+17/
 file:///C:/Users/Jose%20Manuel/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker_android-0.8.12+17/lib/
+=======
+file:///C:/Users/Jose%20Manuel/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker_android-0.8.12+16/
+file:///C:/Users/Jose%20Manuel/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker_android-0.8.12+16/lib/
+>>>>>>> antonio
 image_picker_for_web
 2.18
 file:///C:/Users/Jose%20Manuel/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker_for_web-2.2.0/

@@ -7,13 +7,13 @@ import 'theme.dart';
 import 'estadisticas.dart';
 
 class Configuracion extends StatelessWidget {
-  const Configuracion({super.key});
+  const Configuracion({super.key });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Configuración'),
+        title: const Text(''),
       ),
       body: Center(
         child: Padding(

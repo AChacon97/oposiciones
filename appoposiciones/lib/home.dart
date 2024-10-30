@@ -19,6 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Map<String, int> temaProgressTest = {};
   Map<String, int> temaProgressDesarrollo = {};
 
+<<<<<<< HEAD
   @override
   void initState() {
     super.initState();
@@ -53,6 +54,18 @@ class _HomeScreenState extends State<HomeScreen> {
       print("Error al cargar los temas: $e");
     }
   }
+=======
+  Map<String, int> temaProgressTest = {
+    'Tema 1': 0,
+    'Tema 2': 0,
+    'Tema 3': 0,
+  };
+  Map<String, int> temaProgressDesarrollo = {
+    'Tema 1': 0,
+    'Tema 2': 0,
+    'Tema 3': 0,
+  };
+>>>>>>> antonio
 
   void _updateTemaProgress(String tema, int status) {
     setState(() {
@@ -64,7 +77,17 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+<<<<<<< HEAD
   ButtonStyle _getButtonStyle(String tema) {
+=======
+  final List<String> temas = [
+    'Tema 1',
+    'Tema 2',
+    'Tema 3',
+  ];
+
+  ButtonStyle _getButtonStyle(String tema, BuildContext context) {
+>>>>>>> antonio
     final progress =
         _currentIndex == 0 ? temaProgressTest : temaProgressDesarrollo;
     switch (progress[tema]) {
@@ -82,6 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
+<<<<<<< HEAD
           _currentIndex == 0 ? 'Preguntas Test' : 'Preguntas de Desarrollo',
         ),
       ),
@@ -123,10 +147,27 @@ class _HomeScreenState extends State<HomeScreen> {
                       }).toList(),
                     ),
             ),
+=======
+          _currentIndex == 0
+              ? 'Preguntas Test'
+              : _currentIndex == 1
+                  ? 'Preguntas de Desarrollo'
+                  : 'Configuración',
+        ),
+      ),
+      body: _currentIndex == 0
+          ? _buildTemasScreen(context)
+          : _currentIndex == 1
+              ? _buildTemasScreen(context)
+              : Configuracion(),
+>>>>>>> antonio
       bottomNavigationBar: BottomNavigationBar(
-        iconSize: 60,
+        iconSize: 40, // Tamaño de los iconos
+        selectedFontSize: 16, // Ajuste de tamaño de texto seleccionado
+        unselectedFontSize: 14, // Ajuste de tamaño de texto no seleccionado
         items: const [
           BottomNavigationBarItem(
+<<<<<<< HEAD
             icon: Icon(Icons.quiz),
             label: 'Test',
           ),
@@ -136,6 +177,26 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
+=======
+            icon: Padding(
+              padding: EdgeInsets.only(top: 8.0), // Ajuste de espaciado superior
+              child: Icon(Icons.quiz),
+            ),
+            label: 'Test',
+          ),
+          BottomNavigationBarItem(
+            icon: Padding(
+              padding: EdgeInsets.only(top: 8.0),
+              child: Icon(Icons.book),
+            ),
+            label: 'Temario',
+          ),
+          BottomNavigationBarItem(
+            icon: Padding(
+              padding: EdgeInsets.only(top: 8.0),
+              child: Icon(Icons.settings),
+            ),
+>>>>>>> antonio
             label: 'Configuración',
           ),
         ],
@@ -144,9 +205,54 @@ class _HomeScreenState extends State<HomeScreen> {
         onTap: (index) {
           setState(() {
             _currentIndex = index;
+<<<<<<< HEAD
             _loadTemas(); // Recargar temas al cambiar de pestaña
+=======
+>>>>>>> antonio
           });
         },
+      ),
+    );
+  }
+
+<<<<<<< HEAD
+void main() {
+  runApp(MaterialApp(
+    home: HomeScreen(),
+  ));
+}
+=======
+  Widget _buildTemasScreen(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: temas.map((tema) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: ElevatedButton(
+              style: _getButtonStyle(tema, context),
+              onPressed: () async {
+                _updateTemaProgress(tema, 1);
+
+                final resultado = await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => _currentIndex == 0
+                        ? Preguntas_Test(nombre: tema)
+                        : Preguntas_Desarrollo(nombre: tema),
+                  ),
+                );
+
+                if (resultado == 'completado') {
+                  _updateTemaProgress(tema, 2);
+                } else {
+                  _updateTemaProgress(tema, 1);
+                }
+              },
+              child: Text(tema),
+            ),
+          );
+        }).toList(),
       ),
     );
   }
@@ -155,5 +261,6 @@ class _HomeScreenState extends State<HomeScreen> {
 void main() {
   runApp(MaterialApp(
     home: HomeScreen(),
-  ));
+));
 }
+>>>>>>> antonio
