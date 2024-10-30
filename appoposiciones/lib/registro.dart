@@ -190,12 +190,8 @@ class _PantallaRegistroState extends State<PantallaRegistro> {
           builder: (context) =>
               const PantallaLogin(title: 'login',)), // Cambia a la página de inicio
     );
-      });
-    print('NAVEGACIÓN EXITOSA');
-    }catch (e){
-      print('ERROR AL NAVEGAR A PANTALLALOGIN: $e');
-    }
-  }
+      }
+
 
 
 
