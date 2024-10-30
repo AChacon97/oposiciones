@@ -41,6 +41,8 @@ class _PantallaRegistroState extends State<PantallaRegistro> {
   @override
   void initState() {
     super.initState();
+
+
     _loadUsers(); // Cargar usuarios al iniciar
   }
 
@@ -84,6 +86,28 @@ class _PantallaRegistroState extends State<PantallaRegistro> {
     }catch (e) {
       print('Error al cargar usuarios: $e'); // Manejo de errores
     }
+  }
+
+  void _login(){
+    final username = _usernameController.text;
+    final password = _passwordController.text;
+
+    final user = _users.firstWhere(
+      (user) => user['username'] == username && user['password'] == password,
+      orElse: () => null,
+     );
+     if(user != null){
+      //autenticacion exitosa
+      Navigator.pushReplacement(
+        context, 
+        MaterialPageRoute(builder: (context)=> const HomeScreen()),
+        );
+     }else{
+      // Autenticacion fallida
+         ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Nombre de usuario o contraseña incorrectos.')),
+      );
+     }
   }
 
 
