@@ -1,10 +1,17 @@
 import 'dart:convert'; // Para manejar JSON
+import 'package:appoposiciones/login.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart'; // Paquete de Flutter para la interfaz de usuario
 import 'package:flutter/services.dart'; // Para cargar archivos locales
 import 'package:path_provider/path_provider.dart'; // Para obtener el directorio del sistema
 import 'dart:io'; // Para manejar archivos
 import 'package:appoposiciones/home.dart'; // Asegúrate de que la ruta sea correcta
 import 'theme.dart'; // Importa el archivo que contiene el tema
+import 'package:flutter/foundation.dart' show kIsWeb; // Para saber si está en web
+//import 'package:permission_handler/permission_handler.dart';
+
+
+
 
 // Clase principal de la pantalla de registro
 class PantallaRegistro extends StatefulWidget {
@@ -22,6 +29,8 @@ class _PantallaRegistroState extends State<PantallaRegistro> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+
+
   // Variables para almacenar errores de validación
   String? _usernameError;
   String? _emailError;
@@ -32,66 +41,163 @@ class _PantallaRegistroState extends State<PantallaRegistro> {
   @override
   void initState() {
     super.initState();
+
+
     _loadUsers(); // Cargar usuarios al iniciar
   }
+
+
 
   // Función para cargar usuarios desde un archivo JSON
   Future<void> _loadUsers() async {
     try {
-      final directory =
-          await getApplicationDocumentsDirectory(); // Obtiene el directorio de documentos
-      final file =
-          File('${directory.path}/data.json'); // Define la ruta del archivo
-      if (await file.exists()) {
+      if (kIsWeb){
+   
+        print('Usuarios CARGADOS en localStorage');
+        //Cargar usuarios desde localStorage en web
+        
+      }else{
+        //CARGA EL ARCHIVO EN MÓVIL
+        final directory = await getApplicationDocumentsDirectory(); // Obtiene el directorio de documentos
+        final file = File('${directory.path}/registro.json'); // Define la ruta del archivo
+        
+        if (await file.exists()) {
         // Verifica si el archivo existe
-        final String response =
-            await file.readAsString(); // Lee el contenido del archivo
-        final data = json.decode(response); // Decodifica el JSON
-        setState(() {
-          _users = data; // Asigna los usuarios a la lista
+          final String response = await file.readAsString(); // Lee el contenido del archivo
+          final List<dynamic> data = json.decode(response);
+        //final data = json.decode(response); // Decodifica el JSON
+          setState(() {
+            _users = List<Map<String, dynamic>>.from(data);
         });
       }
-    } catch (e) {
+    }
+  }catch (e) {
       print('Error al cargar usuarios: $e'); // Manejo de errores
     }
   }
 
-  // Función para guardar usuarios en el archivo JSON
-  Future<void> _saveUsers() async {
-    final directory =
-        await getApplicationDocumentsDirectory(); // Obtiene el directorio de documentos
-    final file =
-        File('${directory.path}/data.json'); // Define la ruta del archivo
+  void _login(){
+    final username = _usernameController.text;
+    final password = _passwordController.text;
 
-    String jsonString =
-        jsonEncode(_users); // Convierte la lista de usuarios a JSON
-    await file.writeAsString(jsonString); // Guarda el JSON en el archivo
+    final user = _users.firstWhere(
+      (user) => user['username'] == username && user['password'] == password,
+      orElse: () => null,
+     );
+     if(user != null){
+      //autenticacion exitosa
+      Navigator.pushReplacement(
+        context, 
+        MaterialPageRoute(builder: (context)=> const HomeScreen()),
+        );
+     }else{
+      // Autenticacion fallida
+         ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Nombre de usuario o contraseña incorrectos.')),
+      );
+     }
   }
 
+
+
+
+/*Future<void> requestStoragePermission() async {
+  var status = await Permission.storage.status;
+  if (!status.isGranted) {
+    await Permission.storage.request();
+  }
+}*/
+
+
+
+  // Función para guardar usuarios en el archivo JSON
+  Future<void> _saveUsers() async {
+    try{
+     // String jsonString = jsonEncode(_users);
+      var directory=null;
+      var file = null;
+      if(kIsWeb){
+     
+        // Obtenemos la ruta desde el navegador
+        
+        print('Usuarios guardados en localStorage');
+        
+         }else{
+
+          /*final String path = r'C:\Users\Jose Manuel\Desktop\github\oposiciones\appoposiciones\assets\registro.json';
+          final file = File(path);
+
+          await file.writeAsString(jsonString);
+          print('Usuarios guardados en $path');*/
+        directory = await getApplicationDocumentsDirectory(); // Obtiene el directorio de documentos
+        file = File('${directory.path}/registro.json'); // Define la ruta del archivo
+        await file.writeAsString(directory);
+        
+        }
+    
+//Imprime la ruta del archivo
+    print('Ruta del archivo: ${file.path}');
+    
+      //String jsonString = jsonEncode(_users); // Convierte la lista de usuarios a JSON
+
+       //Guardar en el almacenamiento local del navegador
+       //html.window.localStorage['registro'] = jsonString;
+     // await file.writeAsString(jsonString); // Guarda el JSON en el archivo
+          print('Usuarios guardados correctamente');
+     } catch (e){
+    print('Error al guardar usuarios: $e');
+  }
+}
+
+
+
   // Función para registrar un nuevo usuario
-  void _registerUser() {
+  void _registerUser() async {
+    print('Intentando registrar usuario...');
+    
+    // Validar campos no vacíos
+    if(_usernameController.text.isEmpty
+        || _emailController.text.isEmpty
+        || _passwordController.text.isEmpty){
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Todos los campos son obligatorios.')),
+          );
+          return;
+        }
     final newUser = {
       'username': _usernameController.text, // Obtiene el nombre de usuario
       'email': _emailController.text, // Obtiene el correo electrónico
       'password': _passwordController.text, // Obtiene la contraseña
     };
+      bool userExists = _users.any((user) =>
+      user['username'] == newUser['username'] ||
+      user['email'] == newUser['email']);
 
-    setState(() {
+  if (!userExists) {
+     setState(() {
       _users.add(newUser); // Agrega el nuevo usuario a la lista
+      print('Lista de usuarios antes de guardar: $_users');
     });
-
-    _saveUsers(); // Guarda usuarios en el archivo JSON
-    print(
-        'Usuario registrado: $newUser'); // Imprime el nuevo usuario en consola
-
-    // Navega a la página de inicio
+      await _saveUsers(); // Guarda usuarios en el archivo JSON
+      print('Usuario registrado: $newUser'); // Imprime el nuevo usuario en consola
+      print(_users);
+  }else{
+    
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('El usuario ya existe.')),
+    );
+    return; 
+  }
+// Navega a la página de inicio
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
           builder: (context) =>
-              const HomeScreen()), // Cambia a la página de inicio
+              const PantallaLogin(title: 'login',)), // Cambia a la página de inicio
     );
   }
+
+
 
   // Función para validar el nombre de usuario
   void _validateUsername(String value) {
@@ -111,6 +217,8 @@ class _PantallaRegistroState extends State<PantallaRegistro> {
     });
   }
 
+
+
   // Función para validar el correo electrónico
   void _validateEmail(String value) {
     setState(() {
@@ -129,6 +237,8 @@ class _PantallaRegistroState extends State<PantallaRegistro> {
       }
     });
   }
+
+
 
   // Función para validar la contraseña
   void _validatePassword(String value) {
