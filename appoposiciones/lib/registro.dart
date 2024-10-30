@@ -7,7 +7,9 @@ import 'package:path_provider/path_provider.dart'; // Para obtener el directorio
 import 'dart:io'; // Para manejar archivos
 import 'package:appoposiciones/home.dart'; // Asegúrate de que la ruta sea correcta
 import 'theme.dart'; // Importa el archivo que contiene el tema
-import 'dart:html' as html;
+import 'package:flutter/foundation.dart' show kIsWeb; // Para saber si está en web
+
+
 
 
 
@@ -46,20 +48,16 @@ class _PantallaRegistroState extends State<PantallaRegistro> {
   Future<void> _loadUsers() async {
     try {
       if (kIsWeb){
+   
+        print('Usuarios CARGADOS en localStorage');
         //Cargar usuarios desde localStorage en web
-        String? jsonString = html.window.localStorage['registro'];
-        if (jsonString!= null){
-          final List<dynamic>data = json.decode(jsonString);
-          setState(() {
-            _users = List<Map<String, dynamic>>.from(data);
-          });
-        }
+        
       }else{
         //CARGA EL ARCHIVO EN MÓVIL
       //final directory = await getApplicationDocumentsDirectory(); // Obtiene el directorio de documentos
-      final String directory = await rootBundle.loadString('assets/registro.json');
+      final String jsonString = await rootBundle.loadString('assets/registro.json');
       //final file = File('${directory.path}/registro.json'); // Define la ruta del archivo
-      final List<dynamic> data = json.decode(directory); // Descodifica el JSON
+      final List<dynamic> data = json.decode(jsonString); // Descodifica el JSON
       /*if (await file.exists()) {
         // Verifica si el archivo existe
         final String response = await file.readAsString(); // Lee el contenido del archivo
@@ -93,24 +91,29 @@ class _PantallaRegistroState extends State<PantallaRegistro> {
   // Función para guardar usuarios en el archivo JSON
   Future<void> _saveUsers() async {
     try{
+      String jsonString = jsonEncode(_users);
       var directory=null;
       var file = null;
       if(kIsWeb){
+     
         // Obtenemos la ruta desde el navegador
-         file = File('C:/Users/Jose Manuel/Desktop/github/oposiciones/appoposiciones/assets/registro.json'); // Define la ruta del archivo*/
+        
+        print('Usuarios guardados en localStorage');
+        
          }else{
         directory = await getApplicationDocumentsDirectory(); // Obtiene el directorio de documentos*/
         file = File('${directory.path}/registro.json'); // Define la ruta del archivo*/
+        await file.writeAsString(jsonString);
         }
     
 //Imprime la ruta del archivo
     print('Ruta del archivo: ${file.path}');
     
-      String jsonString = jsonEncode(_users); // Convierte la lista de usuarios a JSON
+      //String jsonString = jsonEncode(_users); // Convierte la lista de usuarios a JSON
 
        //Guardar en el almacenamiento local del navegador
        //html.window.localStorage['registro'] = jsonString;
-      await file.writeAsString(jsonString); // Guarda el JSON en el archivo
+     // await file.writeAsString(jsonString); // Guarda el JSON en el archivo
           print('Usuarios guardados correctamente');
      } catch (e){
     print('Error al guardar usuarios: $e');
