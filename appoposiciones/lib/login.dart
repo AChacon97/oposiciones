@@ -145,15 +145,7 @@ Widget BotonRegistrar(BuildContext context) {
   );
 }
 
-<<<<<<< HEAD
-Widget BotonAcceder(
-    BuildContext context,
-    List<dynamic> users,
-    TextEditingController _usernameController,
-    TextEditingController _passwordController) {
-=======
 Widget BotonAcceder(BuildContext context, List<dynamic>users,TextEditingController _usernameController, TextEditingController _passwordController ) {
->>>>>>> antonio
   // Método para el botón acceder.
   return ElevatedButton(
     style: AppTheme.botonFuncional(), //
