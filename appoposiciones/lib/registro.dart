@@ -113,7 +113,7 @@ class _PantallaRegistroState extends State<PantallaRegistro> {
   // Función para guardar usuarios en el archivo JSON
   Future<void> _saveUsers() async {
     try{
-     // String jsonString = jsonEncode(_users);
+      String jsonString = jsonEncode(_users);
       var directory=null;
       var file = null;
       if(kIsWeb){
@@ -131,12 +131,12 @@ class _PantallaRegistroState extends State<PantallaRegistro> {
           print('Usuarios guardados en $path');*/
         directory = await getApplicationDocumentsDirectory(); // Obtiene el directorio de documentos
         file = File('${directory.path}/registro.json'); // Define la ruta del archivo
-        await file.writeAsString(directory);
-        
+        await file.writeAsString(jsonString);
+         print('Ruta del archivo: ${file.path}');
         }
     
 //Imprime la ruta del archivo
-    print('Ruta del archivo: ${file.path}');
+   
     
       //String jsonString = jsonEncode(_users); // Convierte la lista de usuarios a JSON
 
