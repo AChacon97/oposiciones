@@ -1,16 +1,16 @@
 plugins {
     id "com.android.application"
-    // START: FlutterFire Configuration
-    id 'com.google.gms.google-services'
-    // END: FlutterFire Configuration
+    id 'com.google.gms.google-services' // Para FlutterFire (si lo usas)
     id "kotlin-android"
-    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id "dev.flutter.flutter-gradle-plugin"
 }
 
 android {
-    namespace = "com.example.appoposiciones"
-    compileSdk = flutter.compileSdkVersion
+    namespace = "com.example.appoposiciones"  // Cambia esto a tu propio namespace
+
+    // Aquí estamos usando la versión del SDK recomendada por Flutter
+    compileSdk = flutter.compileSdkVersion  // Delega la configuración a Flutter
+
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
@@ -23,21 +23,16 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.example.appoposiciones"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdkVersion 23
-        targetSdk = flutter.targetSdkVersion
-        versionCode = flutter.versionCode
-        versionName = flutter.versionName
+        applicationId = "com.example.appoposiciones"  // Cambia esto a tu propio ID de aplicación
+        minSdkVersion 23  // La mínima versión del SDK que tu aplicación soporta
+        targetSdkVersion 33  // La versión del SDK objetivo para la aplicación (asegúrate de tenerlo actualizado)
+        versionCode flutter.versionCode.toInteger()
+        versionName flutter.versionName
     }
 
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.debug
+            signingConfig signingConfigs.debug
             shrinkResources false
             minifyEnabled false
         }

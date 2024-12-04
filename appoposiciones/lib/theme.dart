@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 const String fontFamily = 'Times New Roman';
 
@@ -10,7 +12,8 @@ class AppTheme {
   }
 
   // Paleta de colores
-  static const Color primaryColor = Color(0xFF6200EA); // Morado
+  static const Color primaryColor =
+      Color.fromARGB(255, 255, 255, 255); // Morado
   static const Color secondaryColor =
       Color.fromARGB(255, 209, 225, 224); // Verde aguamarina
 
@@ -71,7 +74,7 @@ class AppTheme {
       color: Color.fromARGB(255, 45, 45, 45), // Color del hint
       fontFamily: fontFamily,
     ),
-    fillColor: Color.fromARGB(255, 109, 172, 217), // Color de fondo
+    fillColor: const Color.fromARGB(255, 109, 172, 217), // Color de fondo
     filled: true,
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(8.0),
@@ -81,9 +84,10 @@ class AppTheme {
   /* ---ESTILO BOTONES--- */
   static ButtonStyle botonFuncional() {
     return ElevatedButton.styleFrom(
-      backgroundColor: Color.fromARGB(255, 217, 227, 251),
-      foregroundColor: Color.fromARGB(255, 60, 120, 255), // Color del texto
-      textStyle: TextStyle(
+      backgroundColor: const Color.fromARGB(255, 217, 227, 251),
+      foregroundColor:
+          const Color.fromARGB(255, 60, 120, 255), // Color del texto
+      textStyle: const TextStyle(
         fontFamily: fontFamily, // Establecido al principio Tipo de letra.
         fontWeight: FontWeight.bold,
         fontSize: 25,
@@ -92,16 +96,33 @@ class AppTheme {
   }
 
   static ButtonStyle botonConfiguracion() {
-   return ElevatedButton.styleFrom(
-      backgroundColor: Color.fromARGB(255, 217, 227, 251),
-      foregroundColor: Color.fromARGB(255, 60, 120, 255), // Color del texto
-        padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 40.0), // Aumenta altura y ancho
+    return ElevatedButton.styleFrom(
+      backgroundColor: const Color.fromARGB(255, 217, 227, 251),
+      foregroundColor:
+          const Color.fromARGB(255, 60, 120, 255), // Color del texto
+      padding: const EdgeInsets.symmetric(
+          vertical: 18.0, horizontal: 40.0), // Aumenta altura y ancho
       textStyle: const TextStyle(
         fontSize: 18, // Ajusta el tamaño de fuente si es necesario
         fontWeight: FontWeight.bold,
       ),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(30), // Bordes ligeramente redondeados
+        borderRadius:
+            BorderRadius.circular(30), // Bordes ligeramente redondeados
+      ),
+    );
+  }
+
+// Estilo para el botón cuando el tema está completado correctamente (verde)
+  static ButtonStyle happyColor(BuildContext context) {
+    return ElevatedButton.styleFrom(
+      minimumSize: Size(getButtonWidth(context), 50),
+      backgroundColor: Colors.green.shade100,
+      foregroundColor: Colors.black,
+      textStyle: const TextStyle(
+        fontFamily: fontFamily,
+        fontWeight: FontWeight.bold,
+        fontSize: 20,
       ),
     );
   }
@@ -110,9 +131,10 @@ class AppTheme {
     return ElevatedButton.styleFrom(
       minimumSize:
           Size(getButtonWidth(context), 50), // Ancho al 95% y altura fija de 50
-      backgroundColor: Color.fromARGB(
+      backgroundColor: const Color.fromARGB(
           255, 217, 227, 251), // Color de fondo para "no empezado"
-      foregroundColor: Color.fromARGB(255, 60, 120, 255), // Color del texto
+      foregroundColor:
+          const Color.fromARGB(255, 60, 120, 255), // Color del texto
       textStyle: const TextStyle(
         fontFamily: fontFamily, // Tipo de letra definido previamente
         fontWeight: FontWeight.bold,
@@ -125,9 +147,9 @@ class AppTheme {
     return ElevatedButton.styleFrom(
       minimumSize:
           Size(getButtonWidth(context), 50), // Ancho al 95% y altura fija de 50
-      backgroundColor: Color.fromARGB(
+      backgroundColor: const Color.fromARGB(
           255, 110, 255, 165), // Color de fondo para "completado"
-      foregroundColor: Color.fromARGB(255, 0, 32, 2), // Color del texto
+      foregroundColor: const Color.fromARGB(255, 0, 32, 2), // Color del texto
       textStyle: const TextStyle(
         fontFamily: fontFamily,
         fontWeight: FontWeight.bold,
@@ -140,9 +162,9 @@ class AppTheme {
     return ElevatedButton.styleFrom(
       minimumSize:
           Size(getButtonWidth(context), 50), // Ancho al 95% y altura fija de 50
-      backgroundColor: Color.fromARGB(
+      backgroundColor: const Color.fromARGB(
           255, 255, 216, 86), // Color de fondo para "en progreso"
-      foregroundColor: Color.fromARGB(255, 58, 19, 0), // Color del texto
+      foregroundColor: const Color.fromARGB(255, 58, 19, 0), // Color del texto
       textStyle: const TextStyle(
         fontFamily: fontFamily,
         fontWeight: FontWeight.bold,
@@ -160,7 +182,7 @@ class AppTheme {
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(10),
     ),
-    margin: EdgeInsets.all(10),
+    margin: const EdgeInsets.all(10),
   );
 
   // Estilo para Card COMPLETADAS
@@ -171,7 +193,7 @@ class AppTheme {
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(10),
     ),
-    margin: EdgeInsets.all(10),
+    margin: const EdgeInsets.all(10),
   );
 
   // Estilo para Card EMPEZADAS
@@ -182,6 +204,36 @@ class AppTheme {
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(10),
     ),
-    margin: EdgeInsets.all(10),
+    margin: const EdgeInsets.all(10),
   );
 }
+
+/*
+IMAGEN DE PERFIL
+*/
+// Método reutilizable para cargar imagen de perfil
+Future<Widget> cargarImagenPerfil({double width = 100, double height = 100}) async {
+  final prefs = await SharedPreferences.getInstance();
+  final base64Image = prefs.getString('imagenPerfil');
+
+  if (base64Image != null) {
+    final bytes = base64Decode(base64Image);
+    return Image.memory(
+      bytes,
+      width: width,
+      height: height,
+      fit: BoxFit.cover,
+    );
+  } else {
+    return Image.asset(
+      'assets/images/UsuarioPredeterminado.jpg',
+      width: width,
+      height: height,
+      fit: BoxFit.cover,
+    );
+  }
+}
+
+
+  // Puedes definir otros estilos o adaptarlos según sea necesario
+

@@ -1,44 +1,163 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart';
-import 'dart:math'; // Import para selección aleatoria
+import 'dart:math';
+import 'estadisticas_model.dart';
+import 'dart:async';
+import 'tema_stats.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class Preguntas_Test extends StatefulWidget {
-  final String nombre;
+// Widget para mostrar el tiempo
+class TimerWidget extends StatelessWidget {
+  final Duration duration;
 
-  const Preguntas_Test({super.key, required this.nombre});
+  const TimerWidget({super.key, required this.duration});
 
   @override
+  Widget build(BuildContext context) {
+    String minutes = duration.inMinutes.toString().padLeft(2, '0');
+    String seconds = (duration.inSeconds % 60).toString().padLeft(2, '0');
+
+    return Container(
+      padding: const EdgeInsets.all(16.0),
+      decoration: BoxDecoration(
+        color: Colors.blueAccent,
+        borderRadius: BorderRadius.circular(8.0),
+      ),
+      child: Text(
+        'Tiempo: $minutes:$seconds',
+        style: const TextStyle(color: Colors.white, fontSize: 20),
+      ),
+    );
+  }
+}
+
+// ignore: camel_case_types
+class Preguntas_Test extends StatefulWidget {
+  final String nombre;
+  final Map<String, TemaStats> temaProgress;
+
+  const Preguntas_Test(
+      {super.key, required this.nombre, required this.temaProgress});
+
+  @override
+  // ignore: library_private_types_in_public_api
   _PreguntasTestState createState() => _PreguntasTestState();
 }
 
 class _PreguntasTestState extends State<Preguntas_Test> {
-  int? _respuestaSeleccionada; // Índice de la respuesta seleccionada
-  Map<String, dynamic>? preguntaActual; // Almacena la pregunta actual
-  List<Map<String, dynamic>> preguntasTema =
-      []; // Todas las preguntas en el tema
-  Set<int> preguntasVistas = {}; // Seguimiento de preguntas vistas por índice
-  bool respuestaComprobada = false; // Indica si la respuesta fue comprobada
-  bool esCorrecto = false; // Resultado de la comprobación
-  int correctas = 0; // Contador de respuestas correctas
-  int incorrectas = 0; // Contador de respuestas incorrectas
+  int? _respuestaSeleccionada;
+  Map<String, dynamic>? preguntaActual;
+  List<Map<String, dynamic>> preguntasTema = [];
+  Set<int> preguntasVistas = {};
+  bool respuestaComprobada = false;
+  bool esCorrecto = false;
+  List<bool> respuestasCorrectas = [];
+  int? _indicePreguntaGuardada;
+
+  int aciertosTema = 0;
+  int fallosTema = 0;
+  final estadisticas = EstadisticasModel();
+  final Stopwatch _stopwatch = Stopwatch();
+  Timer? _timer;
+  Duration _elapsedTime = Duration.zero;
+
+  // Guardar y cargar resultados (sin cambios)
+  Future<void> _guardarResultados(int correctas, int incorrectas) async {
+    final prefs = await SharedPreferences.getInstance();
+    final fechasKey = 'fechas_${widget.nombre}';
+    final correctasKey = 'correctas_${widget.nombre}';
+    final incorrectasKey = 'incorrectas_${widget.nombre}';
+    final ahora = DateTime.now().toString();
+
+    List<String> fechas = prefs.getStringList(fechasKey) ?? [];
+    fechas.add(ahora);
+    await prefs.setStringList(fechasKey, fechas);
+
+    List<String> correctasList = prefs.getStringList(correctasKey) ?? [];
+    correctasList.add(correctas.toString());
+    await prefs.setStringList(correctasKey, correctasList);
+
+    List<String> incorrectasList = prefs.getStringList(incorrectasKey) ?? [];
+    incorrectasList.add(incorrectas.toString());
+    await prefs.setStringList(incorrectasKey, incorrectasList);
+  }
+
+  // Método para finalizar el test
+  void finalizarTema() {
+    bool todasCorrectas = verificarRespuestasCorrectas();
+    String resultado = todasCorrectas ? "completado" : "incompleto";
+
+    if (todasCorrectas) {
+      widget.temaProgress[widget.nombre]?.temaIniciado = true;
+      widget.temaProgress[widget.nombre]?.respuestasCorrectas =
+          respuestasCorrectas;
+    }
+
+    _guardarResultados(
+        aciertosTema, fallosTema); // Guarda la fecha y resultados
+    _incrementarVecesRealizado(); // Incrementa veces realizado
+
+    Navigator.pop(context, resultado);
+  }
+
+  bool verificarRespuestasCorrectas() {
+    return respuestasCorrectas.isNotEmpty &&
+        respuestasCorrectas.every((respuesta) => respuesta == true);
+  }
 
   @override
   void initState() {
     super.initState();
-    _cargarPreguntas();
+    reiniciarProgresoTema(); // Asegura el reinicio en cada acceso
+    _cargarPreguntas(); // Cargar preguntas completas después de reiniciar el progreso
+    _startTimer(); // Inicia el temporizador
   }
 
-  // Cargar las preguntas desde el archivo JSON
+  // Método para reiniciar el progreso
+  void reiniciarProgresoTema() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.remove(
+        'indicePregunta_${widget.nombre}'); // Limpia el progreso guardado del tema en SharedPreferences
+    setState(() {
+      _indicePreguntaGuardada = 0; // Reinicia el índice a la primera pregunta
+      preguntasVistas.clear(); // Limpia todas las preguntas vistas
+      respuestasCorrectas = List<bool>.filled(
+          preguntasTema.length, false); // Reinicia la lista de respuestas
+      aciertosTema = 0; // Reinicia aciertos
+      fallosTema = 0; // Reinicia fallos
+    });
+  }
+
+  Future<void> _guardarProgresoPregunta() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt(
+        'indicePregunta_${widget.nombre}', _indicePreguntaGuardada ?? 0);
+  }
+
+  Future<void> _incrementarVecesRealizado() async {
+    final prefs = await SharedPreferences.getInstance();
+    final key = 'vecesRealizado_${widget.nombre}';
+    final vecesRealizado = prefs.getInt(key) ?? 0;
+    await prefs.setInt(key, vecesRealizado + 1);
+  }
+
+  void _startTimer() {
+    _stopwatch.start();
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        _elapsedTime = _stopwatch.elapsed;
+      });
+    });
+  }
+
   Future<void> _cargarPreguntas() async {
     final String response =
         await rootBundle.loadString('assets/preguntas_test.json');
     final data = json.decode(response);
 
-    // Obtener el número del tema desde el nombre
     final temaNumero =
         int.tryParse(widget.nombre.replaceAll("Tema ", "")) ?? -1;
-    print('Buscando preguntas para el tema número: $temaNumero');
 
     final preguntas = data['temas'].firstWhere(
       (tema) => int.tryParse(tema['tema'].toString()) == temaNumero,
@@ -48,7 +167,9 @@ class _PreguntasTestState extends State<Preguntas_Test> {
     if (preguntas != null && preguntas.isNotEmpty) {
       setState(() {
         preguntasTema = List<Map<String, dynamic>>.from(preguntas);
-        _siguientePregunta(); // Carga la primera pregunta
+        preguntasTema.shuffle(); // Baraja las preguntas al cargar el tema
+        respuestasCorrectas = List<bool>.filled(preguntasTema.length, false);
+        _siguientePregunta();
       });
     } else {
       setState(() {
@@ -58,15 +179,13 @@ class _PreguntasTestState extends State<Preguntas_Test> {
     }
   }
 
-  // Selecciona la siguiente pregunta aleatoria
   void _siguientePregunta() {
     if (preguntasVistas.length == preguntasTema.length) {
-      _mostrarResumen();
+      finalizarTema();
       return;
     }
 
     setState(() {
-      // Selecciona una nueva pregunta que no se haya visto
       int index;
       do {
         index = Random().nextInt(preguntasTema.length);
@@ -74,159 +193,160 @@ class _PreguntasTestState extends State<Preguntas_Test> {
 
       preguntasVistas.add(index);
       preguntaActual = preguntasTema[index];
+      _indicePreguntaGuardada = index;
+      _guardarProgresoPregunta();
       respuestaComprobada = false;
       _respuestaSeleccionada = null;
     });
   }
 
-  // Mostrar un resumen de las respuestas correctas e incorrectas
-  void _mostrarResumen() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text("Resumen del Tema ${widget.nombre}"),
-          content: Text("Correctas: $correctas\nIncorrectas: $incorrectas"),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Cierra el cuadro de diálogo
-                Navigator.of(context)
-                    .pop("completado"); // Vuelve al menú e indica "completado"
-              },
-              child: Text("Volver al Menú"),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  // Función para obtener el color de los botones de opciones de respuesta
-  Color _getColor(int index) {
-    // Cambia el color del botón si está seleccionado
-    return _respuestaSeleccionada == index
-        ? const Color.fromARGB(
-            255, 220, 175, 255) // Color de fondo para la respuesta seleccionada
-        : Colors.grey.shade300; // Color de fondo predeterminado
+  @override
+  void dispose() {
+    _timer?.cancel();
+    _stopwatch.stop();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    // Obtiene el número del tema a partir del nombre
+    final temaNumero =
+        int.tryParse(widget.nombre.replaceAll("Tema ", "")) ?? -1;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Preguntas del ${widget.nombre}'),
-        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+        // Modificado para mostrar "Preguntas del Tema {número del tema}"
+        title: Text('Preguntas del Tema $temaNumero'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            reiniciarProgresoTema(); // Reinicia el progreso al retroceder
+            Navigator.of(context).pop();
+          },
+        ),
       ),
-      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 50.0, horizontal: 20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            if (preguntaActual != null)
-              Text(
-                preguntaActual!['pregunta'],
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center, // Centrado de la pregunta
-              )
-            else
-              Text(
-                'No se encontraron preguntas para este tema.',
-                style: TextStyle(fontSize: 20, color: Colors.redAccent),
-                textAlign: TextAlign.center,
-              ),
-            const SizedBox(height: 30.0),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 50.0, horizontal: 20.0),
+          child: Center(
+            // Centrado vertical y horizontal
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center, // Centra la columna
+              crossAxisAlignment:
+                  CrossAxisAlignment.center, // Centra los elementos
+              children: <Widget>[
+                TimerWidget(duration: _elapsedTime),
+                const SizedBox(height: 20.0),
+                if (preguntaActual != null)
+                  Text(
+                    preguntaActual!['pregunta'],
+                    style: const TextStyle(
+                        fontSize: 24, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  )
+                else
+                  const Text(
+                    'No se encontraron preguntas para este tema.',
+                    style: TextStyle(fontSize: 20, color: Colors.redAccent),
+                    textAlign: TextAlign.center,
+                  ),
+                const SizedBox(height: 30.0),
+                if (preguntaActual != null)
+                  ...preguntaActual!['opciones'].map<Widget>((opcion) {
+                    int index = preguntaActual!['opciones'].indexOf(opcion);
+                    Color buttonColor = Colors.white;
+                    if (respuestaComprobada) {
+                      if (index == _respuestaSeleccionada) {
+                        buttonColor = esCorrecto ? Colors.green : Colors.red;
+                      } else if (!esCorrecto &&
+                          opcion == preguntaActual!['respuesta_correcta']) {
+                        buttonColor = Colors.green;
+                      }
+                    } else if (index == _respuestaSeleccionada) {
+                      buttonColor = Colors.yellow;
+                    }
 
-            // Mostrar opciones de respuesta como botones
-            if (preguntaActual != null)
-              ...preguntaActual!['opciones'].asMap().entries.map((entry) {
-                int index = entry.key;
-                String opcion = entry.value;
-                return Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 10.0), // Aumentar la separación
-                  child: Center(
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width *
-                          0.9, // 90% del ancho
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10.0),
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: _getColor(
-                              index), // Color dinámico según selección
+                          backgroundColor: buttonColor,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20.0),
                           ),
-                          padding: EdgeInsets.symmetric(vertical: 15.0),
+                          padding: const EdgeInsets.symmetric(vertical: 15.0),
                         ),
                         onPressed: () {
                           setState(() {
-                            _respuestaSeleccionada = index;
+                            if (!respuestaComprobada) {
+                              _respuestaSeleccionada = index;
+                            }
                           });
                         },
                         child: Container(
-                          alignment:
-                              Alignment.centerLeft, // Justificar a la izquierda
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 16.0), // Espaciado interno
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
                           child: Text(
                             opcion,
-                            style: TextStyle(fontSize: 18),
-                            textAlign: TextAlign
-                                .left, // Justificar el texto a la izquierda
+                            style: const TextStyle(fontSize: 18),
+                            textAlign: TextAlign.left,
                           ),
                         ),
                       ),
-                    ),
-                  ),
-                );
-              }).toList(),
-
-            const SizedBox(height: 40.0),
-
-            // Botón para comprobar la respuesta
-            if (!respuestaComprobada && preguntaActual != null)
-              ElevatedButton(
-                onPressed: _respuestaSeleccionada != null
-                    ? () {
-                        setState(() {
-                          respuestaComprobada = true;
-                          esCorrecto = preguntaActual!['opciones']
-                                  [_respuestaSeleccionada!] ==
-                              preguntaActual!['respuesta_correcta'];
-                          if (esCorrecto) {
-                            correctas++;
-                          } else {
-                            incorrectas++;
-                          }
-                        });
-                      }
-                    : null, // Deshabilitar si no se selecciona ninguna respuesta
-                child: Text('Comprobar Respuesta'),
-              ),
-
-            // Mostrar si la respuesta es correcta o no
-            if (respuestaComprobada)
-              Column(
-                children: [
-                  Text(
-                    esCorrecto ? '¡Correcto!' : 'Incorrecto, intenta de nuevo.',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: esCorrecto ? Colors.green : Colors.red,
-                    ),
-                    textAlign: TextAlign.center, // Centrado del mensaje
-                  ),
-                  const SizedBox(height: 20.0),
+                    );
+                  }).toList(),
+                const SizedBox(height: 40.0),
+                if (!respuestaComprobada && preguntaActual != null)
                   ElevatedButton(
-                    onPressed: _siguientePregunta,
-                    child: Text('Siguiente Pregunta'),
+                    onPressed: _respuestaSeleccionada != null
+                        ? () {
+                            setState(() {
+                              respuestaComprobada = true;
+                              esCorrecto = preguntaActual!['opciones']
+                                      [_respuestaSeleccionada!] ==
+                                  preguntaActual!['respuesta_correcta'];
+
+                              int preguntaIndex =
+                                  preguntasTema.indexOf(preguntaActual!);
+                              if (preguntaIndex != -1) {
+                                respuestasCorrectas[preguntaIndex] = esCorrecto;
+                              }
+
+                              if (esCorrecto) {
+                                estadisticas
+                                    .incrementarCorrectas(widget.nombre);
+                                aciertosTema++;
+                              } else {
+                                estadisticas
+                                    .incrementarIncorrectas(widget.nombre);
+                                fallosTema++;
+                              }
+                            });
+                          }
+                        : null,
+                    child: const Text('Comprobar Respuesta'),
                   ),
-                ],
-              ),
-          ],
+                if (respuestaComprobada)
+                  Column(
+                    children: [
+                      Text(
+                        esCorrecto
+                            ? '¡Correcto!'
+                            : 'Incorrecto, intenta de nuevo.',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: esCorrecto ? Colors.green : Colors.red,
+                        ),
+                      ),
+                      const SizedBox(height: 20.0),
+                      ElevatedButton(
+                        onPressed: _siguientePregunta,
+                        child: const Text('Siguiente Pregunta'),
+                      ),
+                    ],
+                  ),
+              ],
+            ),
+          ),
         ),
       ),
     );

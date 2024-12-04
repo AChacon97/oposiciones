@@ -1,71 +1,194 @@
-import 'package:flutter/material.dart'; // Importa el paquete de Flutter para la interfaz de usuario
-import 'theme.dart'; // Importa el archivo que contiene el tema
+import 'package:flutter/material.dart';
+import 'estadisticas_model.dart';
+import 'temasdetalles.dart';
 
-// Clase principal que representa la pantalla de estadísticas
-class Estadisticas extends StatelessWidget {
-  const Estadisticas({super.key}); // Constructor de la clase
+class Estadisticas extends StatefulWidget {
+  const Estadisticas({super.key});
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _EstadisticasState createState() => _EstadisticasState();
+}
+
+class _EstadisticasState extends State<Estadisticas> {
+  final estadisticas = EstadisticasModel();
+
+  @override
+  void initState() {
+    super.initState();
+    estadisticas.cargarTemasDesdeJSON().then((_) {
+      estadisticas.cargarTemasDesarrolloDesdeJSON().then((_) {
+        setState(() {}); // Actualizamos la UI después de cargar los temas
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    // Definimos los temas y sus puntuaciones (aciertos y fallos) en una lista de mapas
-    final List<Map<String, dynamic>> temas = [
-      {
-        'nombre': 'Tema 1',
-        'aciertos': 8,
-        'fallos': 2
-      }, // Tema 1 con sus estadísticas
-      {
-        'nombre': 'Tema 2',
-        'aciertos': 5,
-        'fallos': 5
-      }, // Tema 2 con sus estadísticas
-      {
-        'nombre': 'Tema 3',
-        'aciertos': 9,
-        'fallos': 1
-      }, // Tema 3 con sus estadísticas
-      // Añade más temas según necesites
-    ];
+    // Filtra los temas de Test que tienen al menos una realización
+    final temasStats = estadisticas
+        .obtenerEstadisticasPorTema()
+        .entries
+        .where((entry) => entry.value['vecesRealizado'] > 0)
+        .toList();
+
+    // Filtra los temas de Desarrollo que tienen al menos una realización
+    final temasDesarrollo = estadisticas
+        .obtenerEstadisticasDesarrollo()
+        .entries
+        .where((entry) => entry.value['vecesRealizado'] > 0)
+        .toList();
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Estadísticas"), // Título de la barra de aplicación
+        title: const Text(
+          'Estadísticas',
+          style: TextStyle(
+            color: Colors.black, // Color del texto
+            fontFamily: 'Times New Roman', // Fuente de letra Times New Roman
+          ),
+        ),
+        backgroundColor: Colors.white, // Fondo blanco para la AppBar
+        iconTheme:
+            const IconThemeData(color: Colors.black), // Color de los íconos
+        elevation: 0, // Eliminar sombra de la AppBar
       ),
-      body: ListView.builder(
-        itemCount: temas.length, // Cantidad de elementos en la lista
-        itemBuilder: (context, index) {
-          final tema = temas[index]; // Obtenemos el tema en el índice actual
-          return ListTile(
-            title: Row(
-              mainAxisAlignment:
-                  MainAxisAlignment.center, // Centra el contenido del Row
-              children: [
-                // Nombre del tema
-                Text(
-                  tema['nombre'], // Muestra el nombre del tema
-                  style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold), // Estilo del texto
+      body: Column(
+        children: [
+          const Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Center(
+              child: Text(
+                'Estadísticas Test',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Times New Roman',
+                  color: Colors.blueAccent,
                 ),
-                const SizedBox(
-                    width: 10), // Espacio entre el tema y las puntuaciones
-                // Muestra los aciertos
-                Text(
-                  '${tema['aciertos']} aciertos', // Texto de aciertos
-                  style: const TextStyle(
-                      color: Colors.green), // Estilo en color verde
-                ),
-                const SizedBox(width: 5), // Espacio entre aciertos y fallos
-                // Muestra los fallos
-                Text(
-                  '${tema['fallos']} fallos', // Texto de fallos
-                  style: const TextStyle(
-                      color: Colors.red), // Estilo en color rojo
-                ),
-              ],
+              ),
             ),
-          );
-        },
+          ),
+          Flexible(
+            child: temasStats.isEmpty
+                ? const Center(
+                    child: Text(
+                      'No se ha realizado ningún test',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Times New Roman',
+                      ),
+                    ),
+                  )
+                : ListView.builder(
+                    padding: const EdgeInsets.all(16.0),
+                    itemCount: temasStats.length,
+                    itemBuilder: (context, index) {
+                      final entry = temasStats[index];
+                      String temaConNumero = "Tema: ${entry.key}";
+
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => TemaDetalleScreen(
+                                tema: entry.key,
+                                data: entry.value,
+                                esDesarrollo: false, // Para test
+                              ),
+                            ),
+                          );
+                        },
+                        child: Card(
+                          margin: const EdgeInsets.symmetric(vertical: 8.0),
+                          elevation: 4,
+                          color: const Color.fromARGB(255, 217, 227, 251),
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Text(
+                              temaConNumero,
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Color.fromARGB(255, 68, 138, 255),
+                                fontFamily: 'Times New Roman',
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+          ),
+          const Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Center(
+              child: Text(
+                'Estadísticas Temario',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Times New Roman',
+                  color: Colors.blueAccent,
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: temasDesarrollo.isEmpty
+                ? const Center(
+                    child: Text(
+                      'No se ha realizado ningún temario',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Times New Roman',
+                      ),
+                    ),
+                  )
+                : ListView.builder(
+                    padding: const EdgeInsets.all(16.0),
+                    itemCount: temasDesarrollo.length,
+                    itemBuilder: (context, index) {
+                      final entry = temasDesarrollo[index];
+                      String temaConNumero = "Tema: ${entry.key}";
+
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => TemaDetalleScreen(
+                                      tema: entry.key,
+                                      data: entry.value,
+                                      esDesarrollo: true, // Para desarrollo
+                                    )),
+                          );
+                        },
+                        child: Card(
+                          margin: const EdgeInsets.symmetric(vertical: 8.0),
+                          elevation: 4,
+                          color: const Color.fromARGB(255, 217, 227, 251),
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Text(
+                              temaConNumero,
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Color.fromARGB(255, 68, 138, 255),
+                                fontFamily: 'Times New Roman',
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+          ),
+        ],
       ),
     );
   }

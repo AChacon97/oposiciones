@@ -1,89 +1,122 @@
-import 'package:flutter/material.dart'; // Importa el paquete de Flutter para la interfaz de usuario
-import 'theme.dart'; // Importa el archivo que contiene el tema
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'theme.dart';
 
-// Clase principal para cambiar la contraseña
 class CambiarContrasena extends StatefulWidget {
-  const CambiarContrasena({super.key}); // Constructor de la clase
+  const CambiarContrasena({super.key});
 
   @override
-  _CambiarContrasenaState createState() =>
-      _CambiarContrasenaState(); // Crea el estado de la pantalla
+  // ignore: library_private_types_in_public_api
+  _CambiarContrasenaState createState() => _CambiarContrasenaState();
 }
 
-// Clase que maneja el estado de la pantalla de cambio de contraseña
 class _CambiarContrasenaState extends State<CambiarContrasena> {
-  // Controladores para los campos de texto de las contraseñas
   final TextEditingController _oldPasswordController = TextEditingController();
   final TextEditingController _newPasswordController = TextEditingController();
-  final TextEditingController _repeatPasswordController = TextEditingController();
+  final TextEditingController _repeatPasswordController =
+      TextEditingController();
 
-  // Variables booleanas para controlar la visibilidad de las contraseñas
   bool _oldPasswordVisible = false;
   bool _newPasswordVisible = false;
   bool _repeatPasswordVisible = false;
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  Future<void> _cambiarContrasena() async {
+    if (_newPasswordController.text != _repeatPasswordController.text) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Las contraseñas no coinciden')),
+      );
+      return;
+    }
+
+    try {
+      User? usuarioActual = _auth.currentUser;
+      if (usuarioActual == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Usuario no autenticado')),
+        );
+        return;
+      }
+
+      AuthCredential credenciales = EmailAuthProvider.credential(
+        email: usuarioActual.email!,
+        password: _oldPasswordController.text,
+      );
+
+      await usuarioActual.reauthenticateWithCredential(credenciales);
+
+      await usuarioActual.updatePassword(_newPasswordController.text);
+
+      await _firestore.collection('Usuarios').doc(usuarioActual.uid).update({
+        'lastPasswordChange': FieldValue.serverTimestamp(),
+      });
+
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Contraseña cambiada con éxito')),
+      );
+
+      // ignore: use_build_context_synchronously
+      Navigator.pop(context);
+    } catch (e) {
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error al cambiar la contraseña: $e')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cambiar Contraseña'), // Título de la barra de aplicación
+        title: const Text('Cambiar Contraseña'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0), // Espaciado alrededor del contenido
+        padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start, // Alineación a la izquierda
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Campo para la contraseña antigua
             _buildPasswordField(
-              controller: _oldPasswordController, // Controlador de texto
-              label: 'Contraseña antigua', // Etiqueta del campo
-              isVisible: _oldPasswordVisible, // Controla la visibilidad
+              controller: _oldPasswordController,
+              label: 'Contraseña antigua',
+              isVisible: _oldPasswordVisible,
               toggleVisibility: () {
-                // Función para alternar la visibilidad
                 setState(() {
-                  _oldPasswordVisible = !_oldPasswordVisible; // Cambia el estado
+                  _oldPasswordVisible = !_oldPasswordVisible;
                 });
               },
             ),
-            const SizedBox(height: 20), // Espaciado vertical
-            // Campo para la nueva contraseña
+            const SizedBox(height: 20),
             _buildPasswordField(
-              controller: _newPasswordController, // Controlador de texto
-              label: 'Contraseña nueva', // Etiqueta del campo
-              isVisible: _newPasswordVisible, // Controla la visibilidad
+              controller: _newPasswordController,
+              label: 'Contraseña nueva',
+              isVisible: _newPasswordVisible,
               toggleVisibility: () {
-                // Función para alternar la visibilidad
                 setState(() {
-                  _newPasswordVisible = !_newPasswordVisible; // Cambia el estado
+                  _newPasswordVisible = !_newPasswordVisible;
                 });
               },
             ),
-            const SizedBox(height: 20), // Espaciado vertical
-            // Campo para repetir la nueva contraseña
+            const SizedBox(height: 20),
             _buildPasswordField(
-              controller: _repeatPasswordController, // Controlador de texto
-              label: 'Repetir contraseña nueva', // Etiqueta del campo
-              isVisible: _repeatPasswordVisible, // Controla la visibilidad
+              controller: _repeatPasswordController,
+              label: 'Repetir contraseña nueva',
+              isVisible: _repeatPasswordVisible,
               toggleVisibility: () {
-                // Función para alternar la visibilidad
                 setState(() {
-                  _repeatPasswordVisible = !_repeatPasswordVisible; // Cambia el estado
+                  _repeatPasswordVisible = !_repeatPasswordVisible;
                 });
               },
             ),
-            const SizedBox(height: 20), // Espaciado vertical
-            // Botón para guardar los cambios
+            const SizedBox(height: 20),
             ElevatedButton(
               style: AppTheme.botonFuncional(),
-              onPressed: () {
-                // Aquí puedes implementar la lógica para cambiar la contraseña
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                      content: Text('Contraseña cambiada')), // Mensaje de confirmación
-                );
-                Navigator.pop(context); // Regresar a la página anterior
-              },
-              child: const Text('Guardar Cambios'), // Texto del botón
+              onPressed: _cambiarContrasena,
+              child: const Text('Guardar Cambios'),
             ),
           ],
         ),
@@ -91,33 +124,35 @@ class _CambiarContrasenaState extends State<CambiarContrasena> {
     );
   }
 
-  // Método para construir un campo de texto para contraseñas
   Widget _buildPasswordField({
-    required TextEditingController controller, // Controlador para el campo de texto
-    required String label, // Etiqueta del campo
-    required bool isVisible, // Controla la visibilidad de la contraseña
-    required VoidCallback toggleVisibility, // Función para alternar la visibilidad
+    required TextEditingController controller,
+    required String label,
+    required bool isVisible,
+    required VoidCallback toggleVisibility,
   }) {
     return TextField(
-      controller: controller, // Asigna el controlador al campo de texto
-      obscureText: !isVisible, // Oculta el texto si isVisible es false
+      controller: controller,
+      obscureText: !isVisible,
       decoration: InputDecoration(
-        filled: true, // Activa el color de fondo
-        fillColor: Color.fromARGB(255, 217, 227, 251), // Color de fondo azul claro
-        labelText: label, // Muestra la etiqueta
-        labelStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.bold), // Color negro para el label
-        hintText: ' $label', // Texto de sugerencia
-        hintStyle: TextStyle(color: const Color.fromARGB(255, 83, 82, 82)), // Color gris para el texto de sugerencia
-        border: OutlineInputBorder(), // Bordes del campo
+        filled: true,
+        fillColor: const Color.fromARGB(255, 217, 227, 251),
+        labelText: label,
+        floatingLabelBehavior:
+            FloatingLabelBehavior.auto, // Activa el floating label
+        labelStyle:
+            const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        hintText: label,
+        hintStyle: const TextStyle(color: Color.fromARGB(255, 83, 82, 82)),
+        border: const OutlineInputBorder(),
         suffixIcon: IconButton(
           icon: Icon(
-            isVisible ? Icons.visibility : Icons.visibility_off, // Icono de visibilidad
+            isVisible ? Icons.visibility : Icons.visibility_off,
             color: Colors.grey,
           ),
-          onPressed: toggleVisibility, // Alterna la visibilidad al presionar
+          onPressed: toggleVisibility,
         ),
       ),
-      style: TextStyle(color: Colors.black), // Texto que escribe el usuario en negro
+      style: const TextStyle(color: Colors.black),
     );
   }
 }
